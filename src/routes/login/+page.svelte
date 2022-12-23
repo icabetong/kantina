@@ -25,8 +25,7 @@
 					on:change={handleChange}
 					bind:value={$form.email}
 					required
-					aria-required="true"
-				/>
+					aria-required="true" />
 			</div>
 			<div class="form-control-group">
 				<label for="password" class="form-control-label"> Password </label>
@@ -38,10 +37,9 @@
 					on:change={handleChange}
 					bind:value={$form.password}
 					required
-					aria-required="true"
-				/>
+					aria-required="true" />
 			</div>
-			<div class="flex flex-row mt-4">
+			<div class="flex flex-row mt-4 mb-2 gap-2">
 				<button class="btn-primary" type="submit"> Login </button>
 				<div class="btn-outlined">
 					<a href="/register">Register</a>

@@ -25,8 +25,7 @@
 					class="form-control-input"
 					placeholder="Joachim"
 					on:change={handleChange}
-					bind:value={$form.firstName}
-				/>
+					bind:value={$form.firstName} />
 			</div>
 			<div class="form-control-group">
 				<label for="lastName" class="form-control-label"> Last Name </label>
@@ -36,8 +35,7 @@
 					class="form-control-input"
 					placeholder="von Ribbentrop"
 					on:change={handleChange}
-					bind:value={$form.lastName}
-				/>
+					bind:value={$form.lastName} />
 			</div>
 			<div class="form-control-group">
 				<label for="email" class="form-control-label"> Email </label>
@@ -47,8 +45,7 @@
 					class="form-control-input"
 					placeholder="name@kantina.com"
 					on:change={handleChange}
-					bind:value={$form.email}
-				/>
+					bind:value={$form.email} />
 			</div>
 			<div class="form-control-group">
 				<label for="password" class="form-control-label"> Password </label>
@@ -58,10 +55,9 @@
 					class="form-control-input"
 					placeholder="••••••••••"
 					on:change={handleChange}
-					bind:value={$form.password}
-				/>
+					bind:value={$form.password} />
 			</div>
-			<div class="flex flex-row mt-4">
+			<div class="flex flex-row mt-4 mb-2 gap-2">
 				<button class="btn-primary" type="submit"> Register </button>
 				<div class="btn-outlined">
 					<a href="/login">Login</a>

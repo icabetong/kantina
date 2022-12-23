@@ -18,8 +18,7 @@
 
 <div class="page">
 	<div
-		class="h-full flex flex-col px-8 py-12 items-center justify-start md:py-40 md:justify-center"
-	>
+		class="h-full flex flex-col px-8 py-12 items-center justify-start md:py-40 md:justify-center">
 		<h1 class="mb-4 text-3xl font-extrabold text-gray-900 md:text-5xl lg:text-6xl">
 			Discover new stalls and{' '}
 			<span class="text-transparent bg-clip-text bg-gradient-to-r to-pink-500 from-orange-400">
@@ -44,19 +43,16 @@
 					placeholder="Search for food, drinks, menus or stalls..."
 					required
 					on:change={handleChange}
-					bind:value={$form.searchQuery}
-				/>
+					bind:value={$form.searchQuery} />
 				<button
 					type="submit"
-					class="text-white absolute right-2.5 bottom-2.5 bg-gradient-to-r to-pink-500 from-orange-400 hidden font-medium rounded-lg text-sm px-4 py-2 hover:to-pink-600 hover:from-orange-500 focus:ring-4 focus:outline-none focus:ring-orange-300 md:block"
-				>
+					class="text-white absolute right-2.5 bottom-2.5 bg-gradient-to-r to-pink-500 from-orange-400 hidden font-medium rounded-lg text-sm px-4 py-2  focus:ring-4 focus:outline-none focus:ring-orange-300 md:block">
 					Search
 				</button>
 			</div>
 			<button
 				type="submit"
-				class="text-white bottom-2.5 bg-gradient-to-r to-pink-500 from-orange-400 font-medium rounded-lg text-sm px-4 py-2 w-full mt-4 hover:to-pink-600 hover:from-orange-500 focus:ring-4 focus:outline-none focus:ring-orange-300 md:hidden"
-			>
+				class="text-white bottom-2.5 bg-gradient-to-r to-pink-500 from-orange-400 font-medium rounded-lg text-sm px-4 py-2 w-full mt-4 focus:ring-4 focus:outline-none focus:ring-orange-300 md:hidden">
 				Search
 			</button>
 		</form>

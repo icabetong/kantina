@@ -27,6 +27,9 @@ a {
 	.nav-icon {
 		@apply h-6 w-6 text-gray-500;
 	}
+	.nav-dropdown-item {
+		@apply flex flex-row items-start px-4 py-2 text-gray-700 hover:bg-gray-100;
+	}
 	.form-root {
 		@apply bg-white px-4 py-8 shadow rounded w-full sm:w-2/3 lg:w-1/2 md:py-10 md:px-8;
 	}
@@ -40,10 +43,10 @@ a {
 		@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 focus:outline-orange-500 block w-full p-2.5;
 	}
 	.btn-primary {
-		@apply text-white bg-orange-500 hover:bg-orange-700 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none;
+		@apply px-5 py-2 text-white bg-gradient-to-r to-pink-500 from-orange-400 hover:to-pink-700 hover:from-orange-500 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm focus:outline-none;
 	}
 	.btn-outlined {
-		@apply py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-4 focus:ring-gray-200;
+		@apply py-2 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-4 focus:ring-gray-200;
 	}
 	.link {
 		@apply font-medium text-orange-600 dark:text-orange-500 hover:underline;

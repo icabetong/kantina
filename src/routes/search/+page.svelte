@@ -1,13 +1,19 @@
 <script lang="ts">
+	import { onDestroy } from 'svelte'
 	import { page } from '$app/stores'
 	import SearchQueryStore from '../../stores/search-query'
 
 	let query: string | null = null
-	if ($page.url.searchParams.has('query')) {
-		query = $page.url.searchParams.get('query')
 
-		if (!!query) SearchQueryStore.update(() => query!)
-	}
+	const unsubscribe = page.subscribe((value) => {
+		if (value.url.searchParams.has('query')) {
+			query = value.url.searchParams.get('query')
+
+			if (!!query) SearchQueryStore.update(() => query!)
+		}
+	})
+
+	onDestroy(unsubscribe)
 </script>
 
 <div class="page">
