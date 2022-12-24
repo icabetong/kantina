@@ -26,4 +26,12 @@ declare namespace App {
 		username: string
 		verified: boolean
 	}
+	type ProductRecord = {
+		id: string
+		name: string
+		currentPrice?: number
+		price: number
+		quantity: number
+		category: 'food' | 'drink' | 'meal' | 'other'
+	}
 }

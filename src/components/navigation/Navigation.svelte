@@ -42,11 +42,20 @@
 	const searchQueryUnsubscriber = SearchQueryStore.subscribe((data) => (currentQuery = data))
 	const userUnsubscriber = UserStore.subscribe((data) => (user = data))
 
-	const handleSignOut = () => {
+	const handleDropdownClick = (item: string) => {
+		switch (item) {
+			case 'merchant':
+				goto('/merchant')
+				break
+			case 'account':
+				goto('/account')
+				break
+			case 'end':
+				endSession()
+				goto('/login')
+				break
+		}
 		dropdownOpened = false
-		endSession()
-
-		goto('/login')
 	}
 
 	onDestroy(() => {
@@ -59,11 +68,12 @@
 	<div
 		use:searchRef
 		class="container flex flex-wrap items-center justify-between mx-auto px-4 sm:px-0 max-w-screen-lg">
-		<div class="flex items-center">
-			<span class="self-center text-xl font-semibold whitespace-nowrap ">
-				<a href="/">Kantina</a>
-			</span>
-		</div>
+		<a
+			href="/"
+			class="flex items-center text-transparent bg-gradient-to-r bg-clip-text from-orange-500 to-pink-500">
+			<img src="/images/icon.png" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
+			<span class="self-center text-2xl font-semibold whitespace-nowrap"> Kantina </span>
+		</a>
 		{#if $page.url.pathname !== '/'}
 			<div class="flex md:order-1 md:w-96">
 				<div class="relative hidden sm:block sm:w-full">
@@ -101,13 +111,13 @@
 					use:dropdownRef
 					on:click={() => (dropdownOpened = !dropdownOpened)}
 					type="button"
-					class="flex mr-3 text-sm rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300"
+					class="flex mr-3 p-2 bg-gradient-to-r from-orange-500 to-pink-500 text-sm rounded-full md:mr-0 focus:ring-4 focus:ring-orange-300"
 					id="user-menu-button"
 					aria-expanded={dropdownOpened}
 					data-dropdown-toggle="user-dropdown"
 					data-dropdown-placement="bottom">
 					<span class="sr-only">Open user menu</span>
-					<Icon src={User} class="h-5 w-5 text-gray-500" />
+					<Icon src={User} class="h-5 w-5 text-white" />
 				</button>
 			{:else}
 				<div class="btn-outlined">
@@ -127,11 +137,25 @@
 			</div>
 			<ul
 				class="flex flex-col mt-4 pb-2 border border-gray-100 rounded-lg bg-gray-50 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white ">
+				{#if user?.type === 'merchant'}
+					<li class="nav-dropdown-item">
+						<button
+							type="button"
+							class="nav-dropdown-button"
+							on:click={() => handleDropdownClick('merchant')}>Merchant Center</button>
+					</li>
+				{/if}
 				<li class="nav-dropdown-item">
-					<a href="/account">Account Settings</a>
+					<button
+						type="button"
+						class="nav-dropdown-button"
+						on:click={() => handleDropdownClick('account')}>Account Settings</button>
 				</li>
 				<li class="nav-dropdown-item">
-					<button type="button" class="w-full text-start" on:click={handleSignOut}>Sign Out</button>
+					<button
+						type="button"
+						class="nav-dropdown-button"
+						on:click={() => handleDropdownClick('end')}>Sign Out</button>
 				</li>
 			</ul>
 		</div>

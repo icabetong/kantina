@@ -4,7 +4,10 @@
 	import { authenticate } from '$lib/auth'
 	import { createForm } from 'svelte-forms-lib'
 	import pocketbase from '$lib/backend'
+	import { Icon } from '@steeze-ui/svelte-icon'
+	import { ExclamationTriangle } from '@steeze-ui/heroicons'
 
+	let error: string | null = null
 	let isWorking: boolean = false
 	const { form, handleChange, handleSubmit } = createForm({
 		initialValues: {
@@ -13,7 +16,13 @@
 		},
 		onSubmit: async (data) => {
 			isWorking = true
-			await authenticate(data.email, data.password)
+			try {
+				await authenticate(data.email, data.password)
+			} catch (ignored) {
+				error = 'The email or password is incorrect'
+			} finally {
+				isWorking = false
+			}
 		}
 	})
 
@@ -26,6 +35,15 @@
 	<form class="mx-auto form-root" on:submit|preventDefault={handleSubmit}>
 		<div class="flex flex-col items-start">
 			<h1 class="text-2xl font-semibold mb-8">Login to your Kantina Account</h1>
+			{#if error}
+				<div class="alert-error">
+					<Icon src={ExclamationTriangle} class="flex-shrink-0 inline w-5 h-5 mr-3" />
+					<span class="sr-only">Info</span>
+					<div>
+						<span class="font-medium">{error}</span>
+					</div>
+				</div>
+			{/if}
 			<div class="form-control-group">
 				<label for="email" class="form-control-label"> Email </label>
 				<input

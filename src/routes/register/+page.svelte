@@ -4,7 +4,10 @@
 	import { authenticate } from '$lib/auth'
 	import pocketbase from '$lib/backend'
 	import { createForm } from 'svelte-forms-lib'
+	import { Icon } from '@steeze-ui/svelte-icon'
+	import { ExclamationTriangle } from '@steeze-ui/heroicons'
 
+	let error: string | null = null
 	let isWorking: boolean = false
 	const { form, handleChange, handleSubmit } = createForm({
 		initialValues: {
@@ -18,8 +21,8 @@
 			try {
 				const { email, password, ...other } = data
 				await authenticate(email, password, true, { ...other, type: 'consumer' })
-			} catch (error) {
-				console.log(error)
+			} catch (ignored) {
+				error = 'An error occured while creating your account.'
 			} finally {
 				isWorking = false
 			}
@@ -35,6 +38,15 @@
 	<form class="mx-auto form-root" on:submit|preventDefault={handleSubmit}>
 		<div class="flex flex-col items-start">
 			<h1 class="text-2xl font-semibold mb-8">Register to Kantina</h1>
+			{#if error}
+				<div class="alert-error">
+					<Icon src={ExclamationTriangle} class="flex-shrink-0 inline w-5 h-5 mr-3" />
+					<span class="sr-only">Info</span>
+					<div>
+						<span class="font-medium">{error}</span>
+					</div>
+				</div>
+			{/if}
 			<div class="form-control-group">
 				<label for="firstName" class="form-control-label"> First Name </label>
 				<input

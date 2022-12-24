@@ -30,6 +30,12 @@ a {
 	.nav-dropdown-item {
 		@apply flex flex-row items-start px-4 py-2 text-gray-700 hover:bg-gray-100;
 	}
+	.nav-dropdown-button {
+		@apply w-full text-start;
+	}
+	.page-header {
+		@apply mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-800;
+	}
 	.form-root {
 		@apply bg-white px-4 py-8 shadow rounded w-full sm:w-2/3 lg:w-1/2 md:py-10 md:px-8;
 	}
@@ -50,5 +56,11 @@ a {
 	}
 	.link {
 		@apply font-medium text-orange-600 hover:underline disabled:hover:no-underline disabled:text-orange-200;
+	}
+	.alert-error {
+		@apply w-full flex p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg;
+	}
+	.badge-red {
+		@apply bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded;
 	}
 }
