@@ -121,6 +121,15 @@
 						you are a student or faculty member, select <span class="font-semibold">Customer</span>
 					</p>
 				</div>
+				<div class="flex items-start mb-6">
+					<div class="flex items-center h-5">
+						<input id="terms" type="checkbox" value="" class="form-control-checkbox" required />
+					</div>
+					<label for="terms" class="ml-2 text-sm font-medium text-gray-800"
+						>I agree with the <a href="/terms" class="text-orange-500 hover:underline"
+							>terms and conditions</a
+						></label>
+				</div>
 				<div class="flex flex-row mt-4 mb-2 gap-2">
 					<Button type="submit" isLoading={isWorking}>Register</Button>
 					<button

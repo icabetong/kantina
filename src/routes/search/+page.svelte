@@ -13,6 +13,6 @@
 	})
 </script>
 
-<div class="page w-full">
+<div class="page w-full min-h-screen">
 	<h1>Showing results for <span class="font-semibold">{query}</span></h1>
 </div>

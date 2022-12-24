@@ -116,9 +116,10 @@
 							alt="avatar"
 							class="h-10 w-10 rounded-full focus-ring-4 focus:ring-gray-300" />
 					{:else}
-						<Icon
-							src={User}
-							class="p-2 bg-gradient-to-r from-orange-500 to-pink-500 text-sm rounded-full h-5 w-5 text-white focus:ring-4 focus:ring-orange-300" />
+						<div
+							class="p-2 bg-gradient-to-r rounded-full from-orange-500 to-pink-500 text-white focus:ring-4 focus:ring-orange-300">
+							<Icon src={User} class=" text-sm h-5 w-5" />
+						</div>
 					{/if}
 				</button>
 			{:else}
