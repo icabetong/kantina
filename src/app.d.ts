@@ -1,5 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
+
 // and what to do when importing types
 declare namespace App {
 	type Credentials = {
@@ -17,21 +18,24 @@ declare namespace App {
 	}
 	type UserRecord = User & {
 		id: string
-		collectionId: string
-		collectionName: string
-		created: Date
-		updated: Date
-		email?: string
-		emailVisibility: boolean
+		created: number
+		updated: number
 		username: string
 		verified: boolean
 	}
 	type ProductRecord = {
 		id: string
-		name: string
+		name?: string
 		currentPrice?: number
 		price: number
 		quantity: number
 		category: 'food' | 'drink' | 'meal' | 'other'
+		created: number
+		updated: number
+		visible: boolean
+	}
+	type Tab = {
+		id: string
+		title?: string
 	}
 }

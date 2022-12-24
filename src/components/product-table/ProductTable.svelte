@@ -1,11 +1,40 @@
 <script lang="ts">
 	export let products: App.ProductRecord[] = [
-		{ id: '0', name: 'Chicken', category: 'food', price: 100, currentPrice: 20, quantity: 0 },
-		{ id: '1', name: 'Chicken', category: 'food', price: 0, quantity: 8 },
-		{ id: '2', name: 'Chicken', category: 'food', price: 0, quantity: 20 }
+		{
+			id: '0',
+			name: 'Chicken',
+			category: 'food',
+			price: 100,
+			currentPrice: 20,
+			quantity: 0,
+			created: Date.now(),
+			updated: Date.now(),
+			visible: false
+		},
+		{
+			id: '1',
+			name: 'Chicken',
+			category: 'food',
+			price: 0,
+			quantity: 8,
+			created: Date.now(),
+			updated: Date.now(),
+			visible: true
+		},
+		{
+			id: '2',
+			name: 'Chicken',
+			category: 'food',
+			price: 0,
+			quantity: 20,
+			created: Date.now(),
+			updated: Date.now(),
+			visible: true
+		}
 	]
 
-	export const handleRemove = () => {}
+	export let onProductClick = (product: App.ProductRecord) => {}
+	export let onProductRemove = (product: App.ProductRecord) => {}
 </script>
 
 <div class="overflow-x-auto relative rounded-lg border border-gray-200 shadow">
@@ -16,6 +45,7 @@
 				<th scope="col" class="py-3 px-6"> Category </th>
 				<th scope="col" class="py-3 px-6"> Price </th>
 				<th scope="col" class="py-3 px-6"> Quantity </th>
+				<th scope="col" class="py-3 px-6"> Status </th>
 				<th scope="col" class="py-3 px-6"> Actions </th>
 			</tr>
 		</thead>
@@ -23,8 +53,8 @@
 			{#each products as product, i}
 				<tr
 					class={`bg-white hover:bg-gray-50 ${products.length - 1 > i ? 'border-b' : ''}`}
-					on:click={() => console.log(product)}>
-					<th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
+					on:click={() => onProductClick(product)}>
+					<th scope="row" class="py-4 px-6 font-medium text-gray-800 whitespace-nowrap ">
 						{product.name}
 					</th>
 					<td class="py-4 px-6"> {product.category}</td>
@@ -48,8 +78,19 @@
 						{/if}
 					</td>
 					<td class="py-4 px-6">
-						<button on:click|stopPropagation={handleRemove} class="link text-red-500"
-							>Remove</button>
+						{#if product.visible}
+							<span class="badge-green">Visible</span>
+						{:else}
+							<span class="badget-yellow"> Hidden </span>
+						{/if}
+					</td>
+					<td class="py-4 px-6">
+						<button
+							type="button"
+							class="link text-red-500"
+							on:click|stopPropagation={() => onProductRemove(product)}>
+							Remove
+						</button>
 					</td>
 				</tr>
 			{/each}

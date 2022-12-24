@@ -1,13 +1,24 @@
 <script>
-	import Navigation from '$components/navigation/Navigation.svelte'
 	import '../app.css'
+	import { closeModal, Modals } from 'svelte-modals'
+	import { page } from '$app/stores'
+	import { goto } from '$app/navigation'
+	import Navigation from '$components/navigation/Navigation.svelte'
+	import pocketbase from '$lib/backend'
+
+	if (
+		($page.url.pathname === '/login' || $page.url.pathname === '/register') &&
+		pocketbase.authStore.isValid
+	) {
+		goto('/')
+	}
 </script>
 
-<Navigation />
-<main class="flex-1 px-2 sm:px-4 md:px-8">
+<header class="z-10"><Navigation /></header>
+<main class="flex-1 bg-white">
 	<slot />
 </main>
-<footer class="p-4 bg-white md:px-6 md:py-8 ">
+<footer class="flex-1 p-4 bg-gray-50 md:px-6 md:py-8 border-t border-gray-200">
 	<div class="sm:flex sm:items-center sm:justify-between">
 		<a href="https://kantina.ph" class="flex items-center mb-4 sm:mb-0">
 			<img src="/images/icon.png" class="mr-3 h-8" alt="Kantina Logo" />
@@ -15,16 +26,16 @@
 		</a>
 		<ul class="flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0 ">
 			<li>
-				<a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
+				<a href="/about" class="mr-4 hover:underline md:mr-6 ">About</a>
 			</li>
 			<li>
-				<a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+				<a href="/privacy" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
 			</li>
 			<li>
-				<a href="#" class="mr-4 hover:underline md:mr-6 ">Licensing</a>
+				<a href="/terms" class="mr-4 hover:underline md:mr-6 ">Terms and Conditions</a>
 			</li>
 			<li>
-				<a href="#" class="hover:underline">Contact</a>
+				<a href="/contact" class="hover:underline">Contact</a>
 			</li>
 		</ul>
 	</div>
@@ -34,3 +45,11 @@
 		<a href="https://kantina.ph/" class="hover:underline">Kantina™</a>. All Rights Reserved.
 	</span>
 </footer>
+
+<Modals>
+	<div
+		slot="backdrop"
+		class="fixed top-0 bottom-0 left-0 right-0 z-20 bg-black bg-opacity-50 transition-all"
+		on:click={closeModal}
+		on:keydown={null} />
+</Modals>

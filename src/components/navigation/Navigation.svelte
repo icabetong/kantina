@@ -10,13 +10,14 @@
 	import SearchQueryStore from '$stores/search-query'
 	import UserStore from '$stores/auth'
 	import type { Record, Admin } from 'pocketbase'
+	import { buildFileUrl } from '$lib/files'
 
 	const { form, handleChange, handleSubmit } = createForm({
 		initialValues: {
 			searchQuery: ''
 		},
 		onSubmit: (formData) => {
-			let url = new URL($page.url)
+			let url = new URL('/search', $page.url.origin)
 			url.searchParams.set('query', formData.searchQuery)
 			goto(url)
 
@@ -30,7 +31,7 @@
 		placement: 'bottom-end'
 	})
 	const extraOptions = {
-		modifiers: [{ name: 'offset', options: { offset: [0, 16] } }]
+		modifiers: [{ name: 'offset', options: { offset: [0, 8] } }]
 	}
 
 	let currentQuery: string | null = null
@@ -39,8 +40,8 @@
 	let dropdownOpened = false
 	let searchOpened = false
 
-	const searchQueryUnsubscriber = SearchQueryStore.subscribe((data) => (currentQuery = data))
-	const userUnsubscriber = UserStore.subscribe((data) => (user = data))
+	SearchQueryStore.subscribe((data) => (currentQuery = data))
+	UserStore.subscribe((data) => (user = data))
 
 	const handleDropdownClick = (item: string) => {
 		switch (item) {
@@ -57,17 +58,10 @@
 		}
 		dropdownOpened = false
 	}
-
-	onDestroy(() => {
-		searchQueryUnsubscriber()
-		userUnsubscriber()
-	})
 </script>
 
-<nav class="bg-white border-gray-200 px-2 sm:px-4 md:px-8 py-2.5 shadow">
-	<div
-		use:searchRef
-		class="container flex flex-wrap items-center justify-between mx-auto px-4 sm:px-0 max-w-screen-lg">
+<nav class="bg-white border-gray-200 px-4 py-4 shadow md:px-12">
+	<div use:searchRef class="flex flex-wrap items-center justify-between mx-auto max-w-screen-lg">
 		<a
 			href="/"
 			class="flex items-center text-transparent bg-gradient-to-r bg-clip-text from-orange-500 to-pink-500">
@@ -87,7 +81,7 @@
 						<input
 							type="text"
 							id="search-navbar"
-							class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-200 rounded-lg bg-gray-50 focus:ring-orange-500 focus:outline-orange-500"
+							class="block w-full p-2 pl-10 text-sm text-gray-800 border border-gray-200 rounded-lg bg-gray-50 focus:ring-orange-500 focus:outline-orange-500 transition-all"
 							placeholder={currentQuery ?? 'Search for products...'}
 							on:change={handleChange}
 							bind:value={$form.searchQuery} />
@@ -111,13 +105,21 @@
 					use:dropdownRef
 					on:click={() => (dropdownOpened = !dropdownOpened)}
 					type="button"
-					class="flex mr-3 p-2 bg-gradient-to-r from-orange-500 to-pink-500 text-sm rounded-full md:mr-0 focus:ring-4 focus:ring-orange-300"
 					id="user-menu-button"
 					aria-expanded={dropdownOpened}
 					data-dropdown-toggle="user-dropdown"
 					data-dropdown-placement="bottom">
 					<span class="sr-only">Open user menu</span>
-					<Icon src={User} class="h-5 w-5 text-white" />
+					{#if user.avatar}
+						<img
+							src={buildFileUrl(user, user.avatar)}
+							alt="avatar"
+							class="h-10 w-10 rounded-full focus-ring-4 focus:ring-gray-300" />
+					{:else}
+						<Icon
+							src={User}
+							class="p-2 bg-gradient-to-r from-orange-500 to-pink-500 text-sm rounded-full h-5 w-5 text-white focus:ring-4 focus:ring-orange-300" />
+					{/if}
 				</button>
 			{:else}
 				<div class="btn-outlined">
@@ -129,14 +131,13 @@
 	{#if dropdownOpened}
 		<div
 			use:dropdownContent={extraOptions}
-			class="z-50 text-base list-none bg-white rounded shadow"
+			class="z-50 text-base list-none bg-white rounded shadow-lg border border-gray-200 divide-y divide-gray-100"
 			id="user-dropdown">
 			<div class="px-4 py-3">
-				<span class="block text-sm text-gray-900">{`${user?.firstName} ${user?.lastName}`}</span>
+				<span class="block text-sm text-gray-800">{`${user?.firstName} ${user?.lastName}`}</span>
 				<span class="block text-sm font-medium text-gray-500 truncate "> {user?.email} </span>
 			</div>
-			<ul
-				class="flex flex-col mt-4 pb-2 border border-gray-100 rounded-lg bg-gray-50 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white ">
+			<ul class="flex flex-col mt-0 pb-2 text-sm">
 				{#if user?.type === 'merchant'}
 					<li class="nav-dropdown-item">
 						<button
@@ -165,13 +166,13 @@
 			<form on:submit|preventDefault={handleSubmit}>
 				<label
 					for="default-search"
-					class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+					class="mb-2 text-sm font-medium text-gray-800 sr-only dark:text-white">Search</label>
 				<div class="relative">
 					<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none" />
 					<input
 						type="search"
 						id="searchQuery"
-						class="block w-full p-4 text-sm text-gray-900 outline outline-gray-300 rounded-lg bg-gray-100 focus:ring-orange-500 focus:outline-2 focus:outline-orange-500"
+						class="block w-full p-4 text-sm text-gray-800 outline outline-gray-300 rounded-lg bg-gray-100 focus:ring-orange-500 focus:outline-2 focus:outline-orange-500"
 						placeholder="Search for food, drinks, menus or stalls..."
 						required
 						on:change={handleChange}
