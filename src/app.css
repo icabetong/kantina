@@ -40,15 +40,15 @@ a {
 		@apply block mb-2 text-sm font-medium text-gray-900;
 	}
 	.form-control-input {
-		@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 focus:outline-orange-500 block w-full p-2.5;
+		@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 focus:outline-orange-500 block w-full p-2.5 disabled:bg-gray-100;
 	}
 	.btn-primary {
 		@apply px-5 py-2 text-white bg-gradient-to-r to-pink-500 from-orange-400 hover:to-pink-700 hover:from-orange-500 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm focus:outline-none;
 	}
 	.btn-outlined {
-		@apply py-2 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-4 focus:ring-gray-200;
+		@apply py-2 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-4 focus:ring-gray-200 disabled:text-gray-200 disabled:hover:bg-white disabled:cursor-not-allowed;
 	}
 	.link {
-		@apply font-medium text-orange-600 dark:text-orange-500 hover:underline;
+		@apply font-medium text-orange-600 hover:underline disabled:hover:no-underline disabled:text-orange-200;
 	}
 }

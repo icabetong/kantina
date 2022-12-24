@@ -1,11 +1,15 @@
 <script lang="ts">
+	import { onDestroy } from 'svelte'
 	import { page } from '$app/stores'
+	import { goto } from '$app/navigation'
+	import { endSession } from '$lib/auth'
 	import { Icon } from '@steeze-ui/svelte-icon'
 	import { MagnifyingGlass, User } from '@steeze-ui/heroicons'
 	import { createPopperActions } from 'svelte-popperjs'
 	import { createForm } from 'svelte-forms-lib'
-	import { goto } from '$app/navigation'
-	import SearchQueryStore from '../../stores/search-query'
+	import SearchQueryStore from '$stores/search-query'
+	import UserStore from '$stores/auth'
+	import type { Record, Admin } from 'pocketbase'
 
 	const { form, handleChange, handleSubmit } = createForm({
 		initialValues: {
@@ -30,11 +34,25 @@
 	}
 
 	let currentQuery: string | null = null
-	let user: string | null = null
+	let user: Record | Admin | null = null
 
 	let dropdownOpened = false
 	let searchOpened = false
-	SearchQueryStore.subscribe((data) => (currentQuery = data))
+
+	const searchQueryUnsubscriber = SearchQueryStore.subscribe((data) => (currentQuery = data))
+	const userUnsubscriber = UserStore.subscribe((data) => (user = data))
+
+	const handleSignOut = () => {
+		dropdownOpened = false
+		endSession()
+
+		goto('/login')
+	}
+
+	onDestroy(() => {
+		searchQueryUnsubscriber()
+		userUnsubscriber()
+	})
 </script>
 
 <nav class="bg-white border-gray-200 px-2 sm:px-4 md:px-8 py-2.5 shadow">
@@ -101,11 +119,11 @@
 	{#if dropdownOpened}
 		<div
 			use:dropdownContent={extraOptions}
-			class="z-50 my-4 text-base list-none bg-white rounded shadow"
+			class="z-50 text-base list-none bg-white rounded shadow"
 			id="user-dropdown">
 			<div class="px-4 py-3">
-				<span class="block text-sm text-gray-900">Kebab</span>
-				<span class="block text-sm font-medium text-gray-500 truncate "> name@example.com </span>
+				<span class="block text-sm text-gray-900">{`${user?.firstName} ${user?.lastName}`}</span>
+				<span class="block text-sm font-medium text-gray-500 truncate "> {user?.email} </span>
 			</div>
 			<ul
 				class="flex flex-col mt-4 pb-2 border border-gray-100 rounded-lg bg-gray-50 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white ">
@@ -113,7 +131,7 @@
 					<a href="/account">Account Settings</a>
 				</li>
 				<li class="nav-dropdown-item">
-					<button>Sign Out</button>
+					<button type="button" class="w-full text-start" on:click={handleSignOut}>Sign Out</button>
 				</li>
 			</ul>
 		</div>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte'
 	import { page } from '$app/stores'
-	import SearchQueryStore from '../../stores/search-query'
+	import SearchQueryStore from '$stores/search-query'
 
 	let query: string | null = null
 

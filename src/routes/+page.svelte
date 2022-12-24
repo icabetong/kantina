@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { page } from '$app/stores'
 	import { Icon } from '@steeze-ui/svelte-icon'
 	import { MagnifyingGlass } from '@steeze-ui/heroicons'
+	import { page } from '$app/stores'
 	import { goto } from '$app/navigation'
 
 	import { createForm } from 'svelte-forms-lib'
