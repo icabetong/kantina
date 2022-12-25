@@ -22,10 +22,12 @@ declare namespace App {
 		updated: number
 		username: string
 		verified: boolean
+		avatar?: string
 	}
 	type ProductRecord = {
 		id: string
-		name?: string
+		name: string
+		description?: string
 		currentPrice?: number
 		price: number
 		quantity: number
@@ -33,6 +35,7 @@ declare namespace App {
 		created: number
 		updated: number
 		visible: boolean
+		image?: string
 	}
 	type Tab = {
 		id: string

@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte'
 	import { page } from '$app/stores'
 	import { goto } from '$app/navigation'
 	import { endSession } from '$lib/auth'
 	import { Icon } from '@steeze-ui/svelte-icon'
-	import { MagnifyingGlass, User } from '@steeze-ui/heroicons'
+	import { MagnifyingGlass, User, ShoppingCart } from '@steeze-ui/heroicons'
 	import { createPopperActions } from 'svelte-popperjs'
 	import { createForm } from 'svelte-forms-lib'
 	import SearchQueryStore from '$stores/search-query'
@@ -60,7 +59,7 @@
 	}
 </script>
 
-<nav class="bg-white border-gray-200 px-4 py-4 shadow md:px-12">
+<nav class="bg-white border-gray-200 px-8 py-4 shadow md:px-12">
 	<div use:searchRef class="flex flex-wrap items-center justify-between mx-auto max-w-screen-lg">
 		<a
 			href="/"
@@ -81,7 +80,7 @@
 						<input
 							type="text"
 							id="search-navbar"
-							class="block w-full p-2 pl-10 text-sm text-gray-800 border border-gray-200 rounded-lg bg-gray-50 focus:ring-orange-500 focus:outline-orange-500 transition-all"
+							class="block w-full p-2 pl-10 text-sm text-gray-800 border border-gray-200 rounded-lg bg-gray-50 ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none transition-all"
 							placeholder={currentQuery ?? 'Search for products...'}
 							on:change={handleChange}
 							bind:value={$form.searchQuery} />
@@ -89,18 +88,23 @@
 				</div>
 			</div>
 		{/if}
-		<div class="flex items-center gap-2 md:order-2">
+		<div class="flex items-center gap-4 md:order-2">
 			{#if $page.url.pathname !== '/'}
 				<button
 					data-collapse-toggle="navbar-search"
 					type="button"
-					class="flex items-center p-2 mr-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+					class="flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
 					on:click={() => (searchOpened = !searchOpened)}>
 					<Icon src={MagnifyingGlass} class="h-5 w-5 text-gray-500" />
 					<span class="sr-only">Search</span>
 				</button>
 			{/if}
 			{#if user}
+				<a
+					href="/cart"
+					class="flex items-center p-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+					<Icon src={ShoppingCart} class="h-5 w-5 text-gray-500" />
+				</a>
 				<button
 					use:dropdownRef
 					on:click={() => (dropdownOpened = !dropdownOpened)}

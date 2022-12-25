@@ -3,6 +3,7 @@
 	import { MagnifyingGlass, ArrowRight } from '@steeze-ui/heroicons'
 	import { page } from '$app/stores'
 	import { goto } from '$app/navigation'
+	import UserStore from '$stores/auth'
 
 	import { createForm } from 'svelte-forms-lib'
 	const { form, handleChange, handleSubmit } = createForm({

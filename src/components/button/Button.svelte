@@ -1,4 +1,9 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte'
+
+	const dispatch = createEventDispatcher()
+	const click = () => dispatch('click')
+
 	export let isLoading = false
 	export let loadingText: string | null = null
 	export let type = 'button'
@@ -6,7 +11,7 @@
 	export let disabled = false
 </script>
 
-<button {type} {disabled} class={`btn-primary ${classes}`}>
+<button {type} {disabled} class={`btn-primary ${classes}`} on:click={click}>
 	{#if isLoading}
 		<div class="flex items-center">
 			<svg

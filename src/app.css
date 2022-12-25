@@ -24,7 +24,7 @@ a {
 
 @layer components {
 	.page {
-		@apply max-w-screen-lg mx-auto px-4 md:px-12 py-8 h-full;
+		@apply max-w-screen-lg mx-auto px-8 md:px-12 py-8 h-full;
 	}
 	.nav-icon {
 		@apply h-6 w-6 text-gray-500;
@@ -48,10 +48,10 @@ a {
 		@apply block mb-2 text-sm font-medium text-gray-800;
 	}
 	.form-control-input {
-		@apply bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 focus:outline-orange-500 block w-full p-2.5 disabled:bg-gray-100 transition-all;
+		@apply bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none block w-full p-2.5 disabled:bg-gray-100 transition-all;
 	}
 	.form-control-input-dense {
-		@apply bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 focus:outline-orange-500 block w-full p-2 disabled:bg-gray-100 transition-all;
+		@apply bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none block w-full p-2 disabled:bg-gray-100 transition-all;
 	}
 	.form-control-info {
 		@apply mt-2 text-sm text-gray-500;
