@@ -7,8 +7,8 @@
 	import type { PageData } from './$types'
 	import Pagination from '$components/pagination/Pagination.svelte'
 	import ProductTable from '$components/product-table/ProductTable.svelte'
-	import ProductModal from '$components/modals/product-modal/ProductModal.svelte'
-	import ConfirmationModal from '$components/modals/confirm-modal/ConfirmationModal.svelte'
+	import ProductModal from '$components/modals/product-editor/ProductEditor.svelte'
+	import ConfirmationModal from '$components/modals/confirm-modal/ConfirmModal.svelte'
 	import StoreProperties from '$components/modals/store-properties/StoreProperties.svelte'
 	import pocketbase from '$lib/backend'
 
@@ -82,8 +82,8 @@
 		<button
 			class="btn-primary shadow inline-flex items-center transition-all"
 			on:click={onTriggerAdd}>
-			<Icon src={Plus} class="w-5 h-5 mr-2 -ml-1" />
-			Add Product
+			<Icon src={Plus} class="w-5 h-5 md:mr-2 -ml-1" />
+			<span class="hidden md:inline-block">Add Product</span>
 		</button>
 	</div>
 	<div class="w-full flex flex-row items-center">
@@ -92,8 +92,8 @@
 				type="button"
 				class="btn-outlined flex flex-row items-center px-6 py-3"
 				on:click={onStorePropertiesTriggered}>
-				<Icon src={BuildingStorefront} class="h-5 w-5 mr-2" />
-				Store Properties
+				<Icon src={BuildingStorefront} class="h-5 w-5 md:mr-2" />
+				<span class="hidden md:inline-block">Store Properties</span>
 			</button>
 		</div>
 		<div class="w-1/2 flex-initial flex justify-end">

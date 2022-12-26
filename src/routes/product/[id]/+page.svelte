@@ -111,8 +111,8 @@
 		</div>
 	</section>
 	<div
-		class="mt-16 px-4 py-6 flex flex-col items-center justify-between bg-orange-100 rounded-xl md:flex-row">
-		<div class="flex-initial w-2/3">
+		class="mt-16 px-4 py-6 flex flex-col items-center justify-between gap-4 bg-orange-100 rounded-xl md:flex-row md:gap-0">
+		<div class="flex-initial md:w-2/3">
 			<h6 class="text-orange-500 font-medium">
 				Have an opinion with this product? You can rate it.
 			</h6>

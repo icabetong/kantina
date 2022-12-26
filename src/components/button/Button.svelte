@@ -6,7 +6,7 @@
 
 	export let isLoading = false
 	export let loadingText: string | null = null
-	export let type = 'button'
+	export let type: 'button' | 'submit' | 'reset' = 'button'
 	export let classes = ''
 	export let disabled = false
 </script>

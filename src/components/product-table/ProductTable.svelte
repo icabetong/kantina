@@ -74,6 +74,6 @@
 		<EmptyView
 			icon={RocketLaunch}
 			title="No Products"
-			message="There are no products added. Add one using the button above." />
+			message="Before you can sell, you'll need to add your products first." />
 	{/if}
 </div>

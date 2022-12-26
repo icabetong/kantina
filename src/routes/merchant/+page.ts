@@ -28,6 +28,8 @@ export async function load({ url }: PageLoad): Promise<App.MerchantPageData> {
 			paginated: result.perPage
 		}
 	} catch (e) {
+		if (e && e.status === 401) throw error(428, 'Store not created')
+
 		if (e instanceof Error) throw error(401, e.message)
 
 		throw error(500, 'Internal Error')

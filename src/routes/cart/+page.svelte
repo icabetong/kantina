@@ -28,10 +28,12 @@
 <div class="page">
 	<div class="w-full flex items-center justify-between">
 		<h2 class="page-header text-start mb-0">Your Cart</h2>
-		<button class="btn-primary shadow inline-flex items-center transition-all">
-			<Icon src={CreditCard} class="w-5 h-5 mr-2 -ml-1" />
-			Proceed to Checkout
-		</button>
+		{#if cart.length > 0}
+			<button class="btn-primary shadow inline-flex items-center transition-all">
+				<Icon src={CreditCard} class="w-5 h-5 md:mr-2 -ml-1" />
+				<span class="hidden md:inline-block">Proceed to Checkout</span>
+			</button>
+		{/if}
 	</div>
 	{#if cart.length > 0}
 		<div class="pt-6 pb-32">

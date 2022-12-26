@@ -7,20 +7,30 @@
 	import type { Record } from 'pocketbase'
 	import pocketbase from '$lib/backend'
 	import { parseFileUrl } from '$lib/files'
+	import { goto } from '$app/navigation'
+	import { page } from '$app/stores'
+	import { openModal } from 'svelte-modals'
+	import CreateStore from '$components/modals/create-store/CreateStore.svelte'
 
 	const user = $UserStore
-	const { form, handleSubmit, handleChange } = createForm({
+	let isWorking: boolean = false
+	const { form, handleSubmit } = createForm({
 		initialValues: {
 			id: user?.id ?? '',
 			firstName: user?.firstName ?? '',
 			lastName: user?.lastName ?? '',
-			email: user?.email ?? '',
+			email: user?.email,
 			type: user?.type ?? 'customer',
-			created: Number.parseInt(user?.created ?? Date.now().toString()),
-			updated: Number.parseInt(user?.updated ?? Date.now().toString()),
-			username: user?.username ?? ''
+			username: user?.username
 		},
-		onSubmit: async (data) => {}
+		onSubmit: async (form) => {
+			try {
+				await pocketbase.collection('users').update(form.id, form)
+				goto($page.url, { invalidateAll: true, replaceState: true })
+			} catch (e) {
+				console.error(e)
+			}
+		}
 	})
 
 	let hasChanged = false
@@ -51,18 +61,26 @@
 		await pocketbase.collection('users').update(user.id, formData)
 	}
 
+	const onChangeToMerchant = () => {
+		openModal(CreateStore)
+	}
+
 	let changePending = false
 	let changeError: string | null = null
-	const onChangeAccountType = async () => {
+	const onChangeToCustomer = async () => {
 		if (!user) {
 			changeError = 'An error occured. Could not authenticate connection'
 			return
 		}
 		changePending = true
 
-		const type = user.type === 'merchant' ? 'customer' : 'merchant'
 		try {
-			await pocketbase.collection('users').update(user.id, { type: type })
+			await pocketbase.collection('users').update(user.id, { type: 'customer' })
+
+			const store = await pocketbase.collection('stores').getFirstListItem(`owner="${user.id}"`)
+			await pocketbase.collection('stores').delete(store.id)
+
+			goto($page.url, { invalidateAll: true, replaceState: true })
 		} catch (error: any) {
 			if ('message' in error) changeError = error.message
 			else changeError = error
@@ -122,7 +140,6 @@
 						type="text"
 						id="firstName"
 						class="form-control-input"
-						on:change={handleChange}
 						bind:value={$form['firstName']} />
 				</div>
 				<div class="form-control-group">
@@ -131,17 +148,15 @@
 						type="text"
 						id="lastName"
 						class="form-control-input"
-						on:change={handleChange}
 						bind:value={$form['lastName']} />
 				</div>
-				<div class="form-control-group">
-					<label for="email" class="form-control-label">Email</label>
+				<div class="form-control">
+					<label for="username" class="form-control-label">Username</label>
 					<input
-						type="email"
-						id="email"
+						type="text"
+						id="username"
 						class="form-control-input"
-						on:change={handleChange}
-						bind:value={$form['email']} />
+						bind:value={$form['username']} />
 				</div>
 			</div>
 			<div class="flex-1 w-full h-full">
@@ -153,25 +168,27 @@
 						id="userId"
 						class="form-control-input"
 						aria-disabled="true"
-						on:change={handleChange}
 						bind:value={$form['id']} />
 				</div>
-				<div class="form-control">
-					<label for="username" class="form-control-label">Username</label>
+				<div class="form-control-group">
+					<label for="email" class="form-control-label">Email</label>
 					<input
-						type="text"
-						id="username"
+						disabled
+						type="email"
+						id="email"
 						class="form-control-input"
-						on:change={handleChange}
-						bind:value={$form['username']} />
+						aria-disabled="true"
+						bind:value={$form['email']} />
 				</div>
 			</div>
 		</div>
-		<button class="btn-primary w-fit self-end px-8" type="submit">Save</button>
+		<div class="mt-4 h-full flex-1 flex flex-row items-center justify-end">
+			<Button type="submit" isLoading={isWorking}>Save</Button>
+		</div>
 	</form>
 </section>
 {#if user?.type === 'customer'}
-	<section id="upgrade-to-merchant" class="mt-12 w-1/2">
+	<section id="upgrade-to-merchant" class="mt-12 mb-12 w-full md:w-1/2">
 		<h3 class="font-semibold text-xl text-orange-500">Upgrade to Merchant Account</h3>
 		<p class="mt-1 mb-4 text-gray-500 text-md">
 			Upgrading to Merchant account enables selling to Kantina. However you need to be a valid stall
@@ -186,10 +203,10 @@
 				</div>
 			</div>
 		{/if}
-		<Button isLoading={changePending} on:click={onChangeAccountType}>Upgrade</Button>
+		<Button isLoading={changePending} on:click={onChangeToMerchant}>Upgrade</Button>
 	</section>
 {:else}
-	<section id="downgrade-to-customer" class="mt-12 w-1/2">
+	<section id="downgrade-to-customer" class="mt-12 w-full md:w-1/2">
 		<h3 class="font-semibold text-xl text-orange-500">Downgrade to Customer Account</h3>
 		<p class="mt-1 mb-4 text-gray-500 text-md">
 			Downgrading to Customer account disables selling to Kantina. This will also delete your store
@@ -204,6 +221,6 @@
 				</div>
 			</div>
 		{/if}
-		<Button isLoading={changePending} on:click={onChangeAccountType}>Downgrade</Button>
+		<Button isLoading={changePending} on:click={onChangeToCustomer}>Downgrade</Button>
 	</section>
 {/if}
