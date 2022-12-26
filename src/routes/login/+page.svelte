@@ -9,7 +9,7 @@
 
 	let error: string | null = null
 	let isWorking: boolean = false
-	const { form, handleChange, handleSubmit } = createForm({
+	const { form, handleChange, handleSubmit } = createForm<App.Credentials>({
 		initialValues: {
 			email: '',
 			password: ''
@@ -33,7 +33,7 @@
 
 <div class="hero">
 	<div class="page w-full min-h-screen flex flex-col items-center justify-center">
-		<form class="mx-auto form-root" on:submit|preventDefault={handleSubmit}>
+		<form class="mx-auto max-w-md form-root" on:submit|preventDefault={handleSubmit}>
 			<div class="flex flex-col items-start">
 				<h1 class="text-2xl font-semibold mb-8">Login to your Kantina Account</h1>
 				{#if error}

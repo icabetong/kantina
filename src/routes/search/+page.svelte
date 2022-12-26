@@ -2,6 +2,7 @@
 	import { page } from '$app/stores'
 	import ProductCard from '$components/product-card/ProductCard.svelte'
 	import SearchQueryStore from '$stores/search-query'
+	import type { PageData } from './$types'
 
 	let query: string | null = null
 
@@ -13,69 +14,9 @@
 		}
 	})
 
-	const products: App.ProductRecord[] = [
-		{
-			id: '0',
-			name: 'Chicken',
-			category: 'food',
-			price: 100,
-			currentPrice: 20,
-			quantity: 0,
-			created: Date.now(),
-			updated: Date.now(),
-			visible: false
-		},
-		{
-			id: '1',
-			name: 'Chicken',
-			category: 'food',
-			price: 0,
-			quantity: 8,
-			created: Date.now(),
-			updated: Date.now(),
-			visible: true
-		},
-		{
-			id: '2',
-			name: 'Chicken',
-			category: 'food',
-			price: 0,
-			quantity: 20,
-			created: Date.now(),
-			updated: Date.now(),
-			visible: true
-		},
-		{
-			id: '3',
-			name: 'Chicken',
-			category: 'food',
-			price: 0,
-			quantity: 20,
-			created: Date.now(),
-			updated: Date.now(),
-			visible: true
-		},
-		{
-			id: '4',
-			name: 'Chicken',
-			category: 'food',
-			price: 0,
-			quantity: 20,
-			created: Date.now(),
-			updated: Date.now(),
-			visible: true
-		},
-		{
-			id: '5',
-			name: 'Chicken',
-			category: 'food',
-			price: 0,
-			quantity: 20,
-			created: Date.now(),
-			updated: Date.now(),
-			visible: true
-		}
-	]
+	export let data: PageData
+	const { products: result } = data
+	const products: App.Product[] = result.items.map((product) => product)
 </script>
 
 <div class="page w-full min-h-screen">

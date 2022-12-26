@@ -22,6 +22,16 @@ a {
 	box-sizing: border-box;
 }
 
+:root {
+	--toastBackground: #f9fafb;
+	--toastColor: #1f2937;
+	--toastBoxShadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	--toastBorder: 1px solid #e5e7eb;
+	--toastBorderRadius: 0.5rem;
+	--toastBarBackground: #f97316;
+	--toastBarWidth: 50%;
+}
+
 @layer components {
 	.page {
 		@apply max-w-screen-lg mx-auto px-8 md:px-12 py-8 h-full;
@@ -39,19 +49,19 @@ a {
 		@apply mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-800;
 	}
 	.form-root {
-		@apply bg-white px-4 py-8 shadow rounded w-full sm:w-2/3 lg:w-1/2 md:py-10 md:px-8;
+		@apply bg-white px-6 py-8 shadow rounded w-full sm:w-2/3 lg:w-1/2 md:py-10 md:px-8;
 	}
 	.form-control-group {
 		@apply w-full mb-3;
 	}
 	.form-control-label {
-		@apply block mb-2 text-sm font-medium text-gray-800;
+		@apply block mb-2 text-sm font-medium text-gray-800 aria-disabled:text-gray-400;
 	}
 	.form-control-input {
-		@apply bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none block w-full p-2.5 disabled:bg-gray-100 transition-all;
+		@apply bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none block w-full p-2.5 disabled:bg-gray-100 disabled:text-gray-500 transition-all;
 	}
 	.form-control-input-dense {
-		@apply bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none block w-full p-2 disabled:bg-gray-100 transition-all;
+		@apply bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none block w-full p-2 disabled:bg-gray-100 disabled:text-gray-500 transition-all;
 	}
 	.form-control-info {
 		@apply mt-2 text-sm text-gray-500;
@@ -69,10 +79,10 @@ a {
 		@apply bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 focus:outline-orange-500 block w-full p-2;
 	}
 	.btn-primary {
-		@apply px-5 py-2 text-white bg-gradient-to-r to-pink-500 from-orange-500 transition-all shadow hover:to-pink-700 hover:from-orange-500 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm focus:outline-none;
+		@apply px-5 py-2 text-white bg-gradient-to-br to-pink-500 from-orange-500 transition-all shadow hover:to-pink-700 hover:from-orange-500 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm focus:outline-none disabled:from-orange-300 disabled:to-pink-300 disabled:cursor-not-allowed;
 	}
 	.btn-outlined {
-		@apply py-2 px-5 text-sm font-medium text-gray-800 focus:outline-none bg-white rounded-lg border border-gray-200 transition-all hover:text-orange-700 hover:border-orange-500 focus:z-10 focus:ring-4 focus:ring-gray-200 disabled:text-gray-200 disabled:hover:bg-white disabled:cursor-not-allowed;
+		@apply py-2 px-5 text-sm font-medium text-gray-800 focus:outline-none bg-white rounded-lg border border-gray-200 transition-all hover:text-orange-700 hover:border-orange-500 focus:z-10 focus:ring-4 focus:ring-gray-200 disabled:text-gray-200 disabled:hover:bg-white disabled:cursor-not-allowed disabled:hover:text-gray-200 disabled:hover:border-gray-200;
 	}
 	.link {
 		@apply font-medium text-orange-600 hover:underline disabled:hover:no-underline disabled:text-orange-200;
@@ -88,6 +98,18 @@ a {
 	}
 	.badget-yellow {
 		@apply bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded;
+	}
+	.pagination {
+		@apply flex items-center -space-x-px;
+	}
+	.pagination-number {
+		@apply px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700;
+	}
+	.pagination-prev {
+		@apply px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700;
+	}
+	.pagination-next {
+		@apply px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700;
 	}
 }
 

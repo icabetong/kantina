@@ -6,7 +6,7 @@
 	import { createForm } from 'svelte-forms-lib'
 	import type { Record } from 'pocketbase'
 	import pocketbase from '$lib/backend'
-	import { buildFileUrl } from '$lib/files'
+	import { parseFileUrl } from '$lib/files'
 
 	const user = $UserStore
 	const { form, handleSubmit, handleChange } = createForm({
@@ -51,22 +51,23 @@
 		await pocketbase.collection('users').update(user.id, formData)
 	}
 
-	let upgradeIsPending = false
-	let upgradeError: string | null = null
-	const onUpdateToMerchant = async () => {
+	let changePending = false
+	let changeError: string | null = null
+	const onChangeAccountType = async () => {
 		if (!user) {
-			upgradeError = 'An error occured. Could not authenticate connection'
+			changeError = 'An error occured. Could not authenticate connection'
 			return
 		}
-		upgradeIsPending = true
+		changePending = true
 
+		const type = user.type === 'merchant' ? 'customer' : 'merchant'
 		try {
-			await pocketbase.collection('users').update(user.id, { type: 'merchant' })
+			await pocketbase.collection('users').update(user.id, { type: type })
 		} catch (error: any) {
-			if ('message' in error) upgradeError = error.message
-			else upgradeError = error
+			if ('message' in error) changeError = error.message
+			else changeError = error
 		} finally {
-			upgradeIsPending = false
+			changePending = false
 		}
 	}
 </script>
@@ -77,9 +78,12 @@
 			{#if avatar && typeof avatar === 'string'}
 				<img src={avatar} alt="avatar" class="w-36 h-36 rounded-full" />
 			{:else if user && user?.avatar}
-				<img src={buildFileUrl(user, user.avatar)} alt="avatar" class="w-36 h-36 rounded-full" />
+				<img
+					src={parseFileUrl('users', user.id, user.avatar)}
+					alt="avatar"
+					class="w-36 h-36 rounded-full" />
 			{:else}
-				<div class="bg-gradient-to-tr from-orange-500 to-pink-500 rounded-full w-fit p-6">
+				<div class="bg-gradient-to-br from-orange-500 to-pink-500 rounded-full w-fit p-6">
 					<Icon src={User} class="w-24 h-24 rounded-full text-white" />
 				</div>
 			{/if}
@@ -173,13 +177,33 @@
 			Upgrading to Merchant account enables selling to Kantina. However you need to be a valid stall
 			owner or vendor to continue. Contact the administration for further details.
 		</p>
-		<div class="alert-error">
-			<Icon src={ExclamationTriangle} class="flex-shrink-0 inline w-5 h-5 mr-3" />
-			<span class="sr-only">Error</span>
-			<div>
-				<span class="font-medium">{upgradeError}</span>
+		{#if changeError}
+			<div class="alert-error">
+				<Icon src={ExclamationTriangle} class="flex-shrink-0 inline w-5 h-5 mr-3" />
+				<span class="sr-only">Error</span>
+				<div>
+					<span class="font-medium">{changeError}</span>
+				</div>
 			</div>
-		</div>
-		<Button isLoading={upgradeIsPending} on:click={onUpdateToMerchant}>Upgrade</Button>
+		{/if}
+		<Button isLoading={changePending} on:click={onChangeAccountType}>Upgrade</Button>
+	</section>
+{:else}
+	<section id="downgrade-to-customer" class="mt-12 w-1/2">
+		<h3 class="font-semibold text-xl text-orange-500">Downgrade to Customer Account</h3>
+		<p class="mt-1 mb-4 text-gray-500 text-md">
+			Downgrading to Customer account disables selling to Kantina. This will also delete your store
+			and products in the database.
+		</p>
+		{#if changeError}
+			<div class="alert-error">
+				<Icon src={ExclamationTriangle} class="flex-shrink-0 inline w-5 h-5 mr-3" />
+				<span class="sr-only">Error</span>
+				<div>
+					<span class="font-medium">{changeError}</span>
+				</div>
+			</div>
+		{/if}
+		<Button isLoading={changePending} on:click={onChangeAccountType}>Downgrade</Button>
 	</section>
 {/if}

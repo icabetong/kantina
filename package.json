@@ -22,6 +22,7 @@
 		"@sveltejs/kit": "^1.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
+		"@zerodevx/svelte-toast": "^0.8.2",
 		"autoprefixer": "^10.4.13",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
@@ -41,6 +42,7 @@
 	"type": "module",
 	"dependencies": {
 		"@steeze-ui/svelte-icon": "^1.3.2",
+		"@tailwindcss/line-clamp": "^0.4.2",
 		"pocketbase": "^0.9.0",
 		"svelte-forms-lib": "^2.0.1",
 		"svelte-modals": "^1.2.0"

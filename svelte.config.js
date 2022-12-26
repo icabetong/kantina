@@ -12,7 +12,8 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			$components: path.resolve('./src/components'),
-			$stores: path.resolve('./src/stores')
+			$stores: path.resolve('./src/stores'),
+			$shared: path.resolve('./src/shared')
 		}
 	}
 }

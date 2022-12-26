@@ -6,10 +6,13 @@
 	import { MagnifyingGlass, User, ShoppingCart } from '@steeze-ui/heroicons'
 	import { createPopperActions } from 'svelte-popperjs'
 	import { createForm } from 'svelte-forms-lib'
+	import { clickOutside } from '$shared/click-outside'
 	import SearchQueryStore from '$stores/search-query'
 	import UserStore from '$stores/auth'
 	import type { Record, Admin } from 'pocketbase'
-	import { buildFileUrl } from '$lib/files'
+	import { parseFileUrl } from '$lib/files'
+
+	export let cartItems: number = 0
 
 	const { form, handleChange, handleSubmit } = createForm({
 		initialValues: {
@@ -102,8 +105,14 @@
 			{#if user}
 				<a
 					href="/cart"
-					class="flex items-center p-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+					class="relative inline-flex items-center p-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
 					<Icon src={ShoppingCart} class="h-5 w-5 text-gray-500" />
+					{#if cartItems > 0}
+						<div
+							class="inline-flex absolute -top-2 -right-2 justify-center items-center w-6 h-6 text-xs font-bold text-white bg-red-500 rounded-full border-2 border-white">
+							{cartItems}
+						</div>
+					{/if}
 				</a>
 				<button
 					use:dropdownRef
@@ -116,12 +125,12 @@
 					<span class="sr-only">Open user menu</span>
 					{#if user.avatar}
 						<img
-							src={buildFileUrl(user, user.avatar)}
+							src={parseFileUrl('users', user.id, user.avatar)}
 							alt="avatar"
 							class="h-10 w-10 rounded-full focus-ring-4 focus:ring-gray-300" />
 					{:else}
 						<div
-							class="p-2 bg-gradient-to-r rounded-full from-orange-500 to-pink-500 text-white focus:ring-4 focus:ring-orange-300">
+							class="p-2 bg-gradient-to-br rounded-full from-orange-500 to-pink-500 text-white focus:ring-4 focus:ring-orange-300">
 							<Icon src={User} class=" text-sm h-5 w-5" />
 						</div>
 					{/if}
@@ -135,7 +144,9 @@
 	</div>
 	{#if dropdownOpened}
 		<div
+			use:clickOutside
 			use:dropdownContent={extraOptions}
+			on:clickAway={() => (dropdownOpened = !dropdownOpened)}
 			class="z-50 text-base list-none bg-white rounded shadow-lg border border-gray-200 divide-y divide-gray-100"
 			id="user-dropdown">
 			<div class="px-4 py-3">
@@ -184,7 +195,7 @@
 						bind:value={$form.searchQuery} />
 					<button
 						type="submit"
-						class="text-white absolute right-2.5 bottom-2.5 bg-gradient-to-r to-pink-500 from-orange-400 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-3 py-2">
+						class="text-white absolute right-2.5 bottom-2.5 bg-gradient-to-br to-pink-500 from-orange-400 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-3 py-2">
 						<Icon src={MagnifyingGlass} class="h-5 w-5 text-white" />
 						<span class="sr-only">Search</span></button>
 				</div>
