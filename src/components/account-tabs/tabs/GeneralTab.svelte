@@ -203,7 +203,7 @@
 				</div>
 			</div>
 		{/if}
-		<Button isLoading={changePending} on:click={onChangeToMerchant}>Upgrade</Button>
+		<button type="button" class="btn-primary" on:click={onChangeToMerchant}>Upgrade</button>
 	</section>
 {:else}
 	<section id="downgrade-to-customer" class="mt-12 w-full md:w-1/2">
@@ -221,6 +221,7 @@
 				</div>
 			</div>
 		{/if}
-		<Button isLoading={changePending} on:click={onChangeToCustomer}>Downgrade</Button>
+		<Button isLoading={changePending} loadingText="Processing" on:click={onChangeToCustomer}
+			>Downgrade</Button>
 	</section>
 {/if}

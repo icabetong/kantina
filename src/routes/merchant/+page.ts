@@ -3,11 +3,11 @@ import pocketbase from '$lib/backend'
 import type { PageLoad } from './$types'
 import type { ListResult } from 'pocketbase'
 
-export async function load({ url }: PageLoad): Promise<App.MerchantPageData> {
+export const load = (async ({ url }) => {
 	try {
 		const userId = pocketbase.authStore.model?.id
+		const page: number = parseInt(url.searchParams.get('page') ?? 1)
 
-		const page: number = url.searchParams.get('page') ?? 1
 		if (!userId) throw error(401, 'Kebab')
 
 		const store: App.Store = await pocketbase
@@ -34,4 +34,4 @@ export async function load({ url }: PageLoad): Promise<App.MerchantPageData> {
 
 		throw error(500, 'Internal Error')
 	}
-}
+}) satisfies PageLoad

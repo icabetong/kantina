@@ -30,11 +30,13 @@ a {
 	--toastBorderRadius: 0.5rem;
 	--toastBarBackground: #f97316;
 	--toastBarWidth: 50%;
+	--toastPadding: 0.5rem;
+	--toastBarHeight: 2px;
 }
 
 @layer components {
 	.page {
-		@apply max-w-screen-lg mx-auto px-8 md:px-12 py-8 h-full;
+		@apply max-w-screen-xl mx-auto px-8 md:px-12 py-8 h-full;
 	}
 	.nav-icon {
 		@apply h-6 w-6 text-gray-500;

@@ -11,6 +11,7 @@
 	import ConfirmationModal from '$components/modals/confirm-modal/ConfirmModal.svelte'
 	import StoreProperties from '$components/modals/store-properties/StoreProperties.svelte'
 	import pocketbase from '$lib/backend'
+	import { toast } from '@zerodevx/svelte-toast'
 
 	export let data: PageData
 

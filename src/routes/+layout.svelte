@@ -7,6 +7,7 @@
 	import Navigation from '$components/navigation/Navigation.svelte'
 	import pocketbase from '$lib/backend'
 	import type { PageData } from './$types'
+	import PageProgress from '$components/page-progress/PageProgress.svelte'
 
 	export let data: PageData
 	let cart: App.CartItem[]
@@ -23,6 +24,7 @@
 	}
 </script>
 
+<PageProgress />
 <header class="z-10"><Navigation cartItems={cart.length} /></header>
 <main class="flex-1 bg-white">
 	<slot />

@@ -70,7 +70,7 @@
 		{/if}
 	</div>
 	<div slot="actions" class="flex flex-row gap-4">
-		<Button type="submit" isLoading={isWorking}>Create</Button>
+		<Button type="submit" isLoading={isWorking} loadingText="Processing">Create</Button>
 		<button type="button" class="btn-outlined" on:click={closeModal}>Cancel</button>
 	</div>
 </Modal>

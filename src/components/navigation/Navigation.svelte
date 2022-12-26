@@ -63,7 +63,7 @@
 </script>
 
 <nav class="bg-white border-gray-200 px-8 py-4 shadow md:px-12">
-	<div use:searchRef class="flex flex-wrap items-center justify-between mx-auto max-w-screen-lg">
+	<div use:searchRef class="flex flex-wrap items-center justify-between mx-auto max-w-screen-xl">
 		<a
 			href="/"
 			class="flex items-center text-transparent bg-gradient-to-r bg-clip-text from-orange-500 to-pink-500">
