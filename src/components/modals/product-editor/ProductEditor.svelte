@@ -12,14 +12,14 @@
 	import { parseFileUrl } from '$lib/files'
 
 	export let isOpen: boolean
-	export let store: App.Store
-	export let product: App.Product | null = null
+	export let store: Store
+	export let product: Product | null = null
 
 	let userId = $UserStore?.id
 	let isWorking = false
 	let error: string | null = null
 	let hasRemovedImage: boolean = false
-	const { form, handleSubmit } = createForm<App.ProductForm>({
+	const { form, handleSubmit } = createForm<Kantina.ProductForm>({
 		initialValues: {
 			id: product?.id ?? '',
 			name: product?.name ?? '',
@@ -32,6 +32,19 @@
 		},
 		onSubmit: async (form) => {
 			if (!userId) return
+
+			if (form.quantity < 0) {
+				error = 'Invalid product quantity. It needs to be a positive number'
+				return
+			}
+			if (form.price < 0.01) {
+				error = 'Invalid price for product'
+				return
+			}
+			if (hasDiscount && form.currentPrice && form.currentPrice < 0.01) {
+				error = 'Invalid discounted price for product'
+				return
+			}
 
 			isWorking = true
 			const formData = new FormData()

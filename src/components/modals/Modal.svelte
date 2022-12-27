@@ -17,11 +17,12 @@
 	<div
 		id="modal"
 		role="dialog"
-		class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 md:h-full">
-		<div class={`relative w-${size === 'sm' ? '1/2' : 'full'} h-full max-w-2xl md:h-auto`}>
+		class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center w-full p-6 overflow-x-hidden overflow-y-auto md:inset-0 md:h-full">
+		<div
+			class={`relative w-full md:w-${size === 'sm' ? '1/2' : 'full'} h-full max-w-2xl md:h-auto`}>
 			{#if asForm}
 				<form on:submit|preventDefault={submit} class="relative bg-white rounded-lg shadow">
-					<div class="flex items-start justify-between px-6 py-4 border-b rounded-t">
+					<div class="flex items-start justify-between px-6 py-5 border-b rounded-t">
 						<h3 class="text-xl font-semibold text-gray-800">{title}</h3>
 						<button
 							type="button"
@@ -42,7 +43,7 @@
 				</form>
 			{:else}
 				<div class="relative bg-white rounded-lg shadow">
-					<div class="flex items-start justify-between p-4 border-b rounded-t">
+					<div class="flex items-start justify-between px-6 py-5 border-b rounded-t">
 						<h3 class="text-xl font-semibold text-gray-800">{title}</h3>
 						<button
 							type="button"

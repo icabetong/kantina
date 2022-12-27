@@ -10,7 +10,7 @@
 	import PageProgress from '$components/page-progress/PageProgress.svelte'
 
 	export let data: PageData
-	let cart: App.CartItem[]
+	let cart: CartItem[]
 	$: {
 		const { cartItems } = data
 		cart = cartItems

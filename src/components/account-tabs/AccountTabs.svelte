@@ -14,7 +14,7 @@
 		currentTab = tabs[0].id
 	})
 
-	const onHandleTabChange = (tab: App.Tab) => (currentTab = tab.id)
+	const onHandleTabChange = (tab: Kantina.Tab) => (currentTab = tab.id)
 </script>
 
 <div class="w-full">

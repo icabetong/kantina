@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { parseFileUrl } from '$lib/files'
 
-	export let cartItems: App.CartItem[]
-	export let onCartItemClick = (cartItem: App.CartItem) => {}
+	export let cartItems: CartItem[]
+	export let onCartItemClick = (cartItem: CartItem) => {}
 </script>
 
 <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -28,13 +28,13 @@
 								alt={cartItem.expand?.product.name} />
 						{/if}
 					</td>
-					<td class="py-3 px-6 font-semibold text-gray-900">
+					<th class="py-3 px-6 font-semibold text-gray-800">
 						<a class="hover:underline" href={`/product/${cartItem.product}`}>
 							{cartItem.expand?.product.name}
 						</a>
-					</td>
+					</th>
 					<td class="py-3 px-6"> {cartItem.quantity} </td>
-					<td class="py-3 px-6 font-semibold text-gray-900"> {cartItem.expand?.product.price} </td>
+					<td class="py-3 px-6 font-semibold text-gray-800"> {cartItem.expand?.product.price} </td>
 					<td class="py-3 px-6 w-28">
 						<button
 							type="button"

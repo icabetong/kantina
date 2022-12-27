@@ -5,7 +5,7 @@
 	import { goto } from '$app/navigation'
 	import { createForm } from 'svelte-forms-lib'
 	import type { PageData } from './$types'
-	import { parseFileUrl } from '$lib/files'
+	import ProductCard from '$components/product-card/ProductCard.svelte'
 
 	export let data: PageData
 	const { products } = data
@@ -67,38 +67,7 @@
 		<h3 class="text-orange-500 text-2xl font-bold mb-8">Most Popular Items</h3>
 		<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 transition-all">
 			{#each products as product}
-				<a
-					href={`/product/${product.id}`}
-					class="rounded-lg flex flex-col flex-wrap items-start p-3 bg-white border border-gray-100 transitions-all hover:border-orange-500 hover:shadow-md">
-					{#if product.image}
-						<div class="bg-gradient-to-br from-orange-500 to-pink-500 py-4 rounded-lg">
-							<img src={parseFileUrl('products', product.id, product.image)} alt={product.name} />
-						</div>
-					{/if}
-					<h5
-						class="flex-1 mt-4 text-md text-center font-semibold tracking-tight line-clamp-2 leading-tight">
-						{product.name}
-					</h5>
-					<div
-						class="w-full flex flex-col-reverse items-center md:flex-row md:items-end justify-center">
-						<div class="flex-1 mt-2 font-bold text-xl">
-							{#if product.currentPrice}
-								<span class="line-through mr-2 font-medium text-gray-300">₱{product.price}</span
-								><span>₱{product.currentPrice}</span>
-							{:else}
-								<div>₱{product.price}</div>
-							{/if}
-						</div>
-						<div class="w-full inline-flex justify-end mt-2 px-2 md:w-32 md:mt-0 md:px-0">
-							{#if product.expand?.store.name}
-								<div
-									class=" bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded truncate max-w-full">
-									{product.expand?.store.name}
-								</div>
-							{/if}
-						</div>
-					</div>
-				</a>
+				<ProductCard {product} />
 			{/each}
 		</div>
 		<a href="/product" class="mt-8 btn-primary px-8 py-4 text-md">Browse More Products</a>

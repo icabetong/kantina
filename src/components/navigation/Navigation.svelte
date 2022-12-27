@@ -62,8 +62,10 @@
 	}
 </script>
 
-<nav class="bg-white border-gray-200 px-8 py-4 shadow md:px-12">
-	<div use:searchRef class="flex flex-wrap items-center justify-between mx-auto max-w-screen-xl">
+<nav class="bg-white border-gray-200 shadow">
+	<div
+		use:searchRef
+		class="flex flex-wrap items-center justify-between mx-auto max-w-screen-xl px-4 py-4 md:px-12">
 		<a
 			href="/"
 			class="flex items-center text-transparent bg-gradient-to-r bg-clip-text from-orange-500 to-pink-500">
@@ -91,7 +93,7 @@
 				</div>
 			</div>
 		{/if}
-		<div class="flex items-center gap-4 md:order-2">
+		<div class="flex items-center gap-8 md:order-2">
 			{#if $page.url.pathname !== '/'}
 				<button
 					data-collapse-toggle="navbar-search"

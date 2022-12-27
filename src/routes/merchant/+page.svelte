@@ -11,7 +11,6 @@
 	import ConfirmationModal from '$components/modals/confirm-modal/ConfirmModal.svelte'
 	import StoreProperties from '$components/modals/store-properties/StoreProperties.svelte'
 	import pocketbase from '$lib/backend'
-	import { toast } from '@zerodevx/svelte-toast'
 
 	export let data: PageData
 
@@ -24,21 +23,21 @@
 		totalItems = count
 		totalPages = pages
 	}
-	let products: App.Product[] = []
-	let userStore: App.Store
+	let products: Product[] = []
+	let userStore: Store
 	let totalItems: number
 	let totalPages: number
 	let currentPage: number
 	let perPage: number
 
 	const onTriggerAdd = () => openModal(ProductModal, { store: userStore })
-	const onTriggerEdit = (product: App.Product) => {
+	const onTriggerEdit = (product: Product) => {
 		openModal(ProductModal, {
 			product,
 			store: userStore
 		})
 	}
-	const onTriggerRemove = (product: App.Product) => {
+	const onTriggerRemove = (product: Product) => {
 		openModal(ConfirmationModal, {
 			title: `Remove ${product.name}`,
 			message: `Are you sure you want to remove this product from your store? This action cannot be undone.`,
@@ -115,6 +114,7 @@
 		<ProductTable {products} onProductClick={onTriggerEdit} onProductRemove={onTriggerRemove} />
 		{#if products.length > 0}
 			<Pagination
+				hidePages={false}
 				{totalPages}
 				{currentPage}
 				{perPage}

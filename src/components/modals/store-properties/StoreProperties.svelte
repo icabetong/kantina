@@ -11,7 +11,7 @@
 	import { page } from '$app/stores'
 
 	export let isOpen: boolean
-	export let store: App.Store
+	export let store: Store
 	let userId = $UserStore?.id
 	let isWorking = false
 	let error: string | null = null

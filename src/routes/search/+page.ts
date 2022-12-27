@@ -1,21 +1,16 @@
 import { error } from '@sveltejs/kit'
 import pocketbase from '$lib/backend'
-import type { ListResult } from 'pocketbase'
 import type { PageLoad } from './$types'
+import type { ListResult } from 'pocketbase'
 
-export async function load({ url }: PageLoad): Promise<{ products: ListResult<App.Product> }> {
-	// try {
+export const load = (async ({ url }) => {
 	const searchQuery = url.searchParams.get('query')
-	if (!searchQuery) throw error(401, 'Kebab')
+	if (!searchQuery) throw error(401, 'Search Query Required')
 
+	const result: ListResult<Product> = await pocketbase.collection('products').getList(1, 50, {
+		filter: `name = "${searchQuery}"`
+	})
 	return {
-		products: await pocketbase.collection('products').getList(1, 50, {
-			filter: `name = "${searchQuery}"`
-		})
+		items: result.items
 	}
-	// } catch (e) {
-	// 	if (e instanceof Error) throw error(401, e.message)
-
-	// 	throw error(500, 'Internal Error')
-	// }
-}
+}) satisfies PageLoad

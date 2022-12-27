@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let currentTab: string
-	export let tabs: App.Tab[]
-	export let onChange: (tab: App.Tab) => void
+	export let tabs: Kantina.Tab[]
+	export let onChange: (tab: Kantina.Tab) => void
 </script>
 
 <div class="w-full h-fit mb-4 border-b border-gray-200">

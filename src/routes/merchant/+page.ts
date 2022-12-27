@@ -6,18 +6,14 @@ import type { ListResult } from 'pocketbase'
 export const load = (async ({ url }) => {
 	try {
 		const userId = pocketbase.authStore.model?.id
-		const page: number = parseInt(url.searchParams.get('page') ?? 1)
+		const page: number = parseInt(url.searchParams.get('page') ?? '1')
 
 		if (!userId) throw error(401, 'Kebab')
 
-		const store: App.Store = await pocketbase
-			.collection('stores')
-			.getFirstListItem(`owner="${userId}"`)
-		const result: ListResult<App.Product> = await pocketbase
-			.collection('products')
-			.getList(page, 50, {
-				filter: `store="${store.id}"`
-			})
+		const store: Store = await pocketbase.collection('stores').getFirstListItem(`owner="${userId}"`)
+		const result: ListResult<Product> = await pocketbase.collection('products').getList(page, 50, {
+			filter: `store="${store.id}"`
+		})
 
 		return {
 			store: store,
@@ -28,8 +24,6 @@ export const load = (async ({ url }) => {
 			paginated: result.perPage
 		}
 	} catch (e) {
-		if (e && e.status === 401) throw error(428, 'Store not created')
-
 		if (e instanceof Error) throw error(401, e.message)
 
 		throw error(500, 'Internal Error')

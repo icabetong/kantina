@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { toast } from '@zerodevx/svelte-toast'
 	import CartTable from '$components/cart-table/CartTable.svelte'
-	import EmptyView from '$components/empty-view/EmptyView.svelte'
+	import EmptyView from '$components/empty-state/EmptyState.svelte'
 	import type { PageData } from './$types'
 	import pocketbase from '$lib/backend'
 	import { goto } from '$app/navigation'
@@ -10,13 +10,13 @@
 	import { CreditCard } from '@steeze-ui/heroicons'
 
 	export let data: PageData
-	let cart: App.CartItem[]
+	let cart: CartItem[]
 	$: {
 		const { cartItems } = data
 		cart = cartItems
 	}
 
-	const onTriggerRemove = async (cartItem: App.CartItem) => {
+	const onTriggerRemove = async (cartItem: CartItem) => {
 		try {
 			await pocketbase.collection('carts').delete(cartItem.id)
 			toast.push('Product removed from cart')

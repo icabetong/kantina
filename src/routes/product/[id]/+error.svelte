@@ -10,9 +10,9 @@
 			<img src="/images/product-not-found.svg" alt="not-found-error" class="w-3/4" />
 		</div>
 		<div class="flex-1 flex flex-col justify-start mt-16 md:mt-0 md:justify-center md:items-start">
-			<h1 class="page-header">{$page.error?.title}</h1>
+			<h1 class="page-header">{$page.error?.message}</h1>
 			<p class="text-gray-500 mb-8">
-				{$page.error?.message}
+				The product you are searching for is not found, maybe it isn't cooked yet?
 			</p>
 			<a class="btn-primary flex flex-wrap" href="/"
 				>Go Back to Home<Icon src={ArrowRight} class="h-5 w-5 ml-3" /></a>

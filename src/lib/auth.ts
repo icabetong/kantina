@@ -13,7 +13,7 @@ export async function authenticate(
 ) {
 	if (register) {
 		const user = { ...other, email, password, passwordConfirm: password }
-		await pocketbase.collection('users').create<App.UserRecord>(user)
+		await pocketbase.collection('users').create<User>(user)
 
 		await pocketbase.collection('users').authWithPassword(email, password)
 	} else await pocketbase.collection('users').authWithPassword(email, password)

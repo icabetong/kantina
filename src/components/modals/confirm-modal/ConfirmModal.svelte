@@ -17,7 +17,7 @@
 </script>
 
 <Modal {isOpen} {title} size="sm">
-	<div>
+	<div class="text-gray-500">
 		{message}
 	</div>
 	<div slot="actions" class="flex flex-row gap-4">

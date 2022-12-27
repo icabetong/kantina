@@ -15,8 +15,8 @@
 	})
 
 	export let data: PageData
-	const { products: result } = data
-	const products: App.Product[] = result.items.map((product) => product)
+	const { items } = data
+	const products: Product[] = items
 </script>
 
 <div class="page w-full min-h-screen">
