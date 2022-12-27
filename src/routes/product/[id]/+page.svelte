@@ -12,13 +12,14 @@
 	import { openModal } from 'svelte-modals'
 	import NumberStepper from '$components/number-stepper/NumberStepper.svelte'
 	import FeedbackEditor from '$components/modals/feedback-editor/FeedbackEditor.svelte'
-	import EmptyState from '$components/empty-state/EmptyState.svelte'
+	import { toast } from '@zerodevx/svelte-toast'
+	import ProductCard from '$components/product-card/ProductCard.svelte'
 
 	export let data: PageData
 
 	const user = $UserStore
 	const productId = $page.params.id
-	const { product, cartItems, ratings } = data
+	const { product, cartItems, ratings, related } = data
 	const outOfStock = product.quantity < 1
 	let averageRating: number = 0
 
@@ -35,7 +36,7 @@
 		}
 	})
 
-	const addToCart = async () => {
+	const onAddToCart = async () => {
 		try {
 			if (!user) throw new Error('Authentication Error')
 
@@ -57,10 +58,11 @@
 				await pocketbase.collection('carts').create(cartItem)
 			}
 
+			toast.push('Product added to cart')
 			goto($page.url, { replaceState: true, invalidateAll: true })
 		} catch (ignored) {}
 	}
-	const voteReview = async (rating: Rating, action: 'inc' | 'dec') => {
+	const onVoteFeedback = async (rating: Rating, action: 'inc' | 'dec') => {
 		try {
 			let votes = rating.votes
 			if (action === 'inc') votes++
@@ -72,20 +74,21 @@
 		} catch (ignored) {}
 	}
 
-	const triggerFeedback = () => openModal(FeedbackEditor, { product })
+	const onFeedback = () => openModal(FeedbackEditor, { product })
 </script>
 
 <div class="page min-h-screen py-16">
-	<section id="info" class="flex flex-col items-start gap-8 md:flex-row">
-		<div class="flex-1 w-full">
+	<section id="info" class="flex flex-col justify-center items-center gap-8 md:flex-row">
+		<div
+			class="flex-1 w-full h-full flex items-center justify-center border border-gray-100 rounded-lg">
 			{#if product.image}
 				<img
 					src={parseFileUrl('products', product.id, product.image)}
 					alt={product.name}
-					class="object-contain" />
+					class="object-cover w-80 h-80" />
 			{:else}
 				<!-- svelte-ignore a11y-img-redundant-alt -->
-				<img src="/images/meal.svg" alt="placeholder image" class="object-contain" />
+				<img src="/images/meal.svg" alt="placeholder image" class="object-cover px-8 py-14" />
 			{/if}
 		</div>
 		<div class="flex-1 w-full">
@@ -121,9 +124,15 @@
 					<span class="text-gray-700 font-medium">₱{product.price}</span>
 				{/if}
 			</div>
-			<span class="bg-pink-100 text-pink-800 text-xs font-semibold px-2.5 py-0.5 rounded">
-				{product.quantity} Available
-			</span>
+			{#if product.quantity > 0}
+				<span class="bg-pink-100 text-pink-800 text-xs font-semibold px-2.5 py-0.5 rounded">
+					{product.quantity} Available
+				</span>
+			{:else}
+				<span class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded">
+					Out of Stock
+				</span>
+			{/if}
 			<div class="mt-4 md:flex md:flex-row md:items-center md:gap-2">
 				<label for="quantity" class="form-control-label md:mb-0" aria-disabled={outOfStock}>
 					Quantity:
@@ -132,6 +141,7 @@
 					value={quantity}
 					max={product.quantity}
 					min={1}
+					disabled={product.quantity < 1}
 					on:increment={increment}
 					on:decrement={decrement} />
 			</div>
@@ -141,7 +151,7 @@
 					class="btn-primary flex flex-row items-center py-4"
 					disabled={outOfStock}
 					aria-disabled={outOfStock}
-					on:click={addToCart}>
+					on:click={onAddToCart}>
 					<Icon src={ShoppingCart} class="h-6 w-6" />
 					<span class="ml-2">Add to Cart</span>
 				</button>
@@ -168,7 +178,7 @@
 					curate suggested products too.
 				</p>
 			</div>
-			<button type="button" class="btn-primary" on:click={triggerFeedback}>Submit Feedback</button>
+			<button type="button" class="btn-primary" on:click={onFeedback}>Submit Feedback</button>
 		</section>
 	{/if}
 	<section id="ratings" class="mt-8">
@@ -215,13 +225,13 @@
 									<button
 										type="button"
 										class="text-gray-800 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-xs px-2 py-1.5"
-										on:click={() => voteReview(rating, 'inc')}>
+										on:click={() => onVoteFeedback(rating, 'inc')}>
 										Helpful
 									</button>
 									<button
 										type="button"
 										class="text-gray-800 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-xs px-2 py-1.5"
-										on:click={() => voteReview(rating, 'dec')}>
+										on:click={() => onVoteFeedback(rating, 'dec')}>
 										Not Helpful
 									</button>
 								</div>
@@ -238,6 +248,14 @@
 				</p>
 			</div>
 		{/if}
+	</section>
+	<section id="related" class="mt-8">
+		<h5 class="text-orange-500 text-lg font-semibold mb-4">Related Products</h5>
+		<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+			{#each related as product}
+				<ProductCard {product} />
+			{/each}
+		</div>
 	</section>
 </div>
 

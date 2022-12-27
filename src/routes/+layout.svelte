@@ -5,9 +5,10 @@
 	import { page } from '$app/stores'
 	import { goto } from '$app/navigation'
 	import Navigation from '$components/navigation/Navigation.svelte'
-	import pocketbase from '$lib/backend'
-	import type { PageData } from './$types'
 	import PageProgress from '$components/page-progress/PageProgress.svelte'
+	import pocketbase from '$lib/backend'
+
+	import type { PageData } from './$types'
 
 	export let data: PageData
 	let cart: CartItem[]

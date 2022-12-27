@@ -3,13 +3,12 @@
 	import Button from '$components/button/Button.svelte'
 	import { authenticate } from '$lib/auth'
 	import { createForm } from 'svelte-forms-lib'
-	import pocketbase from '$lib/backend'
 	import { Icon } from '@steeze-ui/svelte-icon'
 	import { ExclamationTriangle } from '@steeze-ui/heroicons'
 
 	let error: string | null = null
 	let isWorking: boolean = false
-	const { form, handleChange, handleSubmit } = createForm<App.Credentials>({
+	const { form, handleSubmit } = createForm<Credentials>({
 		initialValues: {
 			email: '',
 			password: ''
@@ -18,16 +17,14 @@
 			isWorking = true
 			try {
 				await authenticate(data.email, data.password)
+
+				goto('/')
 			} catch (ignored) {
 				error = 'The email or password is incorrect'
 			} finally {
 				isWorking = false
 			}
 		}
-	})
-
-	pocketbase.authStore.onChange(() => {
-		if (pocketbase.authStore.isValid) goto('/')
 	})
 </script>
 
@@ -55,7 +52,6 @@
 						placeholder="name@kantina.com"
 						aria-required="true"
 						disabled={isWorking}
-						on:change={handleChange}
 						bind:value={$form.email} />
 				</div>
 				<div class="form-control-group">
@@ -68,7 +64,6 @@
 						placeholder="••••••••••"
 						aria-required="true"
 						disabled={isWorking}
-						on:change={handleChange}
 						bind:value={$form.password} />
 				</div>
 				<div class="flex flex-row mt-4 mb-2 gap-2">

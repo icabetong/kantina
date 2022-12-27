@@ -12,6 +12,7 @@
 	export let currentPage: number
 	export let perPage: number
 	export let totalItems: number
+	export let onPageChange = (page: number) => {}
 
 	// used for current item and total items infomration
 	let start: number = 1
@@ -23,10 +24,6 @@
 		disablePrevious = currentPage === 1
 		disableNext = currentPage + 1 > totalPages
 	}
-
-	const pages = Array(5)
-		.fill(0)
-		.map((_, index) => index + 1)
 </script>
 
 {#if hidePages}
@@ -64,7 +61,7 @@
 			items of
 			<span class="font-bold text-gray-800">{totalItems}</span> total
 		</div>
-		{#if totalPages > currentPage}
+		{#if totalPages >= currentPage}
 			<div class="flex-1 flex justify-end">
 				<ul class="pagination">
 					<li class="pagination-prev">
@@ -72,20 +69,15 @@
 							<Icon src={ChevronLeft} class="h-3 w-3" />
 						</button>
 					</li>
-					{#each pages as page}
+					{#each Array(totalPages) as _, index}
 						<li
 							class={`pagination-number ${
-								currentPage === page &&
+								currentPage === index + 1 &&
 								'bg-orange-50 text-orange-500 border-orange-500 hover:text-orange-500 hover:bg-orange-100 z-[1]'
 							}`}>
-							<button type="button">{page}</button>
+							<button type="button" on:click={() => onPageChange(index + 1)}>{index + 1}</button>
 						</li>
 					{/each}
-					{#if totalPages > 5}
-						<li class="pagination-number">
-							<button type="button">...</button>
-						</li>
-					{/if}
 					<li class="pagination-next">
 						<button type="button" on:click={next}>
 							<Icon src={ChevronRight} class="h-3 w-3" />

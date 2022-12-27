@@ -14,11 +14,11 @@
 		currentTab = tabs[0].id
 	})
 
-	const onHandleTabChange = (tab: Kantina.Tab) => (currentTab = tab.id)
+	const onTabChange = (tab: Kantina.Tab) => (currentTab = tab.id)
 </script>
 
 <div class="w-full">
-	<TabGroup {tabs} {currentTab} onChange={onHandleTabChange}>
+	<TabGroup {tabs} {currentTab} onChange={onTabChange}>
 		{#if currentTab === 'general'}
 			<GeneralTab />
 		{:else if currentTab === 'security'}

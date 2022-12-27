@@ -4,10 +4,17 @@ import type { PageLoad } from './$types'
 
 export const load = (async ({ params }) => {
 	try {
+		const product = await pocketbase.collection('products').getOne<Product>(params.id, {
+			expand: 'store'
+		})
+		const result = await pocketbase.collection('products').getList<Product>(1, 5, {
+			filter: `category="${product.category}" && id != "${params.id}"`,
+			expand: 'store'
+		})
+
 		return {
-			product: await pocketbase.collection('products').getOne<Product>(params.id, {
-				expand: 'store'
-			}),
+			product,
+			related: result.items,
 			ratings: await pocketbase.collection('ratings').getFullList<Rating>(undefined, {
 				filter: `product="${params.id}"`,
 				expand: 'user'

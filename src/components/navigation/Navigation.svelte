@@ -14,15 +14,15 @@
 
 	export let cartItems: number = 0
 
-	const { form, handleChange, handleSubmit } = createForm({
+	const { form, handleSubmit } = createForm({
 		initialValues: {
 			searchQuery: ''
 		},
 		onSubmit: (formData) => {
 			let url = new URL('/search', $page.url.origin)
 			url.searchParams.set('query', formData.searchQuery)
-			goto(url)
 
+			goto(url, { invalidateAll: true, replaceState: true })
 			if (searchOpened) searchOpened = !searchOpened
 		}
 	})
@@ -45,7 +45,7 @@
 	SearchQueryStore.subscribe((data) => (currentQuery = data))
 	UserStore.subscribe((data) => (user = data))
 
-	const handleDropdownClick = (item: string) => {
+	const onDropdownClick = (item: string) => {
 		switch (item) {
 			case 'merchant':
 				goto('/merchant')
@@ -83,17 +83,18 @@
 							<Icon src={MagnifyingGlass} class="h-5 w-5 text-gray-500" />
 						</button>
 						<input
+							required
 							type="text"
 							id="search-navbar"
 							class="block w-full p-2 pl-10 text-sm text-gray-800 border border-gray-200 rounded-lg bg-gray-50 ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none transition-all"
 							placeholder={currentQuery ?? 'Search for products...'}
-							on:change={handleChange}
+							aria-required="true"
 							bind:value={$form.searchQuery} />
 					</form>
 				</div>
 			</div>
 		{/if}
-		<div class="flex items-center gap-8 md:order-2">
+		<div class="flex items-center gap-6 md:order-2">
 			{#if $page.url.pathname !== '/'}
 				<button
 					data-collapse-toggle="navbar-search"
@@ -161,20 +162,18 @@
 						<button
 							type="button"
 							class="nav-dropdown-button"
-							on:click={() => handleDropdownClick('merchant')}>Merchant Center</button>
+							on:click={() => onDropdownClick('merchant')}>Merchant Center</button>
 					</li>
 				{/if}
 				<li class="nav-dropdown-item">
 					<button
 						type="button"
 						class="nav-dropdown-button"
-						on:click={() => handleDropdownClick('account')}>Account Settings</button>
+						on:click={() => onDropdownClick('account')}>Account Settings</button>
 				</li>
 				<li class="nav-dropdown-item">
-					<button
-						type="button"
-						class="nav-dropdown-button"
-						on:click={() => handleDropdownClick('end')}>Sign Out</button>
+					<button type="button" class="nav-dropdown-button" on:click={() => onDropdownClick('end')}
+						>Sign Out</button>
 				</li>
 			</ul>
 		</div>
@@ -188,12 +187,12 @@
 				<div class="relative">
 					<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none" />
 					<input
+						required
 						type="search"
 						id="searchQuery"
 						class="block w-full p-4 text-sm text-gray-800 outline outline-gray-300 rounded-lg bg-gray-100 focus:ring-orange-500 focus:outline-2 focus:outline-orange-500"
 						placeholder="Search for food, drinks, menus or stalls..."
-						required
-						on:change={handleChange}
+						aria-required="true"
 						bind:value={$form.searchQuery} />
 					<button
 						type="submit"

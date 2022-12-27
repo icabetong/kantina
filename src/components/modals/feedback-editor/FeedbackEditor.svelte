@@ -9,14 +9,13 @@
 
 	export let isOpen: boolean
 	export let product: Product
-	const stars = [1, 2, 3, 4, 5]
 
 	let rating = 0
 	const changeRating = (star: number) => (rating = star)
 
 	let title: string = ''
 	let description: string = ''
-	const save = async () => {
+	const onSave = async () => {
 		const userId = pocketbase.authStore.model?.id
 		if (!userId) return
 
@@ -54,12 +53,12 @@
 		</p>
 		<div class="flex items-center justify-center gap-4 mb-4 text-sm text-gray-400">
 			<div>Not Satisfied</div>
-			{#each stars as star}
-				<button type="button" id={`${star}`} on:click={() => changeRating(star)}>
+			{#each Array(5) as _, index}
+				<button type="button" id={`${index}`} on:click={() => changeRating(index + 1)}>
 					<Icon
 						src={Star}
 						class="w-8 h-8 text-yellow-400"
-						theme={star <= rating ? 'solid' : 'outline'} />
+						theme={index + 1 <= rating ? 'solid' : 'outline'} />
 				</button>
 			{/each}
 			<div>Very Satisfied</div>
@@ -94,7 +93,7 @@
 	</div>
 
 	<div slot="actions" class="flex flex-row gap-4">
-		<Button type="button" isLoading={isWorking} loadingText="Saving" on:click={save}>Save</Button>
+		<Button type="button" isLoading={isWorking} loadingText="Saving" on:click={onSave}>Save</Button>
 		<button type="button" class="btn-outlined" on:click={closeModal}>Cancel</button>
 	</div>
 </Modal>

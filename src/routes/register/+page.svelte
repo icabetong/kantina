@@ -14,7 +14,7 @@
 
 	let error: string | null = null
 	let isWorking: boolean = false
-	const { form, handleChange, handleSubmit } = createForm({
+	const { form, handleSubmit } = createForm({
 		initialValues: {
 			firstName: '',
 			lastName: '',
@@ -63,7 +63,6 @@
 						class="form-control-input"
 						placeholder="Joachim"
 						aria-required="true"
-						on:change={handleChange}
 						bind:value={$form.firstName} />
 				</div>
 				<div class="form-control-group">
@@ -75,7 +74,6 @@
 						class="form-control-input"
 						placeholder="von Ribbentrop"
 						aria-required="true"
-						on:change={handleChange}
 						bind:value={$form.lastName} />
 				</div>
 				<div class="form-control-group">
@@ -87,7 +85,6 @@
 						class="form-control-input"
 						placeholder="name@kantina.com"
 						aria-required="true"
-						on:change={handleChange}
 						bind:value={$form.email} />
 				</div>
 				<div class="form-control-group">
@@ -99,7 +96,6 @@
 						class="form-control-input"
 						placeholder="••••••••••"
 						aria-required="true"
-						on:change={handleChange}
 						bind:value={$form.password} />
 				</div>
 				<div class="form-control-group">
@@ -110,7 +106,6 @@
 						class="form-control-dropdown"
 						aria-required="true"
 						aria-describedby="helper-text-explanation"
-						on:change={handleChange}
 						bind:value={$form.type}>
 						<option selected>Select one</option>
 						<option value="customer">Customer</option>
