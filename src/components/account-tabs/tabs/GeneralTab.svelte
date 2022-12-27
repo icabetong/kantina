@@ -150,7 +150,7 @@
 						class="form-control-input"
 						bind:value={$form['lastName']} />
 				</div>
-				<div class="form-control">
+				<div class="form-control-group">
 					<label for="username" class="form-control-label">Username</label>
 					<input
 						type="text"

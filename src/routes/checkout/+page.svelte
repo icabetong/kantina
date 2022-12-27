@@ -8,7 +8,7 @@
 		<EmptyState
 			icon="/images/under-construction.svg"
 			title="Under Construction"
-			message="This page have not been build yet, check it out later." />
+			message="This page have not been built yet, check it out later." />
 	</div>
 </div>
 

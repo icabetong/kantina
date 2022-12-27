@@ -8,7 +8,7 @@ export const load = (async ({ url }) => {
 		const userId = pocketbase.authStore.model?.id
 		const page: number = parseInt(url.searchParams.get('page') ?? '1')
 
-		if (!userId) throw error(401, 'Kebab')
+		if (!userId) throw error(401, 'Authentication Required')
 
 		const store: Store = await pocketbase.collection('stores').getFirstListItem(`owner="${userId}"`)
 		const result: ListResult<Product> = await pocketbase.collection('products').getList(page, 50, {
@@ -26,6 +26,6 @@ export const load = (async ({ url }) => {
 	} catch (e) {
 		if (e instanceof Error) throw error(401, e.message)
 
-		throw error(500, 'Internal Error')
+		throw error(500, 'Internal Server Error')
 	}
 }) satisfies PageLoad
