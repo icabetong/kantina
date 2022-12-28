@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { parseFileUrl } from '$lib/files'
+	import { getColor100, getTextColor800 } from '$shared/color'
 
 	export let product: Product
 </script>
@@ -28,7 +29,9 @@
 		<div class="w-full justify-center inline-flex mt-2 px-2 md:w-32 md:mt-0 md:px-0 md:justify-end">
 			{#if product.expand?.store.name}
 				<div
-					class=" bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded truncate max-w-full">
+					class={`${getColor100(product.expand?.store.color)} ${getTextColor800(
+						product.expand?.store.color
+					)} text-xs font-semibold px-2.5 py-0.5 rounded truncate max-w-full`}>
 					{product.expand?.store.name}
 				</div>
 			{/if}

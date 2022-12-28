@@ -1,4 +1,4 @@
-<div class="page min-h-screen text-gray-800">
+<div class="page min-h-screen text-gray-800 marker:text-orange-500">
 	<h1 class="page-header">Privacy Policy</h1>
 	<div class="space-y-2">
 		<p class="">Last updated: December 27, 2022</p>
@@ -393,8 +393,6 @@
 </svelte:head>
 
 <style lang="postcss">
-	@tailwind components;
-
 	p {
 		@apply text-gray-700;
 	}

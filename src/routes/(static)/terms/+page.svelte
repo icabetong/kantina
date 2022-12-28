@@ -1,4 +1,4 @@
-<div class="page min-h-screen">
+<div class="page min-h-screen marker:text-orange-500">
 	<h1 class="page-header">Terms and Conditions</h1>
 	<div class="space-y-2">
 		<p>Welcome to Kantina!</p>
@@ -262,9 +262,11 @@
 	</div>
 </div>
 
-<style lang="postcss">
-	@tailwind components;
+<svelte:head>
+	<title>Terms and Conditions - Kantina</title>
+</svelte:head>
 
+<style lang="postcss">
 	p {
 		@apply text-gray-700;
 	}

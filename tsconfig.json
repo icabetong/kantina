@@ -18,7 +18,8 @@
 			"$stores/*": ["src/stores/*"],
 			"$shared": ["src/shared"],
 			"$shared/*": ["src/shared/*"]
-		}
+		},
+		"types": ["vitest/globals"]
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//

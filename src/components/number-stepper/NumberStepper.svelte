@@ -44,11 +44,7 @@
 </div>
 
 <style lang="postcss">
-	@tailwind components;
-
-	@layer components {
-		.stepper {
-			@apply inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 disabled:text-gray-300 disabled:hover:bg-white;
-		}
+	.stepper {
+		@apply inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 disabled:text-gray-300 disabled:hover:bg-white;
 	}
 </style>

@@ -4,7 +4,7 @@
 	import Button from '$components/button/Button.svelte'
 	import Modal from '$components/modals/Modal.svelte'
 	import { Icon } from '@steeze-ui/svelte-icon'
-	import { Folder, XMark, ExclamationTriangle } from '@steeze-ui/heroicons'
+	import { ExclamationTriangle } from '@steeze-ui/heroicons'
 	import { createForm } from 'svelte-forms-lib'
 	import { closeModal } from 'svelte-modals'
 	import UserStore from '$stores/auth'
@@ -77,7 +77,6 @@
 
 	let hasDiscount: boolean = false
 	let file: string | ArrayBuffer | null = null
-	let imageName: string | null = null
 	let fileInput: HTMLInputElement
 
 	const onFileSelected = (event: Event) => {
@@ -87,7 +86,6 @@
 			let image = target.files && target.files[0]
 			if (!image) return
 
-			imageName = image.name
 			let reader = new FileReader()
 			reader.readAsDataURL(image)
 			reader.onload = (event: ProgressEvent<FileReader>) => {
@@ -201,37 +199,10 @@
 					<input
 						type="file"
 						id="image"
-						class="hidden"
 						accept="image/*"
+						class="form-control-file"
 						on:change={onFileSelected}
 						bind:this={fileInput} />
-					<div class="flex flex-row text-sm w-full">
-						<button
-							type="button"
-							class="flex flex-row items-center text-white bg-orange-500 px-2 border-y border-l rounded-y-lg rounded-l-lg"
-							on:click={onBrowseImage}>
-							<Icon src={Folder} class="h-5 w-5" />
-							<span class="sr-only">Browse Image</span>
-						</button>
-						<div
-							class="block relative w-full bg-gray-50 border-gray-300 border-y border-r rounded-r-lg rounded-y-lg py-2 pl-2 pr-8 truncate">
-							{#if imageName}
-								{imageName}
-							{:else if product?.image}
-								{product.image}
-							{:else}
-								<span class="text-gray-500">Browse for image</span>
-							{/if}
-							{#if file || product?.image}
-								<button
-									type="button"
-									class="absolute top-0 right-0 p-2.5 hover:bg-gray-200"
-									on:click={onRemoveCurrentImage}>
-									<Icon src={XMark} class="w-4 h-4" />
-								</button>
-							{/if}
-						</div>
-					</div>
 					<div class="mt-2">
 						<h6 class="text-sm">Preview</h6>
 						{#if file && typeof file === 'string'}

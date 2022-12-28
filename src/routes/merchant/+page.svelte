@@ -1,16 +1,17 @@
 <script lang="ts">
 	import { page } from '$app/stores'
 	import { goto } from '$app/navigation'
+	import { createForm } from 'svelte-forms-lib'
 	import { openModal } from 'svelte-modals'
 	import { Icon } from '@steeze-ui/svelte-icon'
-	import { MagnifyingGlass, Plus, BuildingStorefront } from '@steeze-ui/heroicons'
-	import type { PageData } from './$types'
+	import { MagnifyingGlass, Plus, BuildingStorefront, XMark } from '@steeze-ui/heroicons'
 	import Pagination from '$components/pagination/Pagination.svelte'
 	import ProductTable from '$components/product-table/ProductTable.svelte'
 	import ProductModal from '$components/modals/product-editor/ProductEditor.svelte'
 	import ConfirmationModal from '$components/modals/confirm-modal/ConfirmModal.svelte'
 	import StoreProperties from '$components/modals/store-properties/StoreProperties.svelte'
 	import pocketbase from '$lib/backend'
+	import type { PageData } from './$types'
 
 	export let data: PageData
 
@@ -74,6 +75,28 @@
 	}
 
 	const onStorePropertiesTriggered = () => openModal(StoreProperties, { store: userStore })
+
+	const onFormReset = () => {
+		const destinationURL = new URL($page.url)
+		const urlParams = destinationURL.searchParams
+		urlParams.delete('query')
+
+		goto(destinationURL, { replaceState: true })
+	}
+	const { form, handleSubmit } = createForm({
+		initialValues: {
+			query: ''
+		},
+		onSubmit: async (form) => {
+			if (!form.query) return
+
+			const destinationURL = new URL($page.url)
+			const urlParams = destinationURL.searchParams
+			urlParams.set('query', form.query)
+
+			goto(destinationURL, { replaceState: true })
+		}
+	})
 </script>
 
 <div class="page w-full min-h-screen flex flex-col items-center justify-center">
@@ -96,7 +119,10 @@
 				<span class="hidden md:inline-block">Store Properties</span>
 			</button>
 		</div>
-		<div class="w-1/2 flex-initial flex justify-end">
+		<form
+			class="w-1/2 flex-initial flex items-center justify-end"
+			on:submit|preventDefault={handleSubmit}
+			on:reset={onFormReset}>
 			<label for="table-search" class="sr-only">Search</label>
 			<div class="relative w-full md:w-fit">
 				<div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -105,10 +131,24 @@
 				<input
 					type="text"
 					id="table-search"
-					class="block p-2 pl-10 w-full md:w-80 text-sm text-gray-800 bg-white shadow rounded-lg border border-gray-300 ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none transition-all"
-					placeholder="Search for items" />
+					class="block p-2.5 pl-10 pr-10 w-full md:w-80 text-sm text-gray-800 bg-white shadow rounded-lg border border-gray-300 ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none transition-all"
+					placeholder="Search for items"
+					bind:value={$form.query} />
+				{#if $form.query && $form.query.length > 0}
+					<button
+						type="reset"
+						class="absolute inset-y-0 right-0 flex items-center m-2 p-1 rounded-lg hover:bg-gray-100">
+						<Icon src={XMark} class="w-5 h-5" />
+					</button>
+				{/if}
 			</div>
-		</div>
+			<button
+				type="submit"
+				class="hidden p-2.5 ml-2 text-sm font-medium text-white bg-orange-500 rounded-lg border border-orange-500 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300">
+				<Icon src={MagnifyingGlass} class="w-5 h-5" />
+				<span class="sr-only">Search</span>
+			</button>
+		</form>
 	</div>
 	<div class="flex-1 mt-6 w-full">
 		<ProductTable {products} onProductClick={onTriggerEdit} onProductRemove={onTriggerRemove} />

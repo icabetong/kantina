@@ -1,19 +1,24 @@
 import { error } from '@sveltejs/kit'
 import pocketbase from '$lib/backend'
 import type { PageLoad } from './$types'
-import type { ListResult } from 'pocketbase'
+import type { ListResult, RecordListQueryParams } from 'pocketbase'
 
 export const load = (async ({ url }) => {
 	try {
 		const userId = pocketbase.authStore.model?.id
+		const query = url.searchParams.get('query')
 		const page: number = parseInt(url.searchParams.get('page') ?? '1')
 
 		if (!userId) throw error(401, 'Authentication Required')
 
 		const store: Store = await pocketbase.collection('stores').getFirstListItem(`owner="${userId}"`)
-		const result: ListResult<Product> = await pocketbase.collection('products').getList(page, 50, {
-			filter: `store="${store.id}"`
-		})
+
+		const params: RecordListQueryParams = { filter: `store = "${store.id}" ` }
+		if (query) params.filter += `&& name ~ "${query}"`
+
+		const result: ListResult<Product> = await pocketbase
+			.collection('products')
+			.getList(page, 50, params)
 
 		return {
 			store: store,

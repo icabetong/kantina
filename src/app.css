@@ -89,8 +89,11 @@ a {
 	.form-control-dropdown-dense {
 		@apply bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 focus:outline-orange-500 block w-full p-2;
 	}
+	.form-control-file {
+		@apply file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-500 hover:file:bg-orange-100;
+	}
 	.btn-primary {
-		@apply px-5 py-2 text-white bg-gradient-to-br to-pink-500 from-orange-500 transition-all shadow hover:to-pink-700 hover:from-orange-500 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm focus:outline-none disabled:from-orange-300 disabled:to-pink-300 disabled:cursor-not-allowed;
+		@apply px-5 py-2 text-white bg-gradient-to-br to-pink-500 from-orange-500 transition-all drop-shadow hover:drop-shadow-xl focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm focus:outline-none disabled:from-orange-300 disabled:to-pink-300 disabled:cursor-not-allowed;
 	}
 	.btn-outlined {
 		@apply py-2 px-5 text-sm font-medium text-gray-800 focus:outline-none bg-white rounded-lg border border-gray-200 transition-all hover:text-orange-700 hover:border-orange-500 focus:z-10 focus:ring-4 focus:ring-gray-200 disabled:text-gray-200 disabled:hover:bg-white disabled:cursor-not-allowed disabled:hover:text-gray-200 disabled:hover:border-gray-200;

@@ -11,6 +11,7 @@
 	import { page } from '$app/stores'
 	import { openModal } from 'svelte-modals'
 	import CreateStore from '$components/modals/create-store/CreateStore.svelte'
+	import UpdateAvatar from '$components/modals/update-avatar/UpdateAvatar.svelte'
 
 	const user = $UserStore
 	let isWorking: boolean = false
@@ -32,34 +33,6 @@
 			}
 		}
 	})
-
-	let hasChanged = false
-	let avatar: string | ArrayBuffer | null = null
-	let fileInput: HTMLInputElement
-	const onFileInputTapped = () => fileInput.click()
-	const onFileSelected = (event: Event) => {
-		if (event && event.target !== null) {
-			const target = event.target as HTMLInputElement
-
-			let image = target.files && target.files[0]
-			if (!image) return
-
-			let reader = new FileReader()
-			reader.readAsDataURL(image)
-			reader.onload = (event: ProgressEvent<FileReader>) => {
-				avatar = event.target?.result ?? null
-				hasChanged = true
-			}
-		}
-	}
-	const onUpdateAvatar = async () => {
-		if (!fileInput.files) return
-		if (!user) return
-
-		const formData = new FormData()
-		formData.append('avatar', fileInput.files[0])
-		await pocketbase.collection('users').update(user.id, formData)
-	}
 
 	const onChangeToMerchant = () => {
 		openModal(CreateStore)
@@ -88,14 +61,15 @@
 			changePending = false
 		}
 	}
+
+	const onTriggerAvatarChange = () => openModal(UpdateAvatar, { userId: user?.id ?? null })
 </script>
 
-<section id="avatar-settings" class="flex flex-col md:flex-row mb-8 gap-8">
+<h3 class="text-lg font-semibold">Profile Information</h3>
+<section id="avatar-settings" class="w-full flex flex-col md:flex-row mt-4 mb-8 gap-8">
 	<div class="flex-1 flex flex-col md:flex-row gap-4">
-		<div>
-			{#if avatar && typeof avatar === 'string'}
-				<img src={avatar} alt="avatar" class="w-36 h-36 rounded-full" />
-			{:else if user && user?.avatar}
+		<button type="button" on:click={onTriggerAvatarChange}>
+			{#if user && user?.avatar}
 				<img
 					src={parseFileUrl('users', user.id, user.avatar)}
 					alt="avatar"
@@ -105,32 +79,10 @@
 					<Icon src={User} class="w-24 h-24 rounded-full text-white" />
 				</div>
 			{/if}
-		</div>
-		<div class="flex-1 flex flex-col-reverse items-start gap-2">
-			<button
-				type="button"
-				class="btn-outlined py-2 px-3 w-20 text-xs"
-				on:click={onFileInputTapped}>
-				Browse
-			</button>
-			{#if hasChanged}
-				<button type="button" class="btn-primary py-2 px-3 w-20 text-xs" on:click={onUpdateAvatar}>
-					Save
-				</button>
-			{/if}
-		</div>
-	</div>
-	<div class="flex-1">
-		<input
-			type="file"
-			id="avatar"
-			accept="image/*"
-			class="hidden"
-			on:change={onFileSelected}
-			bind:this={fileInput} />
+		</button>
 	</div>
 </section>
-<section id="information">
+<section id="information" class="w-full">
 	<form class="flex-1 w-full flex flex-col mt-8" on:submit|preventDefault={handleSubmit}>
 		<div class="h-full w-full flex flex-col md:flex-row items-start gap-8">
 			<div class="flex-1 w-full h-full">
@@ -188,8 +140,8 @@
 	</form>
 </section>
 {#if user?.type === 'customer'}
-	<section id="upgrade-to-merchant" class="mt-12 mb-12 w-full md:w-1/2">
-		<h3 class="font-semibold text-xl text-orange-500">Upgrade to Merchant Account</h3>
+	<section id="upgrade-to-merchant" class="my-12 w-full md:max-w-screen-sm">
+		<h3 class="font-semibold text-lg">Upgrade to Merchant Account</h3>
 		<p class="mt-1 mb-4 text-gray-500 text-md">
 			Upgrading to Merchant account enables selling to Kantina. However you need to be a valid stall
 			owner or vendor to continue. Contact the administration for further details.
@@ -206,8 +158,8 @@
 		<button type="button" class="btn-primary" on:click={onChangeToMerchant}>Upgrade</button>
 	</section>
 {:else}
-	<section id="downgrade-to-customer" class="mt-12 w-full md:w-1/2">
-		<h3 class="font-semibold text-xl text-orange-500">Downgrade to Customer Account</h3>
+	<section id="downgrade-to-customer" class="my-12 w-full md:max-w-screen-sm">
+		<h3 class="font-semibold text-lg">Downgrade to Customer Account</h3>
 		<p class="mt-1 mb-4 text-gray-500 text-md">
 			Downgrading to Customer account disables selling to Kantina. This will also delete your store
 			and products in the database.
@@ -221,7 +173,8 @@
 				</div>
 			</div>
 		{/if}
-		<Button isLoading={changePending} loadingText="Processing" on:click={onChangeToCustomer}
-			>Downgrade</Button>
+		<Button isLoading={changePending} loadingText="Processing" on:click={onChangeToCustomer}>
+			Downgrade
+		</Button>
 	</section>
 {/if}

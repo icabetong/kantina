@@ -234,20 +234,16 @@
 </svelte:head>
 
 <style lang="postcss">
-	@tailwind components;
-
-	@layer components {
-		.filter-group {
-			@apply w-full mb-3;
-		}
-		.filter-group-label-container {
-			@apply flex items-center justify-between mb-2;
-		}
-		.filter-group-label {
-			@apply font-semibold;
-		}
-		.filter-reset {
-			@apply text-sm text-gray-500 font-normal hover:underline hover:text-orange-500;
-		}
+	.filter-group {
+		@apply w-full mb-3;
+	}
+	.filter-group-label-container {
+		@apply flex items-center justify-between mb-2;
+	}
+	.filter-group-label {
+		@apply font-semibold;
+	}
+	.filter-reset {
+		@apply text-sm text-gray-500 font-normal hover:underline hover:text-orange-500;
 	}
 </style>

@@ -12,9 +12,9 @@
 	})
 </script>
 
-<form class="flex-1 w-full flex flex-col mt-8" on:submit|preventDefault={handleSubmit}>
-	<div class="flex flex-col items-start">
-		<div class="w-full md:w-1/2">
+<section id="update-password" class="w-full md:max-w-screen-sm">
+	<form class="flex-1 w-full flex flex-col" on:submit|preventDefault={handleSubmit}>
+		<div class="flex flex-col items-start">
 			<h3 class="text-lg font-semibold">Update or Reset Password</h3>
 			<p class="text-gray-500 mb-4">
 				If your password has been compromised, you can update your password by sending the
@@ -34,5 +34,5 @@
 			</div>
 			<button type="submit" class="btn-primary">Continue</button>
 		</div>
-	</div>
-</form>
+	</form>
+</section>

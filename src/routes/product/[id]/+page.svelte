@@ -85,10 +85,10 @@
 				<img
 					src={parseFileUrl('products', product.id, product.image)}
 					alt={product.name}
-					class="object-cover w-80 h-80" />
+					class="object-contain w-80 h-80" />
 			{:else}
 				<!-- svelte-ignore a11y-img-redundant-alt -->
-				<img src="/images/meal.svg" alt="placeholder image" class="object-cover px-8 py-14" />
+				<img src="/images/meal.svg" alt="placeholder image" class="object-contain px-8 py-14" />
 			{/if}
 		</div>
 		<div class="flex-1 w-full">

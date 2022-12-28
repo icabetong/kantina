@@ -11,7 +11,7 @@
 	export let disabled = false
 </script>
 
-<button {type} {disabled} class={`btn-primary ${classes}`} on:click={click}>
+<button {type} {disabled} class={`btn-primary ${classes}`} data-testid="button" on:click={click}>
 	{#if isLoading}
 		<div class="flex items-center">
 			<svg

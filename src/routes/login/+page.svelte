@@ -43,10 +43,10 @@
 					</div>
 				{/if}
 				<div class="form-control-group">
-					<label for="email" class="form-control-label"> Email </label>
+					<label for="email" class="form-control-label"> Username or Email </label>
 					<input
 						required
-						type="email"
+						type="text"
 						id="email"
 						class="form-control-input"
 						placeholder="name@kantina.com"
