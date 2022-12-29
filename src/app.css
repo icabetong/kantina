@@ -48,7 +48,7 @@ a {
 		@apply w-full text-start;
 	}
 	.page-header {
-		@apply mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-800;
+		@apply text-3xl font-extrabold tracking-tight leading-none text-gray-800;
 	}
 	.form-root {
 		@apply bg-white px-6 py-8 shadow rounded w-full sm:w-2/3 lg:w-1/2 md:py-10 md:px-8;

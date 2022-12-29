@@ -61,6 +61,7 @@ interface Product extends Record {
 	price: number
 	currentPrice?: number
 	quantity: number
+	store: string
 	category: ProductCategory
 	created: number
 	updated: number
@@ -95,6 +96,20 @@ interface Rating extends Record {
 	expand?: {
 		user: User
 		product: Product
+	}
+}
+interface Order extends Record {
+	id: string
+	customer: string
+	store: string
+	status: string
+	reference?: string
+	products: string[]
+	created: number
+	updated: number
+	expand?: {
+		customer: User
+		store: Store
 	}
 }
 

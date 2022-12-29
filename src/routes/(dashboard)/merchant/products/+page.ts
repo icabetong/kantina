@@ -29,7 +29,6 @@ export const load = (async ({ url }) => {
 			.getList(page, 50, params)
 
 		return {
-			store: store,
 			items: result.items,
 			count: result.totalItems,
 			pages: result.totalPages,

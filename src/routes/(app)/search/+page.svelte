@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { page } from '$app/stores'
 	import { goto } from '$app/navigation'
+	import { page } from '$app/stores'
 	import EmptyState from '$components/empty-state/EmptyState.svelte'
 	import Pagination from '$components/pagination/Pagination.svelte'
 	import ProductCard from '$components/product-card/ProductCard.svelte'
@@ -111,14 +111,17 @@
 		goto(destinationURL)
 	}
 
-	const onHandlePageChange = (page: number) => {
-		if (page > totalPages || page <= 0) return
+	const onHandlePageChange = (event: CustomEvent) => {
+		try {
+			const currentPage = parseInt(event.detail)
+			if (currentPage > totalPages || currentPage <= 0) return
 
-		const destinationURL = new URL($page.url)
-		const urlParams = destinationURL.searchParams
-		urlParams.set('page', `${page}`)
+			const destinationURL = new URL($page.url)
+			const urlParams = destinationURL.searchParams
+			urlParams.set('page', `${page}`)
 
-		goto(destinationURL, { replaceState: true })
+			goto(destinationURL, { replaceState: true })
+		} catch (ignored) {}
 	}
 	const onPreviousList = () => {
 		if (currentPage - 1 <= 0) return
@@ -216,7 +219,7 @@
 					{currentPage}
 					{perPage}
 					{totalItems}
-					onPageChange={onHandlePageChange}
+					on:change={onHandlePageChange}
 					on:next={onNextList}
 					on:previous={onPreviousList} />
 			{:else}

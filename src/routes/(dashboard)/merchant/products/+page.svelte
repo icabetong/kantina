@@ -1,14 +1,13 @@
 <script lang="ts">
 	import { createForm } from 'svelte-forms-lib'
 	import { openModal } from 'svelte-modals'
-	import { BuildingStorefront, MagnifyingGlass, Plus, XMark } from '@steeze-ui/heroicons'
+	import { MagnifyingGlass, Plus, XMark } from '@steeze-ui/heroicons'
 	import { Icon } from '@steeze-ui/svelte-icon'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
 	import Dropdown from '$components/dropdown/Dropdown.svelte'
 	import ConfirmationModal from '$components/modals/confirm-modal/ConfirmModal.svelte'
 	import ProductModal from '$components/modals/product-editor/ProductEditor.svelte'
-	import StoreProperties from '$components/modals/store-properties/StoreProperties.svelte'
 	import Pagination from '$components/pagination/Pagination.svelte'
 	import ProductTable from '$components/product-table/ProductTable.svelte'
 	import Switch from '$components/switch/Switch.svelte'
@@ -18,9 +17,8 @@
 	export let data: PageData
 
 	$: {
-		const { items, store, page, paginated, count, pages } = data
+		const { items, page, paginated, count, pages } = data
 		products = items
-		userStore = store
 		currentPage = page
 		perPage = paginated
 		totalItems = count
@@ -80,8 +78,6 @@
 
 		goto(destinationURL, { replaceState: true })
 	}
-
-	const onStorePropertiesTriggered = () => openModal(StoreProperties, { store: userStore })
 
 	const onPageChange = (event: CustomEvent) => {
 		const newPage = event.detail
@@ -164,9 +160,9 @@
 	}
 </script>
 
-<div class="page w-full min-h-screen flex flex-col items-center justify-center">
+<div class="max-w-screen-xl p-8 w-full min-h-screen flex flex-col items-center justify-center">
 	<div class="w-full flex items-center justify-between mb-6">
-		<h2 class="page-header text-start">Merchant Center</h2>
+		<h2 class="page-header text-start">Products</h2>
 		<button
 			class="btn-primary shadow inline-flex items-center transition-all"
 			on:click={onTriggerAdd}>
@@ -174,20 +170,13 @@
 			<span class="hidden md:inline-block">Add Product</span>
 		</button>
 	</div>
-	<div class="w-full flex flex-row items-center">
+	<div class="w-full flex items-center">
 		<div class="w-1/2 flex-initial flex items-center">
-			<button
-				type="button"
-				class="btn-outlined flex flex-row items-center px-6 py-3"
-				on:click={onStorePropertiesTriggered}>
-				<Icon src={BuildingStorefront} class="h-5 w-5 md:mr-2" />
-				<span class="hidden md:inline-block">Store Properties</span>
-			</button>
-		</div>
-		<div class="w-1/2 flex-initial flex items-center justify-end gap-2">
 			<Dropdown>
 				<Switch checked={hideItems} label="Hide publicly hidden items" on:change={onHide} />
 			</Dropdown>
+		</div>
+		<div class="w-1/2 flex-initial flex items-center justify-end gap-2">
 			<form on:submit|preventDefault={handleSubmit} on:reset={onFormReset}>
 				<label for="table-search" class="sr-only">Search</label>
 				<div class="relative w-full md:w-fit">
@@ -240,5 +229,5 @@
 </div>
 
 <svelte:head>
-	<title>Merchant Center - Kantina</title>
+	<title>Products - Merchant Center</title>
 </svelte:head>

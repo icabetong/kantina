@@ -2,12 +2,11 @@
 	import { Icon } from '@steeze-ui/svelte-icon'
 	import { ChevronDown } from '@steeze-ui/heroicons'
 	import { createPopperActions } from 'svelte-popperjs'
-	import Switch from '$components/switch/Switch.svelte'
 	import { clickOutside } from '$shared/click-outside'
 
 	let isOpen = false
 	const [dropdownRef, dropdownContent] = createPopperActions({
-		placement: 'bottom-end'
+		placement: 'bottom-start'
 	})
 	const extraOptions = {
 		modifiers: [{ name: 'offset', options: { offset: [0, 8] } }]
