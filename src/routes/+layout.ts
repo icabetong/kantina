@@ -1,6 +1,6 @@
-import pocketbase from '$lib/backend'
-import { error } from '@sveltejs/kit'
 import type { ListResult } from 'pocketbase'
+import { error } from '@sveltejs/kit'
+import pocketbase from '$lib/backend'
 
 export async function load() {
 	try {

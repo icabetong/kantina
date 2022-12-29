@@ -53,6 +53,7 @@ interface Store extends Record {
 	name: string
 	status: 'operational' | 'deactivated'
 	color: string
+	image?: string
 }
 interface Product extends Record {
 	id: string

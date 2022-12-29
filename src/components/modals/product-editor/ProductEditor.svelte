@@ -1,15 +1,15 @@
 <script lang="ts">
+	import { createForm } from 'svelte-forms-lib'
+	import { closeModal } from 'svelte-modals'
+	import { ExclamationTriangle } from '@steeze-ui/heroicons'
+	import { Icon } from '@steeze-ui/svelte-icon'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
 	import Button from '$components/button/Button.svelte'
 	import Modal from '$components/modals/Modal.svelte'
-	import { Icon } from '@steeze-ui/svelte-icon'
-	import { ExclamationTriangle } from '@steeze-ui/heroicons'
-	import { createForm } from 'svelte-forms-lib'
-	import { closeModal } from 'svelte-modals'
-	import UserStore from '$stores/auth'
 	import pocketbase from '$lib/backend'
 	import { parseFileUrl } from '$lib/files'
+	import UserStore from '$stores/auth'
 
 	export let isOpen: boolean
 	export let store: Store
@@ -92,14 +92,6 @@
 				file = event.target?.result ?? null
 			}
 		}
-	}
-
-	const onBrowseImage = () => fileInput.click()
-	const onRemoveCurrentImage = () => {
-		if (product?.image) {
-			product.image = null
-			hasRemovedImage = true
-		} else file = null
 	}
 </script>
 
