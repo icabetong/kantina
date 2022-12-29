@@ -14,9 +14,12 @@ export const load = (async ({ url }) => {
 		const store: Store = await pocketbase.collection('stores').getFirstListItem(`owner="${userId}"`)
 		const field = url.searchParams.get('field')
 		const direction = url.searchParams.get('direction')
+		const hide = url.searchParams.get('hide')
 
 		const params: RecordListQueryParams = { filter: `store = "${store.id}" ` }
 		if (query) params.filter += `&& name ~ "${query}"`
+
+		if (hide === 'true') params.filter += `&& visible = ${hide}`
 
 		const directionToken = direction === 'descending' ? '-' : '+'
 		if (field) params.sort = `${directionToken}${field}`
