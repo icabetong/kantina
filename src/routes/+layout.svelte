@@ -26,6 +26,7 @@
 </script>
 
 <PageProgress />
+
 <header class="z-10"><Navigation cartItems={cart.length} /></header>
 <main class="flex-1 bg-white">
 	<slot />

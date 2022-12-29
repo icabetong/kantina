@@ -76,6 +76,13 @@
 
 	const onStorePropertiesTriggered = () => openModal(StoreProperties, { store: userStore })
 
+	const onPageChange = (page: number) => {
+		const destinationURL = new URL($page.url)
+		const urlParams = destinationURL.searchParams
+		urlParams.set('page', page.toString())
+
+		goto(destinationURL, { replaceState: true })
+	}
 	const onFormReset = () => {
 		const destinationURL = new URL($page.url)
 		const urlParams = destinationURL.searchParams
@@ -97,6 +104,21 @@
 			goto(destinationURL, { replaceState: true })
 		}
 	})
+
+	const onSearchQueryChanged = (event: KeyboardEvent) => {
+		if (event.code === 'Enter' || event.code === 'Backspace') {
+			const query: string =
+				event.target && 'value' in event.target ? (event.target.value as string) : ''
+			// use form to handle
+			if (query.trim().length > 0) return
+
+			const destinationURL = new URL($page.url)
+			const urlParams = destinationURL.searchParams
+			urlParams.delete('query')
+
+			goto(destinationURL, { replaceState: true })
+		}
+	}
 </script>
 
 <div class="page w-full min-h-screen flex flex-col items-center justify-center">
@@ -133,6 +155,7 @@
 					id="table-search"
 					class="block p-2.5 pl-10 pr-10 w-full md:w-80 text-sm text-gray-800 bg-white shadow rounded-lg border border-gray-300 ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none transition-all"
 					placeholder="Search for items"
+					on:keyup={onSearchQueryChanged}
 					bind:value={$form.query} />
 				{#if $form.query && $form.query.length > 0}
 					<button
@@ -159,6 +182,7 @@
 				{currentPage}
 				{perPage}
 				{totalItems}
+				{onPageChange}
 				on:next={onNextList}
 				on:previous={onPreviousList} />
 		{/if}

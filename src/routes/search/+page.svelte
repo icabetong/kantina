@@ -54,7 +54,7 @@
 	}
 
 	const categories = ['food', 'drink', 'meal', 'other']
-	const filter: Kantina.Filter = {}
+	const filter: Kantina.ProductFilter = {}
 
 	const onResetCategory = () => {
 		filter.category = undefined

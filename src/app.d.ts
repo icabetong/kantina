@@ -11,10 +11,14 @@ declare namespace Kantina {
 		title?: string
 		icon?: import('@steeze-ui/heroicons').IconSource
 	}
-	type Filter = {
+	type ProductFilter = {
 		category?: ProductCategory
 		minPrice?: number
 		maxPrice?: number
+	}
+	type ProductSort = {
+		field?: 'name' | 'price' | 'quantity'
+		direction?: 'ascending' | 'descending'
 	}
 	type ProductForm = {
 		id: string

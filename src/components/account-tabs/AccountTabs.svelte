@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
+	import { UserCircle, LockClosed } from '@steeze-ui/heroicons'
 	import TabGroup from '$components/tab-group/TabGroup.svelte'
 	import GeneralTab from './tabs/GeneralTab.svelte'
 	import SecurityTab from './tabs/SecurityTab.svelte'
 
 	const tabs = [
-		{ id: 'general', title: 'General' },
-		{ id: 'security', title: 'Security' }
+		{ icon: UserCircle, id: 'general', title: 'General' },
+		{ icon: LockClosed, id: 'security', title: 'Security' }
 	]
 	let currentTab: string
 

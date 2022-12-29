@@ -12,7 +12,7 @@
 	export let currentPage: number
 	export let perPage: number
 	export let totalItems: number
-	export let onPageChange = (page: number) => {}
+	export let onPageChange: (page: number) => void
 
 	// used for current item and total items infomration
 	let start: number = 1
@@ -30,7 +30,7 @@
 	<div class="flex gap-3">
 		<button
 			type="button"
-			class="action"
+			class="pagination-page-action"
 			disabled={disablePrevious}
 			aria-disabled={disablePrevious}
 			on:click={previous}>
@@ -39,7 +39,7 @@
 		</button>
 		<button
 			type="button"
-			class="action"
+			class="pagination-page-action"
 			disabled={disableNext}
 			aria-disabled={disableNext}
 			on:click={next}>
@@ -63,24 +63,24 @@
 		</div>
 		{#if totalPages >= currentPage}
 			<div class="flex-1 flex justify-end">
-				<ul class="pagination">
+				<ul class="flex items-center gap-2">
 					<li>
 						<button
 							type="button"
 							disabled={disablePrevious}
 							aria-disabled={disablePrevious}
-							class="pagination-prev"
+							class="pagination-page-number p-2"
 							on:click={previous}>
-							<Icon src={ChevronLeft} class="h-3 w-3" />
+							<Icon src={ChevronLeft} class="h-4 w-4" />
 						</button>
 					</li>
 					{#each Array(totalPages) as _, index}
 						<li>
 							<button
 								type="button"
-								class={`pagination-number ${
+								class={`pagination-page-number ${
 									currentPage === index + 1 &&
-									'bg-orange-50 text-orange-500 hover:text-orange-500 hover:bg-orange-100 z-10'
+									'bg-orange-50 border-orange-300 text-orange-500 hover:text-orange-500 hover:border-orange-500 hover:bg-orange-100 z-10'
 								}`}
 								on:click={() => onPageChange(index + 1)}>
 								{index + 1}
@@ -92,9 +92,9 @@
 							type="button"
 							disabled={disableNext}
 							aria-disabled={disableNext}
-							class="pagination-next"
+							class="pagination-page-number p-2"
 							on:click={next}>
-							<Icon src={ChevronRight} class="h-3 w-3" />
+							<Icon src={ChevronRight} class="h-4 w-4" />
 						</button>
 					</li>
 				</ul>
@@ -102,18 +102,3 @@
 		{/if}
 	</div>
 {/if}
-
-<style lang="postcss">
-	.action {
-		@apply inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 disabled:text-gray-300 disabled:hover:bg-white disabled:hover:text-gray-300 disabled:hover:cursor-not-allowed;
-	}
-	.pagination {
-		@apply flex items-center -space-x-px;
-	}
-	.pagination-prev {
-		@apply px-3 py-3 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 disabled:text-gray-300 disabled:hover:bg-white disabled:hover:text-gray-300;
-	}
-	.pagination-next {
-		@apply px-3 py-3 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 disabled:text-gray-300 disabled:hover:bg-white disabled:hover:text-gray-300;
-	}
-</style>

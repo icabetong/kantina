@@ -17,7 +17,7 @@
 		class="flex-1 mt-4 text-md text-center font-semibold tracking-tight line-clamp-2 leading-tight">
 		{product.name}
 	</h5>
-	<div class="w-full flex flex-col-reverse items-center md:flex-row md:items-end justify-center">
+	<div class="w-full flex flex-col-reverse items-center md:flex-row md:items-end justify-between">
 		<div class="flex-1 mt-2 font-bold text-xl">
 			{#if product.currentPrice}
 				<span class="line-through mr-2 font-medium text-gray-300">₱{product.price}</span><span
@@ -26,7 +26,8 @@
 				<div>₱{product.price}</div>
 			{/if}
 		</div>
-		<div class="w-full justify-center inline-flex mt-2 px-2 md:w-32 md:mt-0 md:px-0 md:justify-end">
+		<div
+			class="w-full justify-center inline-flex mt-2 px-2 truncate md:w-32 md:mt-0 md:px-0 md:justify-end">
 			{#if product.expand?.store.name}
 				<div
 					class={`${getColor100(product.expand?.store.color)} ${getTextColor800(

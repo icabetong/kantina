@@ -66,26 +66,24 @@
 </script>
 
 <h3 class="text-lg font-semibold">Profile Information</h3>
-<section id="avatar-settings" class="w-full flex flex-col md:flex-row mt-4 mb-8 gap-8">
-	<div class="flex-1 flex flex-col md:flex-row gap-4">
-		<button type="button" on:click={onTriggerAvatarChange}>
-			{#if user && user?.avatar}
-				<img
-					src={parseFileUrl('users', user.id, user.avatar)}
-					alt="avatar"
-					class="w-36 h-36 rounded-full" />
-			{:else}
-				<div class="bg-gradient-to-br from-orange-500 to-pink-500 rounded-full w-fit p-6">
-					<Icon src={User} class="w-24 h-24 rounded-full text-white" />
-				</div>
-			{/if}
-		</button>
-	</div>
-</section>
-<section id="information" class="w-full">
-	<form class="flex-1 w-full flex flex-col mt-8" on:submit|preventDefault={handleSubmit}>
-		<div class="h-full w-full flex flex-col md:flex-row items-start gap-8">
-			<div class="flex-1 w-full h-full">
+<section id="account-info">
+	<form class="flex flex-col items-center" on:submit|preventDefault={handleSubmit}>
+		<div class="w-full flex items-center gap-8">
+			<div>
+				<button type="button" on:click={onTriggerAvatarChange}>
+					{#if user && user?.avatar}
+						<img
+							src={parseFileUrl('users', user.id, user.avatar)}
+							alt="avatar"
+							class="w-36 h-36 rounded-full" />
+					{:else}
+						<div class="bg-gradient-to-br from-orange-500 to-pink-500 rounded-full w-fit p-6">
+							<Icon src={User} class="w-24 h-24 rounded-full text-white" />
+						</div>
+					{/if}
+				</button>
+			</div>
+			<div class="flex-1">
 				<div class="form-control-group">
 					<label for="firstName" class="form-control-label">First Name</label>
 					<input
@@ -102,6 +100,10 @@
 						class="form-control-input"
 						bind:value={$form['lastName']} />
 				</div>
+			</div>
+		</div>
+		<div class="w-full flex flex-col md:flex-row items-start gap-8">
+			<div class="flex-1 w-full">
 				<div class="form-control-group">
 					<label for="username" class="form-control-label">Username</label>
 					<input
@@ -111,17 +113,7 @@
 						bind:value={$form['username']} />
 				</div>
 			</div>
-			<div class="flex-1 w-full h-full">
-				<div class="form-control-group">
-					<label for="userId" class="form-control-label">Account ID</label>
-					<input
-						disabled
-						type="text"
-						id="userId"
-						class="form-control-input"
-						aria-disabled="true"
-						bind:value={$form['id']} />
-				</div>
+			<div class="flex-1 w-full">
 				<div class="form-control-group">
 					<label for="email" class="form-control-label">Email</label>
 					<input
@@ -134,7 +126,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="mt-4 h-full flex-1 flex flex-row items-center justify-end">
+		<div class="w-full mt-2 flex justify-end">
 			<Button type="submit" isLoading={isWorking}>Save</Button>
 		</div>
 	</form>

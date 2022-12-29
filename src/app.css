@@ -90,7 +90,7 @@ a {
 		@apply bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 focus:outline-orange-500 block w-full p-2;
 	}
 	.form-control-file {
-		@apply file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-500 hover:file:bg-orange-100;
+		@apply text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:text-sm file:font-semibold file:border-none file:bg-orange-50 file:text-orange-500 hover:file:bg-orange-100 cursor-default;
 	}
 	.btn-primary {
 		@apply px-5 py-2 text-white bg-gradient-to-br to-pink-500 from-orange-500 transition-all drop-shadow hover:drop-shadow-xl focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm focus:outline-none disabled:from-orange-300 disabled:to-pink-300 disabled:cursor-not-allowed;
@@ -116,8 +116,11 @@ a {
 	.badge-gray {
 		@apply p-4 text-sm text-gray-700 bg-gray-100 rounded-lg;
 	}
-	.pagination-number {
-		@apply px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700;
+	.pagination-page-action {
+		@apply inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 disabled:text-gray-300 disabled:hover:bg-white disabled:hover:text-gray-300 disabled:hover:cursor-not-allowed;
+	}
+	.pagination-page-number {
+		@apply px-3 py-1 border border-transparent rounded-lg hover:bg-gray-100 hover:text-gray-800 hover:border-gray-300 disabled:hover:bg-white disabled:text-gray-200 disabled:hover:border-transparent;
 	}
 }
 

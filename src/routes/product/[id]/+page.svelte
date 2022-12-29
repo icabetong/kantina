@@ -241,7 +241,8 @@
 				{/each}
 			</div>
 		{:else}
-			<div class="flex flex-col items-center py-6 bg-gray-50 border border-gray-100 rounded-lg">
+			<div
+				class="flex flex-col items-center px-4 py-6 bg-gray-50 border border-gray-100 rounded-lg">
 				<h5 class="text-xl text-orange-500 font-semibold">No Ratings Yet</h5>
 				<p class="max-w-lg text-gray-500 text-center text-sm">
 					There are no submitted feedback to this product. Be the first one to rate.
@@ -249,14 +250,16 @@
 			</div>
 		{/if}
 	</section>
-	<section id="related" class="mt-8">
-		<h5 class="text-orange-500 text-lg font-semibold mb-4">Related Products</h5>
-		<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-			{#each related as product}
-				<ProductCard {product} />
-			{/each}
-		</div>
-	</section>
+	{#if related.length > 0}
+		<section id="related" class="mt-8">
+			<h5 class="text-orange-500 text-lg font-semibold mb-4">Related Products</h5>
+			<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+				{#each related as product}
+					<ProductCard {product} />
+				{/each}
+			</div>
+		</section>
+	{/if}
 </div>
 
 <svelte:head>

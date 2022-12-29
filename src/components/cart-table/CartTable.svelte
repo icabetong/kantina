@@ -2,10 +2,10 @@
 	import { parseFileUrl } from '$lib/files'
 
 	export let cartItems: CartItem[]
-	export let onCartItemClick = (cartItem: CartItem) => {}
+	export let onCartItemClick: (cartItem: CartItem) => void
 </script>
 
-<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+<div class="overflow-x-auto relative rounded-lg border-gray-100 border">
 	<table class="w-full text-sm text-left text-gray-500">
 		<thead class="text-xs text-gray-700 uppercase bg-gray-50">
 			<tr>
@@ -18,10 +18,10 @@
 				<th scope="col" class="py-3 px-6"> Action </th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody class="divide-y divide-y-gray-100">
 			{#each cartItems as cartItem}
-				<tr class="bg-white border-b hover:bg-gray-50">
-					<td class="p-4 w-32">
+				<tr class="bg-white">
+					<td class="p-2 w-32">
 						{#if cartItem.expand?.product && cartItem.expand?.product.image}
 							<img
 								src={parseFileUrl('products', cartItem.product, cartItem.expand?.product.image)}
@@ -34,7 +34,9 @@
 						</a>
 					</th>
 					<td class="py-3 px-6"> {cartItem.quantity} </td>
-					<td class="py-3 px-6 font-semibold text-gray-800"> {cartItem.expand?.product.price} </td>
+					<td class="py-3 px-6 font-semibold text-gray-800">
+						P {cartItem.expand?.product.price}
+					</td>
 					<td class="py-3 px-6 w-28">
 						<button
 							type="button"
