@@ -1,10 +1,17 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte'
 	import { Icon } from '@steeze-ui/svelte-icon'
+
+	const dispatch = createEventDispatcher<{ change: string }>()
 
 	export let currentTab: string
 	export let tabs: Kantina.Tab[]
 	export let orientation: 'horizontal' | 'vertical' = 'horizontal'
-	export let onChange: (tab: Kantina.Tab) => void
+
+	const onTabSelected = (event: Event) => {
+		const target = event.target as HTMLButtonElement
+		dispatch('change', target.value)
+	}
 </script>
 
 {#if orientation === 'horizontal'}
@@ -17,10 +24,11 @@
 							type="button"
 							role="tab"
 							id={tab.id}
-							data-tabs-target={tab.id}
+							value={tab.id}
 							class="inline-flex items-center rounded-t-lg text-sm font-medium px-4 py-2.5 border-b-2 border-transparent hover:bg-gray-50 hover:text-gray-600 hover:border-gray-300 aria-selected:border-orange-500 aria-selected:text-orange-500 transition-all"
 							aria-selected={tab.id === currentTab}
-							on:click={() => onChange(tab)}>
+							data-tabs-target={tab.id}
+							on:click={onTabSelected}>
 							{#if tab.icon}
 								<Icon src={tab.icon} class="h-4 w-4 mr-2" />
 							{/if}

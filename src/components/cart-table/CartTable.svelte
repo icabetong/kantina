@@ -1,8 +1,18 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte'
 	import { parseFileUrl } from '$lib/files'
 
+	const dispatch = createEventDispatcher()
+	const remove = (event: Event) => {
+		try {
+			const target = event.target as HTMLButtonElement
+			const index = target.value ? parseInt(target.value) : -1
+
+			if (index >= 0) dispatch('remove', cartItems[index])
+		} catch (ignored) {}
+	}
+
 	export let cartItems: CartItem[]
-	export let onCartItemClick: (cartItem: CartItem) => void
 </script>
 
 <div class="overflow-x-auto relative rounded-lg border-gray-100 border">
@@ -19,7 +29,7 @@
 			</tr>
 		</thead>
 		<tbody class="divide-y divide-y-gray-100">
-			{#each cartItems as cartItem}
+			{#each cartItems as cartItem, index}
 				<tr class="bg-white">
 					<td class="p-2 w-32">
 						{#if cartItem.expand?.product && cartItem.expand?.product.image}
@@ -40,8 +50,9 @@
 					<td class="py-3 px-6 w-28">
 						<button
 							type="button"
+							value={index}
 							class="font-medium text-red-600 hover:underline"
-							on:click={() => onCartItemClick(cartItem)}>
+							on:click={remove}>
 							Remove
 						</button>
 					</td>

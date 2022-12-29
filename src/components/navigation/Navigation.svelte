@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { page } from '$app/stores'
 	import { goto } from '$app/navigation'
+	import { page } from '$app/stores'
 	import { endSession } from '$lib/auth'
-	import { Icon } from '@steeze-ui/svelte-icon'
-	import { MagnifyingGlass, User, ShoppingCart } from '@steeze-ui/heroicons'
-	import { createPopperActions } from 'svelte-popperjs'
-	import { createForm } from 'svelte-forms-lib'
-	import { clickOutside } from '$shared/click-outside'
-	import SearchQueryStore from '$stores/search-query'
-	import UserStore from '$stores/auth'
-	import type { Record, Admin } from 'pocketbase'
 	import { parseFileUrl } from '$lib/files'
+	import { clickOutside } from '$shared/click-outside'
+	import UserStore from '$stores/auth'
+	import SearchQueryStore from '$stores/search-query'
+	import { MagnifyingGlass, ShoppingCart, User } from '@steeze-ui/heroicons'
+	import { Icon } from '@steeze-ui/svelte-icon'
+	import type { Admin, Record } from 'pocketbase'
+	import { createForm } from 'svelte-forms-lib'
+	import { createPopperActions } from 'svelte-popperjs'
 
 	export let cartItems: number = 0
 
@@ -149,7 +149,7 @@
 		<div
 			use:clickOutside
 			use:dropdownContent={extraOptions}
-			on:clickAway={() => (dropdownOpened = !dropdownOpened)}
+			on:clickOutside={() => (dropdownOpened = !dropdownOpened)}
 			class="z-50 text-base list-none bg-white rounded shadow-lg border border-gray-200 divide-y divide-gray-100"
 			id="user-dropdown">
 			<div class="px-4 py-3">
@@ -169,7 +169,7 @@
 					<button
 						type="button"
 						class="nav-dropdown-button"
-						on:click={() => onDropdownClick('account')}>Account Settings</button>
+						on:click={() => onDropdownClick('account')}>Account</button>
 				</li>
 				<li class="nav-dropdown-item">
 					<button type="button" class="nav-dropdown-button" on:click={() => onDropdownClick('end')}

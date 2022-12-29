@@ -1,13 +1,13 @@
 <script lang="ts">
+	import { CreditCard } from '@steeze-ui/heroicons'
+	import { Icon } from '@steeze-ui/svelte-icon'
 	import { toast } from '@zerodevx/svelte-toast'
-	import CartTable from '$components/cart-table/CartTable.svelte'
-	import EmptyView from '$components/empty-state/EmptyState.svelte'
-	import type { PageData } from './$types'
-	import pocketbase from '$lib/backend'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
-	import { Icon } from '@steeze-ui/svelte-icon'
-	import { CreditCard } from '@steeze-ui/heroicons'
+	import CartTable from '$components/cart-table/CartTable.svelte'
+	import EmptyView from '$components/empty-state/EmptyState.svelte'
+	import pocketbase from '$lib/backend'
+	import type { PageData } from './$types'
 
 	export let data: PageData
 	let cart: CartItem[]
@@ -16,8 +16,10 @@
 		cart = cartItems
 	}
 
-	const onTriggerRemove = async (cartItem: CartItem) => {
+	const onTriggerRemove = async (event: CustomEvent) => {
 		try {
+			const cartItem = event.detail
+
 			await pocketbase.collection('carts').delete(cartItem.id)
 			toast.push('Product removed from cart')
 			goto($page.url, { replaceState: true, invalidateAll: true })
@@ -37,7 +39,7 @@
 	</div>
 	{#if cart.length > 0}
 		<div class="pt-6 pb-32">
-			<CartTable cartItems={cart} onCartItemClick={onTriggerRemove} />
+			<CartTable cartItems={cart} on:remove={onTriggerRemove} />
 		</div>
 	{:else}
 		<EmptyView

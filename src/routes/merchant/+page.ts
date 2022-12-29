@@ -12,9 +12,14 @@ export const load = (async ({ url }) => {
 		if (!userId) throw error(401, 'Authentication Required')
 
 		const store: Store = await pocketbase.collection('stores').getFirstListItem(`owner="${userId}"`)
+		const field = url.searchParams.get('field')
+		const direction = url.searchParams.get('direction')
 
 		const params: RecordListQueryParams = { filter: `store = "${store.id}" ` }
 		if (query) params.filter += `&& name ~ "${query}"`
+
+		const directionToken = direction === 'descending' ? '-' : '+'
+		if (field) params.sort = `${directionToken}${field}`
 
 		const result: ListResult<Product> = await pocketbase
 			.collection('products')

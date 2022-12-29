@@ -1,18 +1,25 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte'
+	import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from '@steeze-ui/heroicons'
 	import { Icon } from '@steeze-ui/svelte-icon'
-	import { ChevronLeft, ChevronRight, ArrowLeft, ArrowRight } from '@steeze-ui/heroicons'
 
-	const dispatch = createEventDispatcher()
+	const dispatch = createEventDispatcher<{ previous: never; next: never; change: number }>()
 	const previous = () => dispatch('previous')
 	const next = () => dispatch('next')
+	export let onPageChange = (event: Event) => {
+		try {
+			const target = event.target as HTMLButtonElement
+			const page = target.value ? parseInt(target.value) : 0
+
+			if (page >= 0) dispatch('change', page)
+		} catch (ignored) {}
+	}
 
 	export let hidePages: boolean = true
 	export let totalPages: number
 	export let currentPage: number
 	export let perPage: number
 	export let totalItems: number
-	export let onPageChange: (page: number) => void
 
 	// used for current item and total items infomration
 	let start: number = 1
@@ -78,11 +85,12 @@
 						<li>
 							<button
 								type="button"
+								value={index + 1}
 								class={`pagination-page-number ${
 									currentPage === index + 1 &&
 									'bg-orange-50 border-orange-300 text-orange-500 hover:text-orange-500 hover:border-orange-500 hover:bg-orange-100 z-10'
 								}`}
-								on:click={() => onPageChange(index + 1)}>
+								on:click={onPageChange}>
 								{index + 1}
 							</button>
 						</li>

@@ -97,3 +97,15 @@ interface Rating extends Record {
 		product: Product
 	}
 }
+
+type TableEvent<T> = {
+	select: T
+	remove: T
+	sort: string
+}
+
+declare namespace svelte.JSX {
+	interface HTMLProps<T> {
+		onclickOutside?: (e: CustomEvent) => void
+	}
+}

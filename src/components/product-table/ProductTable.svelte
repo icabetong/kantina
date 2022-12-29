@@ -1,12 +1,17 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte'
+	import { ChevronDown, ChevronUp, RocketLaunch, Trash } from '@steeze-ui/heroicons'
+	import { Icon } from '@steeze-ui/svelte-icon'
 	import EmptyView from '$components/empty-state/EmptyState.svelte'
 	import { parseFileUrl } from '$lib/files'
-	import { Icon } from '@steeze-ui/svelte-icon'
-	import { ChevronDown, RocketLaunch, Trash } from '@steeze-ui/heroicons'
+
+	const dispatch = createEventDispatcher<TableEvent<Product>>()
+	const onProductClick = (product: Product) => dispatch('select', product)
+	const onProductRemove = (product: Product) => dispatch('remove', product)
+	const onProductSort = (field: string) => dispatch('sort', field)
 
 	export let products: Product[]
-	export let onProductClick: (product: Product) => void
-	export let onProductRemove: (product: Product) => void
+	export let sort: Kantina.ProductSort
 </script>
 
 <div class="overflow-x-auto relative">
@@ -18,22 +23,52 @@
 						<span class="sr-only">Image</span>
 					</th>
 					<th scope="col" class="py-3 px-6">
-						<div class="flex items-center">
+						<button
+							class="flex items-center text-xs uppercase"
+							value="name"
+							on:click={() => onProductSort('name')}>
 							Product and Category
-							<button class="ml-2"><Icon src={ChevronDown} class="h-4 w-4" /></button>
-						</div>
+							{#if sort?.field === 'name'}
+								<Icon
+									src={sort?.direction === 'ascending' ? ChevronDown : ChevronUp}
+									class="h-4 w-4 ml-2"
+									theme="mini" />
+							{:else}
+								<div class="h-4 w-4 ml-2" />
+							{/if}
+						</button>
 					</th>
 					<th scope="col" class="py-3 px-6">
-						<div class="flex items-center">
+						<button
+							class="flex items-center text-xs uppercase"
+							value="price"
+							on:click={() => onProductSort('price')}>
 							Price
-							<button class="ml-2"><Icon src={ChevronDown} class="h-4 w-4" /></button>
-						</div>
+							{#if sort?.field === 'price'}
+								<Icon
+									src={sort?.direction === 'ascending' ? ChevronDown : ChevronUp}
+									class="h-4 w-4 ml-2"
+									theme="mini" />
+							{:else}
+								<div class="h-4 w-4  ml-2" />
+							{/if}
+						</button>
 					</th>
 					<th scope="col" class="py-3 px-6">
-						<div class="flex items-center">
+						<button
+							class="flex items-center text-xs uppercase"
+							value="quantity"
+							on:click={() => onProductSort('quantity')}>
 							Quantity
-							<button class="ml-2"><Icon src={ChevronDown} class="h-4 w-4" /></button>
-						</div>
+							{#if sort?.field === 'quantity'}
+								<Icon
+									src={sort?.direction === 'ascending' ? ChevronDown : ChevronUp}
+									class="h-4 w-4 ml-2"
+									theme="mini" />
+							{:else}
+								<div class="h-4 w-4 ml-2" />
+							{/if}
+						</button>
 					</th>
 					<th scope="col" class="py-3 px-6"> Status </th>
 					<th scope="col" class="py-3 px-6 rounded-r-lg"> Actions </th>

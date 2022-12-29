@@ -1,15 +1,17 @@
 <script lang="ts">
-	import { page } from '$app/stores'
-	import { goto } from '$app/navigation'
 	import { createForm } from 'svelte-forms-lib'
 	import { openModal } from 'svelte-modals'
+	import { BuildingStorefront, MagnifyingGlass, Plus, XMark } from '@steeze-ui/heroicons'
 	import { Icon } from '@steeze-ui/svelte-icon'
-	import { MagnifyingGlass, Plus, BuildingStorefront, XMark } from '@steeze-ui/heroicons'
+	import { goto } from '$app/navigation'
+	import { page } from '$app/stores'
+	import Dropdown from '$components/dropdown/Dropdown.svelte'
+	import ConfirmationModal from '$components/modals/confirm-modal/ConfirmModal.svelte'
+	import ProductModal from '$components/modals/product-editor/ProductEditor.svelte'
+	import StoreProperties from '$components/modals/store-properties/StoreProperties.svelte'
 	import Pagination from '$components/pagination/Pagination.svelte'
 	import ProductTable from '$components/product-table/ProductTable.svelte'
-	import ProductModal from '$components/modals/product-editor/ProductEditor.svelte'
-	import ConfirmationModal from '$components/modals/confirm-modal/ConfirmModal.svelte'
-	import StoreProperties from '$components/modals/store-properties/StoreProperties.svelte'
+	import Switch from '$components/switch/Switch.svelte'
 	import pocketbase from '$lib/backend'
 	import type { PageData } from './$types'
 
@@ -30,15 +32,20 @@
 	let totalPages: number
 	let currentPage: number
 	let perPage: number
+	let sort: Kantina.ProductSort = { field: 'name', direction: 'ascending' }
+	let hideItems: boolean = false
 
 	const onTriggerAdd = () => openModal(ProductModal, { store: userStore })
-	const onTriggerEdit = (product: Product) => {
+	const onTriggerEdit = (event: CustomEvent) => {
+		const product = event.detail
 		openModal(ProductModal, {
 			product,
 			store: userStore
 		})
 	}
-	const onTriggerRemove = (product: Product) => {
+	const onTriggerRemove = (event: CustomEvent) => {
+		const product = event.detail
+
 		openModal(ConfirmationModal, {
 			title: `Remove ${product.name}`,
 			message: `Are you sure you want to remove this product from your store? This action cannot be undone.`,
@@ -76,10 +83,12 @@
 
 	const onStorePropertiesTriggered = () => openModal(StoreProperties, { store: userStore })
 
-	const onPageChange = (page: number) => {
+	const onPageChange = (event: CustomEvent) => {
+		const newPage = event.detail
+
 		const destinationURL = new URL($page.url)
 		const urlParams = destinationURL.searchParams
-		urlParams.set('page', page.toString())
+		urlParams.set('page', newPage)
 
 		goto(destinationURL, { replaceState: true })
 	}
@@ -119,6 +128,40 @@
 			goto(destinationURL, { replaceState: true })
 		}
 	}
+	const onSort = (event: CustomEvent) => {
+		const field = event.detail
+
+		if (sort.field === field) {
+			if (sort.direction === 'ascending') sort.direction = 'descending'
+			else sort.direction = 'ascending'
+		}
+
+		if (field === 'name' || field === 'price' || field === 'quantity') sort.field = field
+
+		const destinationURL = new URL($page.url)
+		const urlParams = destinationURL.searchParams
+		if (sort.field && sort.direction) {
+			urlParams.set('field', sort.field)
+			urlParams.set('direction', sort.direction)
+		} else {
+			urlParams.delete('field')
+			urlParams.delete('direction')
+		}
+
+		goto(destinationURL, { replaceState: true })
+	}
+
+	const onHide = (event: CustomEvent) => {
+		const checked = event.detail && 'checked' in event.detail ? event.detail.checked : null
+
+		if (checked === null || checked === undefined) return
+
+		const destinationURL = new URL($page.url)
+		const urlParams = destinationURL.searchParams
+		urlParams.set('hide', checked.toString())
+
+		goto(destinationURL, { replaceState: true })
+	}
 </script>
 
 <div class="page w-full min-h-screen flex flex-col items-center justify-center">
@@ -141,40 +184,47 @@
 				<span class="hidden md:inline-block">Store Properties</span>
 			</button>
 		</div>
-		<form
-			class="w-1/2 flex-initial flex items-center justify-end"
-			on:submit|preventDefault={handleSubmit}
-			on:reset={onFormReset}>
-			<label for="table-search" class="sr-only">Search</label>
-			<div class="relative w-full md:w-fit">
-				<div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-					<Icon src={MagnifyingGlass} class="w-5 h-5" />
+		<div class="w-1/2 flex-initial flex items-center justify-end gap-2">
+			<Dropdown>
+				<Switch checked={hideItems} label="Hide publicly hidden items" on:change={onHide} />
+			</Dropdown>
+			<form on:submit|preventDefault={handleSubmit} on:reset={onFormReset}>
+				<label for="table-search" class="sr-only">Search</label>
+				<div class="relative w-full md:w-fit">
+					<div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+						<Icon src={MagnifyingGlass} class="w-5 h-5" />
+					</div>
+					<input
+						type="text"
+						id="table-search"
+						class="block p-2.5 pl-10 pr-10 w-full md:w-80 text-sm text-gray-800 bg-white shadow rounded-lg border border-gray-300 ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none transition-all"
+						placeholder="Search for items"
+						on:keyup={onSearchQueryChanged}
+						bind:value={$form.query} />
+					{#if $form.query && $form.query.length > 0}
+						<button
+							type="reset"
+							class="absolute inset-y-0 right-0 flex items-center m-2 p-1 rounded-lg hover:bg-gray-100">
+							<Icon src={XMark} class="w-5 h-5" />
+						</button>
+					{/if}
 				</div>
-				<input
-					type="text"
-					id="table-search"
-					class="block p-2.5 pl-10 pr-10 w-full md:w-80 text-sm text-gray-800 bg-white shadow rounded-lg border border-gray-300 ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none transition-all"
-					placeholder="Search for items"
-					on:keyup={onSearchQueryChanged}
-					bind:value={$form.query} />
-				{#if $form.query && $form.query.length > 0}
-					<button
-						type="reset"
-						class="absolute inset-y-0 right-0 flex items-center m-2 p-1 rounded-lg hover:bg-gray-100">
-						<Icon src={XMark} class="w-5 h-5" />
-					</button>
-				{/if}
-			</div>
-			<button
-				type="submit"
-				class="hidden p-2.5 ml-2 text-sm font-medium text-white bg-orange-500 rounded-lg border border-orange-500 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300">
-				<Icon src={MagnifyingGlass} class="w-5 h-5" />
-				<span class="sr-only">Search</span>
-			</button>
-		</form>
+				<button
+					type="submit"
+					class="hidden p-2.5 ml-2 text-sm font-medium text-white bg-orange-500 rounded-lg border border-orange-500 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300">
+					<Icon src={MagnifyingGlass} class="w-5 h-5" />
+					<span class="sr-only">Search</span>
+				</button>
+			</form>
+		</div>
 	</div>
 	<div class="flex-1 mt-6 w-full">
-		<ProductTable {products} onProductClick={onTriggerEdit} onProductRemove={onTriggerRemove} />
+		<ProductTable
+			{products}
+			{sort}
+			on:sort={onSort}
+			on:select={onTriggerEdit}
+			on:remove={onTriggerRemove} />
 		{#if products.length > 0}
 			<Pagination
 				hidePages={false}
@@ -182,7 +232,7 @@
 				{currentPage}
 				{perPage}
 				{totalItems}
-				{onPageChange}
+				on:change={onPageChange}
 				on:next={onNextList}
 				on:previous={onPreviousList} />
 		{/if}
