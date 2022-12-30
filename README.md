@@ -1,38 +1,19 @@
-# create-svelte
+# Kantina
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+![eslint](https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white)
+![prettier](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)
+![netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
 
-## Creating a project
+A small e-commerce website for the stalls inside the universities. Bringing the benefits digitalization even on the small businesses with ease.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Built with
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+- TypeScript
+- SvelteKit
+- TailwindCSS
+- PocketBase
+- and other [cool libraries](https://github.com/icabetong/me/blob/main/package.json)
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Forking/Cloning
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+You can use the source code of this website for your own, but please add some attributions such us, linking back to [icabetong.me](https://www.icabetong.me) or to this [GitHub Repository](https://www.github.com/icabetong/me-v2). Also, please remove my personal information, images, resume link and etc. Thanks!

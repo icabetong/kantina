@@ -6,7 +6,8 @@ export async function load() {
 	try {
 		const result: ListResult<Product> = await pocketbase.collection('products').getList(1, 5, {
 			filter: 'visible = true',
-			expand: 'store'
+			expand: 'store',
+			sort: '+updated'
 		})
 
 		return {
