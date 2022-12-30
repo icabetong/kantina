@@ -102,7 +102,7 @@ a {
 		@apply py-2 px-5 text-sm font-medium text-gray-800 focus:outline-none bg-white rounded-lg border border-gray-200 transition-all hover:text-orange-700 hover:border-orange-500 focus:z-10 focus:ring-4 focus:ring-gray-200 disabled:text-gray-200 disabled:hover:bg-white disabled:cursor-not-allowed disabled:hover:text-gray-200 disabled:hover:border-gray-200;
 	}
 	.link {
-		@apply font-medium text-orange-600 hover:underline disabled:hover:no-underline disabled:text-orange-200;
+		@apply px-3 py-2 font-medium text-orange-700 hover:underline disabled:hover:no-underline disabled:text-orange-200;
 	}
 	.alert-error {
 		@apply w-full flex p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg;

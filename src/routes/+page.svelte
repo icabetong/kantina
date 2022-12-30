@@ -73,7 +73,7 @@
 			</div>
 		</div>
 		<section class="page flex flex-col items-center px-8 py-32 md:py-20">
-			<h3 class="text-orange-500 text-2xl font-bold mb-8">Most Popular Items</h3>
+			<h3 class="text-orange-600 text-2xl font-bold mb-8">Most Popular Items</h3>
 			<div
 				class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 transition-all">
 				{#if products}
@@ -86,7 +86,12 @@
 		</section>
 		<section class="page flex flex-col md:flex-row items-center px-8 py-32">
 			<div class="flex-1 flex items-center justify-center mb-8 md:mb-0">
-				<img src="/images/stall.svg" class="h-60" alt="person doing online shopping" />
+				<img
+					src="/images/stall.svg"
+					class="h-60"
+					height="240"
+					width="240"
+					alt="people sitting and eating" />
 			</div>
 			<div class="flex-1 flex flex-col">
 				<h3 class="font-semibold text-3xl">Have a stall in the campus?</h3>

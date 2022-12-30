@@ -66,23 +66,25 @@
 						disabled={isWorking}
 						bind:value={$form.password} />
 				</div>
-				<div class="flex flex-row mt-4 mb-2 gap-2">
-					<Button type="submit" isLoading={isWorking}>Login</Button>
+				<div class="w-full flex flex-col items-center justify-between mt-4 mb-2 gap-2 md:flex-row">
+					<div class="flex flex-col gap-4 w-full md:flex-row md:gap-2">
+						<Button type="submit" isLoading={isWorking}>Login</Button>
+						<button
+							type="button"
+							disabled={isWorking}
+							class="btn-outlined"
+							on:click={() => goto('/register')}>
+							Register
+						</button>
+					</div>
 					<button
 						type="button"
+						class="link text-sm min-w-fit"
 						disabled={isWorking}
-						class="btn-outlined"
-						on:click={() => goto('/register')}>
-						Register
+						on:click={() => goto('/forgot-password')}>
+						Forgot Password?
 					</button>
 				</div>
-				<button
-					type="button"
-					class="link text-sm"
-					disabled={isWorking}
-					on:click={() => goto('/forgot-password')}>
-					Forgot Password?
-				</button>
 			</div>
 		</form>
 	</div>

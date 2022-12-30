@@ -116,28 +116,30 @@
 					<div class="flex items-center h-5">
 						<input id="terms" type="checkbox" value="" class="form-control-checkbox" required />
 					</div>
-					<label for="terms" class="ml-2 text-sm font-medium text-gray-800"
-						>I agree with the <a href="/terms" class="text-orange-500 hover:underline"
-							>terms and conditions</a
-						></label>
+					<label for="terms" class="ml-2 text-sm font-medium text-gray-800">
+						I agree with the
+						<a href="/terms" class="text-orange-700 hover:underline"> terms and conditions </a>
+					</label>
 				</div>
-				<div class="flex flex-row mt-4 mb-2 gap-2">
-					<Button type="submit" isLoading={isWorking}>Register</Button>
+				<div class="w-full flex flex-col items-center justify-between mt-4 mb-2 gap-2 md:flex-row">
+					<div class="flex flex-col gap-4 w-full md:flex-row md:gap-2">
+						<Button type="submit" isLoading={isWorking}>Register</Button>
+						<button
+							type="button"
+							class="btn-outlined"
+							disabled={isWorking}
+							on:click={() => goto('/login')}>
+							<a href="/login">Login</a>
+						</button>
+					</div>
 					<button
 						type="button"
-						class="btn-outlined"
+						class="link text-sm min-w-fit"
 						disabled={isWorking}
-						on:click={() => goto('/login')}>
-						<a href="/login">Login</a>
+						on:click={() => goto('/forgot-password')}>
+						Forgot Password?
 					</button>
 				</div>
-				<button
-					type="button"
-					class="link text-sm"
-					disabled={isWorking}
-					on:click={() => goto('/forgot-password')}>
-					Forgot Password?
-				</button>
 			</div>
 		</form>
 	</div>

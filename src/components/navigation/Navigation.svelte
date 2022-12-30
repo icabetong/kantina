@@ -80,7 +80,12 @@
 		<a
 			href="/"
 			class="flex items-center text-transparent bg-gradient-to-r bg-clip-text from-orange-500 to-pink-500">
-			<img src="/images/icon.png" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
+			<img
+				src="/images/icon.png"
+				class="h-6 mr-3 sm:h-9"
+				height="36"
+				width="36"
+				alt="Flowbite Logo" />
 			<span class="self-center text-2xl font-semibold whitespace-nowrap"> Kantina </span>
 		</a>
 		{#if $page.url.pathname !== '/'}

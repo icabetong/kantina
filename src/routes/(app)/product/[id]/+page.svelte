@@ -2,11 +2,12 @@
 	import moment from 'moment'
 	import { onMount } from 'svelte'
 	import { openModal } from 'svelte-modals'
-	import { CreditCard, ShoppingCart, Star } from '@steeze-ui/heroicons'
+	import { ShoppingCart, Star } from '@steeze-ui/heroicons'
 	import { Icon } from '@steeze-ui/svelte-icon'
 	import { toast } from '@zerodevx/svelte-toast'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
+	import ConfirmModal from '$components/modals/confirm-modal/ConfirmModal.svelte'
 	import FeedbackEditor from '$components/modals/feedback-editor/FeedbackEditor.svelte'
 	import NumberStepper from '$components/number-stepper/NumberStepper.svelte'
 	import ProductCard from '$components/product-card/ProductCard.svelte'
@@ -43,7 +44,17 @@
 
 	const onAddToCart = async () => {
 		try {
-			if (!user) throw new Error('Authentication Error')
+			if (!user) {
+				openModal(ConfirmModal, {
+					title: 'Create an Account First',
+					message: `To add some products into your cart, you need to login or register an account first. 
+						Would you like to create one now?`,
+					confirmText: 'Continue',
+					abandonText: 'Cancel',
+					confirm: () => goto('/register')
+				})
+				return
+			}
 
 			const cartItem = basket.find((i) => i.product === product.id)
 			if (cartItem) {
@@ -149,13 +160,6 @@
 					on:click={onAddToCart}>
 					<Icon src={ShoppingCart} class="h-6 w-6" />
 					<span class="ml-2">Add to Cart</span>
-				</button>
-				<button
-					class="btn-outlined flex flex-row items-center py-4"
-					disabled={outOfStock}
-					aria-disabled={outOfStock}>
-					<Icon src={CreditCard} class="h-6 w-6" />
-					<span class="ml-2">Order Now</span>
 				</button>
 			</div>
 		</div>

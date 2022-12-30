@@ -1,7 +1,7 @@
 <footer class="flex-1 p-4 bg-gray-50 md:px-6 md:py-8 border-t border-gray-200">
 	<div class="sm:flex sm:items-center sm:justify-between">
 		<a href="https://kantina.ph" class="flex flex-row items-center mb-4 sm:mb-0">
-			<img src="/images/icon.png" class="mr-3 h-8" alt="Kantina Logo" />
+			<img src="/images/icon.png" class="mr-3 h-8" width="32" height="32" alt="Kantina Logo" />
 			<span class="self-center text-2xl font-semibold whitespace-nowrap "> Kantina </span>
 		</a>
 		<ul
