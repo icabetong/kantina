@@ -1,10 +1,7 @@
 <script lang="ts">
 	import { Modals, closeModal } from 'svelte-modals'
 	import { SvelteToast } from '@zerodevx/svelte-toast'
-	import { goto } from '$app/navigation'
-	import { page } from '$app/stores'
 	import PageProgress from '$components/page-progress/PageProgress.svelte'
-	import pocketbase from '$lib/backend'
 	import '../app.css'
 </script>
 

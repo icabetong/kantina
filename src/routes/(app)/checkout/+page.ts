@@ -17,7 +17,7 @@ export const load = (async ({ parent }) => {
     }
     
     return {
-      storeData: stores
+      stores
     }
   } catch (e) {
     if (e instanceof Error) throw error(401, e.message)

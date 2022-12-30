@@ -11,10 +11,7 @@
 
 	export let data: PageData
 	let cart: CartItem[]
-	$: {
-		const { cartItems } = data
-		cart = cartItems
-	}
+	$: cart = data.cart
 
 	const onTriggerRemove = async (event: CustomEvent) => {
 		try {

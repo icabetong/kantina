@@ -15,10 +15,7 @@
 	const user = $UserStore
 	const { products } = data
 
-	$: {
-		const { cartItems } = data
-		cartSize = cartItems.length
-	}
+	$: cartSize = data.cart.length
 
 	const { form, handleChange, handleSubmit } = createForm({
 		initialValues: {

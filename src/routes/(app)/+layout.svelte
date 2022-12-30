@@ -1,12 +1,12 @@
 <script lang="ts">
 	import Footer from '$components/footer/Footer.svelte'
 	import Navigation from '$components/navigation/Navigation.svelte'
-	import type { PageData } from './$types'
+	import type { LayoutData } from './$types'
 
 	let cart = 0
-	export let data: PageData
+	export let data: LayoutData
 	$: {
-		cart = data.cartItems.length
+		cart = data.cart.length
 	}
 </script>
 

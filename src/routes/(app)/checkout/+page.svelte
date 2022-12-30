@@ -9,9 +9,8 @@
 
 	export let data: PageData
 	$: {
-		const { cartItems, storeData } = data
-		cart = cartItems
-		stores = storeData
+		cart = data.cart
+		stores = data.stores
 		grouped = groupBy(cart, (cartItem) => cartItem.expand!.product.store)
 	}
 </script>

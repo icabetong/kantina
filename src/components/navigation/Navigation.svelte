@@ -187,7 +187,7 @@
 						value="purchases"
 						on:click={onDropdownClick}>
 						<Icon src={ShoppingBag} class="nav-dropdown-icon" />
-						Purchases
+						Orders and Purchases
 					</button>
 				</li>
 				<li class="nav-dropdown-item">

@@ -21,12 +21,12 @@
 	const formatter = getCurrencyFormatter()
 	const user = $UserStore
 	const productId = $page.params.id
-	const { product, cartItems, ratings: productRatings, related } = data
+	const { product, related } = data
 	const outOfStock = product.quantity < 1
 	let averageRating: number = 0
 
-	let basket: CartItem[] = cartItems
-	let ratings: Rating[] = productRatings
+	let basket: CartItem[] = data.cart
+	let ratings: Rating[] = data.ratings
 
 	let quantity: number = 1
 	const decrement = () => quantity - 1 > 0 && quantity--
