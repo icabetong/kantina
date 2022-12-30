@@ -1,19 +1,19 @@
 <script lang="ts">
-	import Modal from '$components/modals/Modal.svelte'
-	import Button from '$components/button/Button.svelte'
-	import pocketbase from '$lib/backend'
-	import UserStore from '$stores/auth'
 	import { createForm } from 'svelte-forms-lib'
 	import { closeModal } from 'svelte-modals'
+	import { Check, ExclamationTriangle } from '@steeze-ui/heroicons'
 	import { Icon } from '@steeze-ui/svelte-icon'
-	import { ExclamationTriangle, Check } from '@steeze-ui/heroicons'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
+	import Button from '$components/button/Button.svelte'
+	import Modal from '$components/modals/Modal.svelte'
+	import pocketbase from '$lib/backend'
 	import { colors, getColor500 } from '$shared/color'
+	import UserStore from '$stores/user'
 
+	const user = $UserStore
 	export let isOpen: boolean
 	export let store: Store
-	let userId = $UserStore?.id
 	let isWorking = false
 	let error: string | null = null
 
@@ -23,7 +23,7 @@
 			color: store.color ?? 'yellow'
 		},
 		onSubmit: async (data) => {
-			if (!userId) return
+			if (!user?.id) return
 
 			isWorking = true
 			try {

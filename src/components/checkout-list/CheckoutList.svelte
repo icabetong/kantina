@@ -2,17 +2,20 @@
 	import { onMount } from 'svelte'
 	import { openModal } from 'svelte-modals'
 	import { toast } from '@zerodevx/svelte-toast'
-	import { base } from '$app/paths'
+	import Button from '$components/button/Button.svelte'
 	import ScanQrCode from '$components/modals/scan-qr-code/ScanQRCode.svelte'
 	import pocketbase from '$lib/backend'
 	import { parseFileUrl } from '$lib/files'
 	import { getColor100, getTextColor800 } from '$shared/color'
 	import { getCurrencyFormatter } from '$shared/formatter'
+	import UserStore from '$stores/user'
 
+	const user = $UserStore
 	const formatter = getCurrencyFormatter()
 	export let store: Store | null
 	export let basket: CartItem[]
 
+	let isSubmitted = false
 	let isWorking = false
 	let total = 0
 	onMount(() => {
@@ -25,21 +28,39 @@
 	const onDone = async () => {
 		try {
 			isWorking = true
-			const userId = pocketbase.authStore?.model?.id
-			if (!userId) return
+			if (!user?.id) return
 			if (!store?.id) return
 
+			const quantities: { [key: string]: number } = {}
+			basket.forEach((cartItem) => {
+				quantities[cartItem.product] = cartItem.quantity
+			})
+
 			const order = {
-				customer: userId,
+				customer: user.id,
 				store: store.id,
 				products: basket.map((item) => item.product),
-				status: 'pending'
+				status: 'pending',
+				quantities: quantities,
+				total: total
 			}
 
-			await pocketbase.collection('orders').create(order)
+			await fetch('/api/checkout', {
+				method: 'POST',
+				body: JSON.stringify({
+					order,
+					cart: basket,
+					products: quantities
+				}),
+				headers: {
+					'content-type': 'application/json'
+				}
+			})
+
 			toast.push('Order Submitted')
+			isSubmitted = true
 		} catch (e) {
-			console.error(e)
+			if (e instanceof Error) toast.push(e.message)
 		} finally {
 			isWorking = false
 		}
@@ -94,8 +115,15 @@
 				<dt class="row-title">Total:</dt>
 				<dd class="row-value">{formatter.format(total)}</dd>
 			</dl>
-			{isWorking}
-			<button class="btn-primary mt-8" on:click={onTriggerScanQr}>Pay Now</button>
+			<div class="mt-4">
+				<Button on:click={onTriggerScanQr} isLoading={isWorking} disabled={isSubmitted}>
+					{#if isSubmitted}
+						Order Placed
+					{:else}
+						Pay Now
+					{/if}
+				</Button>
+			</div>
 		</div>
 	</div>
 {/if}

@@ -1,17 +1,25 @@
 <script lang="ts">
+	import { createForm } from 'svelte-forms-lib'
+	import { createPopperActions } from 'svelte-popperjs'
+	import {
+		ArrowRightOnRectangle,
+		BuildingStorefront,
+		MagnifyingGlass,
+		ShoppingBag,
+		ShoppingCart,
+		User,
+		UserCircle
+	} from '@steeze-ui/heroicons'
+	import { Icon } from '@steeze-ui/svelte-icon'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
 	import { endSession } from '$lib/auth'
 	import { parseFileUrl } from '$lib/files'
 	import { clickOutside } from '$shared/click-outside'
-	import UserStore from '$stores/auth'
 	import SearchQueryStore from '$stores/search-query'
-	import { MagnifyingGlass, ShoppingCart, User } from '@steeze-ui/heroicons'
-	import { Icon } from '@steeze-ui/svelte-icon'
-	import type { Admin, Record } from 'pocketbase'
-	import { createForm } from 'svelte-forms-lib'
-	import { createPopperActions } from 'svelte-popperjs'
+	import UserStore from '$stores/user'
 
+	const user = $UserStore
 	export let cartItems: number = 0
 
 	const { form, handleSubmit } = createForm({
@@ -37,18 +45,21 @@
 	}
 
 	let currentQuery: string | null = null
-	let user: Record | Admin | null = null
-
 	let dropdownOpened = false
 	let searchOpened = false
 
 	SearchQueryStore.subscribe((data) => (currentQuery = data))
-	UserStore.subscribe((data) => (user = data))
 
-	const onDropdownClick = (item: string) => {
+	const onDropdownClick = (event: Event) => {
+		const target = event.target as HTMLButtonElement
+		const item = target.value
+
 		switch (item) {
 			case 'merchant':
 				goto('/merchant')
+				break
+			case 'purchases':
+				goto('/purchases')
 				break
 			case 'account':
 				goto('/account')
@@ -162,18 +173,38 @@
 						<button
 							type="button"
 							class="nav-dropdown-button"
-							on:click={() => onDropdownClick('merchant')}>Merchant Center</button>
+							value="merchant"
+							on:click={onDropdownClick}>
+							<Icon src={BuildingStorefront} class="nav-dropdown-icon" />
+							Merchant Center
+						</button>
 					</li>
 				{/if}
 				<li class="nav-dropdown-item">
 					<button
 						type="button"
 						class="nav-dropdown-button"
-						on:click={() => onDropdownClick('account')}>Account</button>
+						value="purchases"
+						on:click={onDropdownClick}>
+						<Icon src={ShoppingBag} class="nav-dropdown-icon" />
+						Purchases
+					</button>
 				</li>
 				<li class="nav-dropdown-item">
-					<button type="button" class="nav-dropdown-button" on:click={() => onDropdownClick('end')}
-						>Sign Out</button>
+					<button
+						type="button"
+						class="nav-dropdown-button"
+						value="account"
+						on:click={onDropdownClick}>
+						<Icon src={UserCircle} class="nav-dropdown-icon" />
+						Account
+					</button>
+				</li>
+				<li class="nav-dropdown-item">
+					<button type="button" class="nav-dropdown-button" value="end" on:click={onDropdownClick}>
+						<Icon src={ArrowRightOnRectangle} class="nav-dropdown-icon" />
+						Sign Out
+					</button>
 				</li>
 			</ul>
 		</div>

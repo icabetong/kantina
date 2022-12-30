@@ -1,12 +1,14 @@
 <script lang="ts">
-	import { Icon } from '@steeze-ui/svelte-icon'
-	import { ExclamationTriangle, Star } from '@steeze-ui/heroicons'
-	import Modal from '../Modal.svelte'
-	import Button from '$components/button/Button.svelte'
 	import { closeModal } from 'svelte-modals'
+	import { ExclamationTriangle, Star } from '@steeze-ui/heroicons'
+	import { Icon } from '@steeze-ui/svelte-icon'
 	import { toast } from '@zerodevx/svelte-toast'
+	import Button from '$components/button/Button.svelte'
 	import pocketbase from '$lib/backend'
+	import UserStore from '$stores/user'
+	import Modal from '../Modal.svelte'
 
+	const user = $UserStore
 	export let isOpen: boolean
 	export let product: Product
 
@@ -16,18 +18,16 @@
 	let title: string = ''
 	let description: string = ''
 	const onSave = async () => {
-		const userId = pocketbase.authStore.model?.id
-		if (!userId) return
+		if (!user?.id) return
 
 		isWorking = true
-
 		try {
 			const feedback = {
 				rating,
 				title,
 				description,
 				product: product.id,
-				user: userId
+				user: user.id
 			}
 
 			await pocketbase.collection('ratings').create<Rating>(feedback)

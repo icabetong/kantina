@@ -9,13 +9,13 @@
 	import Modal from '$components/modals/Modal.svelte'
 	import pocketbase from '$lib/backend'
 	import { parseFileUrl } from '$lib/files'
-	import UserStore from '$stores/auth'
+	import UserStore from '$stores/user'
 
+	const user = $UserStore
 	export let isOpen: boolean
 	export let store: Store
 	export let product: Product | null = null
 
-	let userId = $UserStore?.id
 	let isWorking = false
 	let error: string | null = null
 	let hasRemovedImage: boolean = false
@@ -31,7 +31,7 @@
 			visible: product?.visible ?? true
 		},
 		onSubmit: async (form) => {
-			if (!userId) return
+			if (!user?.id) return
 
 			if (form.quantity < 0) {
 				error = 'Invalid product quantity. It needs to be a positive number'

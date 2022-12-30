@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ArrowLeft, Banknotes, RectangleGroup, ShoppingBag } from '@steeze-ui/heroicons'
+	import { ArrowLeft, Cake, RectangleGroup, ShoppingBag } from '@steeze-ui/heroicons'
 	import { Icon } from '@steeze-ui/svelte-icon'
 	import { page } from '$app/stores'
 
@@ -40,7 +40,7 @@
 				<a
 					href="/merchant/products"
 					class="tab-link group-aria-checked:text-transparent group-aria-checked:bg-clip-text group-aria-checked:bg-gradient-to-br group-aria-checked:to-pink-500 group-aria-checked:from-orange-500">
-					<Icon src={ShoppingBag} class="h-5 w-5 group-aria-checked:text-orange-500" />
+					<Icon src={Cake} class="h-5 w-5 group-aria-checked:text-orange-500" />
 					Products
 				</a>
 			</li>
@@ -48,7 +48,7 @@
 				<a
 					href="/merchant/orders"
 					class="tab-link  group-aria-checked:text-transparent group-aria-checked:bg-clip-text group-aria-checked:bg-gradient-to-br group-aria-checked:to-pink-500 group-aria-checked:from-orange-500">
-					<Icon src={Banknotes} class="w-5 h-5 group-aria-checked:text-orange-500" />
+					<Icon src={ShoppingBag} class="w-5 h-5 group-aria-checked:text-orange-500" />
 					Orders
 				</a>
 			</li>

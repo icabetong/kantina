@@ -1,10 +1,10 @@
 <script lang="ts">
+	import { createForm } from 'svelte-forms-lib'
+	import { ExclamationTriangle } from '@steeze-ui/heroicons'
+	import { Icon } from '@steeze-ui/svelte-icon'
 	import { goto } from '$app/navigation'
 	import Button from '$components/button/Button.svelte'
 	import { authenticate } from '$lib/auth'
-	import { createForm } from 'svelte-forms-lib'
-	import { Icon } from '@steeze-ui/svelte-icon'
-	import { ExclamationTriangle } from '@steeze-ui/heroicons'
 
 	let error: string | null = null
 	let isWorking: boolean = false

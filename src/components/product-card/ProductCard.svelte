@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { parseFileUrl } from '$lib/files'
 	import { getColor100, getTextColor800 } from '$shared/color'
+	import { getCurrencyFormatter } from '$shared/formatter'
 
+	const formatter = getCurrencyFormatter(false)
 	export let product: Product
 </script>
 
@@ -18,12 +20,14 @@
 		{product.name}
 	</h5>
 	<div class="w-full flex flex-col-reverse items-center md:flex-row md:items-end justify-between">
-		<div class="flex-1 mt-2 font-bold text-xl">
+		<div class="flex-1 mt-2 font-bold text-lg tracking-tighter">
 			{#if product.currentPrice}
-				<span class="line-through mr-2 font-medium text-gray-300">₱{product.price}</span><span
-					>₱{product.currentPrice}</span>
+				<span class="line-through text-md mr-1 font-medium text-gray-300">
+					{formatter.format(product.price)}
+				</span>
+				<span>{formatter.format(product.currentPrice)}</span>
 			{:else}
-				<div>₱{product.price}</div>
+				<div>{formatter.format(product.price)}</div>
 			{/if}
 		</div>
 		<div

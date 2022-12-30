@@ -42,10 +42,12 @@ interface User extends Credentials {
 	id: string
 	firstName: string
 	lastName: string
-	created: number
-	updated: number
+	created: string
+	updated: string
 	verified: boolean
 	avatar?: string
+	type: 'merchant' | 'customer'
+	username: string
 }
 interface Store extends Record {
 	id: string
@@ -64,8 +66,8 @@ interface Product extends Record {
 	quantity: number
 	store: string
 	category: ProductCategory
-	created: number
-	updated: number
+	created: string
+	updated: string
 	visible?: boolean
 	image?: string | null
 	expand?: {
@@ -77,8 +79,8 @@ interface CartItem extends Record {
 	user: string
 	product: string
 	quantity: number
-	created: number
-	updated: number
+	created: string
+	updated: string
 	expand?: {
 		user: User
 		product: Product
@@ -91,8 +93,8 @@ interface Rating extends Record {
 	title: string
 	description: string
 	product: string
-	created: number
-	updated: number
+	created: string
+	updated: string
 	votes: number
 	expand?: {
 		user: User
@@ -106,11 +108,14 @@ interface Order extends Record {
 	status: string
 	reference?: string
 	products: string[]
-	created: number
-	updated: number
+	quantities: { [key: string]: number }
+	created: string
+	updated: string
+	total: number
 	expand?: {
 		customer: User
 		store: Store
+		products: Product[]
 	}
 }
 

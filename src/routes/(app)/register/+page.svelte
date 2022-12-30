@@ -1,12 +1,11 @@
 <script lang="ts">
+	import { createForm } from 'svelte-forms-lib'
+	import { ExclamationTriangle } from '@steeze-ui/heroicons'
+	import { Icon } from '@steeze-ui/svelte-icon'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
 	import Button from '$components/button/Button.svelte'
 	import { authenticate } from '$lib/auth'
-	import pocketbase from '$lib/backend'
-	import { createForm } from 'svelte-forms-lib'
-	import { Icon } from '@steeze-ui/svelte-icon'
-	import { ExclamationTriangle } from '@steeze-ui/heroicons'
 
 	let accountType = 'consumer'
 	if ($page.url.searchParams.has('type'))
@@ -33,10 +32,6 @@
 				isWorking = false
 			}
 		}
-	})
-
-	pocketbase.authStore.onChange(() => {
-		if (pocketbase.authStore.isValid) goto('/')
 	})
 </script>
 
@@ -113,7 +108,8 @@
 					</select>
 					<p id="helper-text-explanation" class="form-control-info">
 						A <span class="font-semibold">merchant</span> account has the ability to sell goods, if
-						you are a student or faculty member, select <span class="font-semibold">Customer</span>
+						you are a student or faculty member, select
+						<span class="font-semibold">Customer</span>
 					</p>
 				</div>
 				<div class="flex items-start mb-6">

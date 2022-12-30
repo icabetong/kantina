@@ -7,10 +7,12 @@
 	import Footer from '$components/footer/Footer.svelte'
 	import Navigation from '$components/navigation/Navigation.svelte'
 	import ProductCard from '$components/product-card/ProductCard.svelte'
+	import UserStore from '$stores/user'
 	import type { PageData } from './$types'
 
 	let cartSize: number = 0
 	export let data: PageData
+	const user = $UserStore
 	const { products } = data
 
 	$: {
@@ -77,9 +79,11 @@
 			<h3 class="text-orange-500 text-2xl font-bold mb-8">Most Popular Items</h3>
 			<div
 				class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 transition-all">
-				{#each products as product}
-					<ProductCard {product} />
-				{/each}
+				{#if products}
+					{#each products as product}
+						<ProductCard {product} />
+					{/each}
+				{/if}
 			</div>
 			<a href="/product" class="mt-8 btn-primary px-8 py-4 text-md">Browse More Products</a>
 		</section>
@@ -96,12 +100,21 @@
 						Kantina.
 					</span>
 				</p>
-				<a
-					href="/register?type=merchant"
-					class="inline-flex max-w-md justify-center items-center p-5 text-base font-medium text-gray-500 bg-gray-100 rounded-lg hover:bg-gradient-to-br hover:from-orange-500 hover:to-pink-500 hover:text-white hover:shadow-lg transition-all">
-					<span class="w-full">Register for a Merchant Account</span>
-					<Icon src={ArrowRight} class="ml-3 w-6 h-6" />
-				</a>
+				{#if user === null}
+					<a
+						href="/register?type=merchant"
+						class="inline-flex max-w-md justify-center items-center p-5 text-base font-medium text-gray-500 bg-gray-100 rounded-lg hover:bg-gradient-to-br hover:from-orange-500 hover:to-pink-500 hover:text-white hover:shadow-lg transition-all">
+						<span class="w-full">Register for a Merchant Account</span>
+						<Icon src={ArrowRight} class="ml-3 w-6 h-6" />
+					</a>
+				{:else}
+					<a
+						href="/account#upgrade-to-merchant"
+						class="inline-flex max-w-md justify-center items-center p-5 text-base font-medium text-gray-500 bg-gray-100 rounded-lg hover:bg-gradient-to-br hover:from-orange-500 hover:to-pink-500 hover:text-white hover:shadow-lg transition-all">
+						<span class="w-full">Upgrade Your Account</span>
+						<Icon src={ArrowRight} class="ml-3 w-6 h-6" />
+					</a>
+				{/if}
 			</div>
 		</section>
 	</div>

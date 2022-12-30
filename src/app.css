@@ -45,13 +45,16 @@ a {
 		@apply flex flex-row items-start px-4 py-2 text-gray-700 hover:bg-gray-100;
 	}
 	.nav-dropdown-button {
-		@apply w-full text-start;
+		@apply w-full text-start flex items-center;
+	}
+	.nav-dropdown-icon {
+		@apply w-5 h-5 mr-3;
 	}
 	.page-header {
 		@apply text-3xl font-extrabold tracking-tight leading-none text-gray-800;
 	}
 	.form-root {
-		@apply bg-white px-6 py-8 shadow rounded w-full sm:w-2/3 lg:w-1/2 md:py-10 md:px-8;
+		@apply bg-white px-6 py-8 drop-shadow rounded w-full sm:w-2/3 lg:w-1/2 md:py-10 md:px-8;
 	}
 	.form-control-group {
 		@apply w-full mb-3;
@@ -105,16 +108,19 @@ a {
 		@apply w-full flex p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg;
 	}
 	.badge-red {
-		@apply bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded;
+		@apply bg-red-100 text-red-800 text-sm font-medium px-2.5 py-0.5 rounded;
+	}
+	.badge-blue {
+		@apply bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded;
 	}
 	.badge-green {
-		@apply bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded;
+		@apply bg-green-100 text-green-800 text-sm font-medium px-2.5 py-0.5 rounded;
 	}
 	.badge-yellow {
-		@apply bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded;
+		@apply bg-yellow-100 text-yellow-800 text-sm font-medium px-2.5 py-0.5 rounded;
 	}
 	.badge-gray {
-		@apply p-4 text-sm text-gray-700 bg-gray-100 rounded-lg;
+		@apply bg-gray-100 text-gray-700 text-sm font-medium p-2.5 py-0.5 rounded;
 	}
 	.pagination-page-action {
 		@apply inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 disabled:text-gray-300 disabled:hover:bg-white disabled:hover:text-gray-300 disabled:hover:cursor-not-allowed;

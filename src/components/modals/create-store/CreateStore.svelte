@@ -1,18 +1,17 @@
 <script lang="ts">
-	import Modal from '$components/modals/Modal.svelte'
-	import Button from '$components/button/Button.svelte'
-	import pocketbase from '$lib/backend'
-	import UserStore from '$stores/auth'
 	import { createForm } from 'svelte-forms-lib'
 	import { closeModal } from 'svelte-modals'
-	import { Icon } from '@steeze-ui/svelte-icon'
 	import { ExclamationTriangle } from '@steeze-ui/heroicons'
+	import { Icon } from '@steeze-ui/svelte-icon'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
+	import Button from '$components/button/Button.svelte'
+	import Modal from '$components/modals/Modal.svelte'
+	import pocketbase from '$lib/backend'
+	import UserStore from '$stores/user'
 
+	const user = $UserStore
 	export let isOpen: boolean
-	let user = $UserStore
-	let userId = user?.id
 	let isWorking = false
 	let error: string | null = null
 
@@ -21,18 +20,18 @@
 			name: ''
 		},
 		onSubmit: async (data) => {
-			if (!userId) return
+			if (!user?.id) return
 
 			isWorking = true
 			try {
 				const store = {
-					owner: userId,
+					owner: user.id,
 					name: data.name,
 					status: 'operating'
 				}
 
 				await pocketbase.collection('stores').create(store)
-				await pocketbase.collection('users').update(userId, { type: 'merchant' })
+				await pocketbase.collection('users').update(user.id, { type: 'merchant' })
 				goto($page.url, { replaceState: true, invalidateAll: true })
 				closeModal()
 			} catch (ignored) {

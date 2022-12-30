@@ -1,9 +1,4 @@
 import pocketbase from '$lib/backend'
-import UserStore from '$stores/auth'
-
-pocketbase.authStore.onChange(function () {
-	UserStore.set(pocketbase.authStore.model)
-})
 
 export async function authenticate(
 	email: string,

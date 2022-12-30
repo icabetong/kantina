@@ -1,27 +1,32 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
-	import { page } from '$app/stores'
-	import { Icon } from '@steeze-ui/svelte-icon'
-	import { ShoppingCart, CreditCard, Star } from '@steeze-ui/heroicons'
 	import moment from 'moment'
-	import UserStore from '$stores/auth'
-	import type { PageData } from './$types'
-	import { parseFileUrl } from '$lib/files'
-	import pocketbase from '$lib/backend'
-	import { goto } from '$app/navigation'
+	import { onMount } from 'svelte'
 	import { openModal } from 'svelte-modals'
-	import NumberStepper from '$components/number-stepper/NumberStepper.svelte'
-	import FeedbackEditor from '$components/modals/feedback-editor/FeedbackEditor.svelte'
+	import { CreditCard, ShoppingCart, Star } from '@steeze-ui/heroicons'
+	import { Icon } from '@steeze-ui/svelte-icon'
 	import { toast } from '@zerodevx/svelte-toast'
+	import { goto } from '$app/navigation'
+	import { page } from '$app/stores'
+	import FeedbackEditor from '$components/modals/feedback-editor/FeedbackEditor.svelte'
+	import NumberStepper from '$components/number-stepper/NumberStepper.svelte'
 	import ProductCard from '$components/product-card/ProductCard.svelte'
+	import pocketbase from '$lib/backend'
+	import { parseFileUrl } from '$lib/files'
+	import { getCurrencyFormatter } from '$shared/formatter'
+	import UserStore from '$stores/user'
+	import type { PageData } from './$types'
 
 	export let data: PageData
 
+	const formatter = getCurrencyFormatter()
 	const user = $UserStore
 	const productId = $page.params.id
-	const { product, cartItems, ratings, related } = data
+	const { product, cartItems, ratings: productRatings, related } = data
 	const outOfStock = product.quantity < 1
 	let averageRating: number = 0
+
+	let basket: CartItem[] = cartItems
+	let ratings: Rating[] = productRatings
 
 	let quantity: number = 1
 	const decrement = () => quantity - 1 > 0 && quantity--
@@ -40,7 +45,7 @@
 		try {
 			if (!user) throw new Error('Authentication Error')
 
-			const cartItem = cartItems.find((i) => i.product === product.id)
+			const cartItem = basket.find((i) => i.product === product.id)
 			if (cartItem) {
 				const data = {
 					...cartItem,
@@ -59,17 +64,6 @@
 			}
 
 			toast.push('Product added to cart')
-			goto($page.url, { replaceState: true, invalidateAll: true })
-		} catch (ignored) {}
-	}
-	const onVoteFeedback = async (rating: Rating, action: 'inc' | 'dec') => {
-		try {
-			let votes = rating.votes
-			if (action === 'inc') votes++
-			else votes--
-
-			await pocketbase.collection('ratings').update(rating.id, { votes })
-
 			goto($page.url, { replaceState: true, invalidateAll: true })
 		} catch (ignored) {}
 	}
@@ -118,10 +112,11 @@
 			{/if}
 			<div class="mt-2 mb-8 text-lg md:text-xl">
 				{#if product.currentPrice}
-					<span class="text-gray-500 line-through">₱{product.price}</span>
-					<span class="text-orange-500 font-semibold">₱{product.currentPrice}</span>
+					<span class="text-gray-500 line-through">{formatter.format(product.price)}</span>
+					<span class="text-orange-500 font-semibold"
+						>{formatter.format(product.currentPrice)}</span>
 				{:else}
-					<span class="text-gray-700 font-medium">₱{product.price}</span>
+					<span class="text-gray-700 font-medium">{formatter.format(product.price)}</span>
 				{/if}
 			</div>
 			{#if product.quantity > 0}
@@ -168,12 +163,12 @@
 	{#if ratings.some((r) => r.user !== user?.id) || ratings.length < 1}
 		<section
 			id="feedback"
-			class="mt-16 px-4 py-6 flex flex-col items-center justify-between gap-4 bg-pink-100 rounded-xl md:flex-row md:gap-0">
+			class="mt-16 px-4 py-6 flex flex-col items-center justify-between gap-4 bg-gradient-to-br from-orange-100 to-pink-100 rounded-xl md:flex-row md:gap-0">
 			<div class="flex-initial md:w-2/3">
-				<h6 class="text-pink-500 font-medium">
+				<h6 class="text-orange-500 font-medium">
 					Have an opinion with this product? You can rate it.
 				</h6>
-				<p class="mt-2 text-sm text-pink-400">
+				<p class="mt-2 text-sm text-orange-400">
 					Rating and feedback help other users determine the quality of the product, it helps us
 					curate suggested products too.
 				</p>
@@ -197,10 +192,8 @@
 									<p>
 										{rating.expand.user.firstName}
 										{rating.expand.user.lastName}
-										<time
-											class="block text-sm text-gray-500"
-											datetime={new Date(rating.updated).toLocaleString()}>
-											{moment().date(rating.updated).fromNow()}
+										<time class="block text-sm text-gray-500" datetime={rating.updated}>
+											{moment(Date.parse(rating.created)).fromNow()}
 										</time>
 									</p>
 								</div>
@@ -217,25 +210,6 @@
 								</h3>
 							</div>
 							<p class="mb-2 font-light text-gray-500">{rating.description}</p>
-							<aside>
-								<p class="mt-1 text-xs text-gray-500">
-									{rating.votes} people have found this helpful
-								</p>
-								<div class="mt-3 pr-3 flex items-center gap-2">
-									<button
-										type="button"
-										class="text-gray-800 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-xs px-2 py-1.5"
-										on:click={() => onVoteFeedback(rating, 'inc')}>
-										Helpful
-									</button>
-									<button
-										type="button"
-										class="text-gray-800 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-xs px-2 py-1.5"
-										on:click={() => onVoteFeedback(rating, 'dec')}>
-										Not Helpful
-									</button>
-								</div>
-							</aside>
 						</div>
 					{/if}
 				{/each}

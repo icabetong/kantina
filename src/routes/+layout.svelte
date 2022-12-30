@@ -6,16 +6,6 @@
 	import PageProgress from '$components/page-progress/PageProgress.svelte'
 	import pocketbase from '$lib/backend'
 	import '../app.css'
-	import type { PageData } from './$types'
-
-	export let data: PageData
-
-	if (
-		($page.url.pathname === '/login' || $page.url.pathname === '/register') &&
-		pocketbase.authStore.isValid
-	) {
-		goto('/')
-	}
 </script>
 
 <PageProgress />

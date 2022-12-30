@@ -10,16 +10,16 @@
 	import pocketbase from '$lib/backend'
 	import { parseFileUrl } from '$lib/files'
 	import { colors, getColor500 } from '$shared/color'
-	import UserStore from '$stores/auth'
+	import UserStore from '$stores/user'
 	import type { PageData } from './$types'
 
+	const user = $UserStore
 	export let data: PageData
 	$: {
 		const { store: userStore } = data
 		if (userStore) store = userStore
 	}
 
-	let userId = $UserStore?.id
 	let error: string | null = null
 	let store: Store | null = data.store ? data.store : null
 
@@ -29,7 +29,7 @@
 			color: store?.color ?? 'yellow'
 		},
 		onSubmit: async (data) => {
-			if (!userId) return
+			if (!user?.id) return
 			if (!store?.id) return
 
 			try {

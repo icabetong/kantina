@@ -1,32 +1,33 @@
 <script lang="ts">
-	import Button from '$components/button/Button.svelte'
-	import UserStore from '$stores/auth'
-	import { Icon } from '@steeze-ui/svelte-icon'
-	import { User, ExclamationTriangle } from '@steeze-ui/heroicons'
-	import { createForm } from 'svelte-forms-lib'
 	import type { Record } from 'pocketbase'
-	import pocketbase from '$lib/backend'
-	import { parseFileUrl } from '$lib/files'
+	import { createForm } from 'svelte-forms-lib'
+	import { openModal } from 'svelte-modals'
+	import { ExclamationTriangle, User } from '@steeze-ui/heroicons'
+	import { Icon } from '@steeze-ui/svelte-icon'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
-	import { openModal } from 'svelte-modals'
+	import Button from '$components/button/Button.svelte'
 	import CreateStore from '$components/modals/create-store/CreateStore.svelte'
 	import UpdateAvatar from '$components/modals/update-avatar/UpdateAvatar.svelte'
+	import pocketbase from '$lib/backend'
+	import { parseFileUrl } from '$lib/files'
+	import UserStore from '$stores/user'
 
-	const user = $UserStore
+	let user = $UserStore
 	let isWorking: boolean = false
 	const { form, handleSubmit } = createForm({
 		initialValues: {
-			id: user?.id ?? '',
-			firstName: user?.firstName ?? '',
-			lastName: user?.lastName ?? '',
+			firstName: user?.firstName,
+			lastName: user?.lastName,
 			email: user?.email,
 			type: user?.type ?? 'customer',
 			username: user?.username
 		},
 		onSubmit: async (form) => {
 			try {
-				await pocketbase.collection('users').update(form.id, form)
+				if (!user?.id) return
+
+				await pocketbase.collection('users').update(user.id, form)
 				goto($page.url, { invalidateAll: true, replaceState: true })
 			} catch (e) {
 				console.error(e)

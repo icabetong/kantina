@@ -2,6 +2,8 @@
 	import { Icon } from '@steeze-ui/svelte-icon'
 	import { ArrowRight } from '@steeze-ui/heroicons'
 	import { page } from '$app/stores'
+	import Navigation from '$components/navigation/Navigation.svelte'
+	import Footer from '$components/footer/Footer.svelte'
 
 	let src = '/images/generic-error.svg'
 	let title = 'Oh no!'
@@ -19,13 +21,16 @@
 	}
 </script>
 
+<header>
+	<Navigation />
+</header>
 <div class="page w-full">
 	<div class="flex flex-col md:flex-row py-12 md:py-32">
 		<div class="flex-1 flex flex-col items-center">
 			<img {src} alt="not-found-error" class="w-3/4" />
 		</div>
 		<div class="flex-1 flex flex-col justify-start mt-16 md:mt-0 md:justify-center md:items-start">
-			<h1 class="page-header">{title}</h1>
+			<h1 class="page-header mb-2">{title}</h1>
 			<p class="text-gray-500 mb-8">
 				{message}
 			</p>
@@ -34,6 +39,7 @@
 		</div>
 	</div>
 </div>
+<Footer />
 
 <svelte:head>
 	<title>Error - Kantina</title>

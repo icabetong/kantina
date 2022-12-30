@@ -4,7 +4,9 @@
 	import { Icon } from '@steeze-ui/svelte-icon'
 	import EmptyView from '$components/empty-state/EmptyState.svelte'
 	import { parseFileUrl } from '$lib/files'
+	import { getCurrencyFormatter } from '$shared/formatter'
 
+	const formatter = getCurrencyFormatter(false)
 	const dispatch = createEventDispatcher<TableEvent<Product>>()
 	const onProductClick = (product: Product) => dispatch('select', product)
 	const onProductRemove = (product: Product) => dispatch('remove', product)
@@ -91,11 +93,11 @@
 						<td class="p-4 font-medium text-gray-800">
 							{#if product.currentPrice}
 								<span class="line-through text-gray-400">
-									₱{product.price}
+									{formatter.format(product.price)}
 								</span>
-								<span class="ml-1">₱{product.currentPrice}</span>
+								<span class="ml-1">{formatter.format(product.currentPrice)}</span>
 							{:else}
-								<span>₱{product.price}</span>
+								<span>{formatter.format(product.price)}</span>
 							{/if}
 						</td>
 						<td class="py-4 px-6">
