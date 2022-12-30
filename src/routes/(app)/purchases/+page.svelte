@@ -11,3 +11,7 @@
 			message="This page have not been built yet, check it out later." />
 	</div>
 </div>
+
+<svelte:head>
+	<title>Orders and Purchases - Kantina</title>
+</svelte:head>

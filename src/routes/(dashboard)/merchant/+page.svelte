@@ -47,7 +47,7 @@
 <div class="max-w-screen-xl p-8 w-full min-h-screen flex flex-col items-center justify-center">
 	<h2 class="page-header self-start">Dashboard</h2>
 	<div class="w-full flex items-center" />
-	<div class="flex-1 gap-4 mt-6 w-full grid grid-cols-2 xl:grid-cols-3">
+	<div class="flex-1 gap-4 mt-6 w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
 		<form
 			class="h-fit border border-gray-200 rounded-lg p-4"
 			on:submit|preventDefault={handleSubmit}>

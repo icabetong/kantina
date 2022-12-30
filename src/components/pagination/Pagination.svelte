@@ -55,7 +55,7 @@
 		</button>
 	</div>
 {:else}
-	<div class="flex flex-row items-center w-full py-4">
+	<div class="flex flex-row items-center w-full">
 		<div class="flex-1 text-gray-500 text-md">
 			Showing
 			<span class="font-bold text-gray-800">

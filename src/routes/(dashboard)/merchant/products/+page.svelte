@@ -207,7 +207,7 @@
 			</form>
 		</div>
 	</div>
-	<div class="flex-1 mt-6 w-full">
+	<div class="flex-1 flex flex-col mt-6 w-full">
 		<ProductTable
 			{products}
 			{sort}

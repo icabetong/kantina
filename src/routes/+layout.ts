@@ -30,7 +30,7 @@ export const load = (async ({ url }) => {
 			throw error(500, 'Internal Server Error')
 		}
 	} else {
-		if (privateRoutes.includes('pathname')) {
+		if (privateRoutes.includes(pathname)) {
 			throw redirect(303, '/')
 		}
 

@@ -58,7 +58,7 @@
 	}
 </script>
 
-<div class="overflow-x-auto relative">
+<div class="flex-1 overflow-x-auto relative">
 	<table class="w-full text-sm text-left text-gray-500">
 		<thead class="text-xs uppercase bg-gray-100 text-gray-700">
 			<tr>

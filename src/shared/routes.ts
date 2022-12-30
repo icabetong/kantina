@@ -1,2 +1,8 @@
-export const privateRoutes = ['/account', '/merchant', '/purchased']
+export const privateRoutes = [
+	'/account',
+	'/purchased',
+	'/merchant',
+	'/merchant/orders',
+	'/merchant/products'
+]
 export const authRoutes = ['/login', '/register']
