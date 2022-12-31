@@ -11,15 +11,16 @@
 		UserCircle
 	} from '@steeze-ui/heroicons'
 	import { Icon } from '@steeze-ui/svelte-icon'
+	import type { ActionResult } from '@sveltejs/kit'
+	import { applyAction, enhance } from '$app/forms'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
-	import { endSession } from '$lib/auth'
+	import pocketbase from '$lib/backend'
 	import { parseFileUrl } from '$lib/files'
 	import { clickOutside } from '$shared/click-outside'
 	import SearchQueryStore from '$stores/search-query'
-	import UserStore from '$stores/user'
 
-	const user = $UserStore
+	export let user: User | null
 	export let cartItems: number = 0
 
 	const { form, handleSubmit } = createForm({
@@ -65,11 +66,18 @@
 				goto('/account')
 				break
 			case 'end':
-				endSession()
-				goto('/login')
+				goto('/logout')
 				break
 		}
 		dropdownOpened = false
+	}
+
+	const onEndSession = () => {
+		return async ({ result }: { result: ActionResult }) => {
+			pocketbase.authStore.clear()
+			dropdownOpened = false
+			await applyAction(result)
+		}
 	}
 </script>
 
@@ -206,10 +214,12 @@
 					</button>
 				</li>
 				<li class="nav-dropdown-item">
-					<button type="button" class="nav-dropdown-button" value="end" on:click={onDropdownClick}>
-						<Icon src={ArrowRightOnRectangle} class="nav-dropdown-icon" />
-						Sign Out
-					</button>
+					<form method="POST" action="/logout" use:enhance={onEndSession}>
+						<button class="nav-dropdown-button" value="end">
+							<Icon src={ArrowRightOnRectangle} class="nav-dropdown-icon" />
+							Sign Out
+						</button>
+					</form>
 				</li>
 			</ul>
 		</div>

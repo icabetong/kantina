@@ -1,43 +1,32 @@
 <script lang="ts">
-	import { createForm } from 'svelte-forms-lib'
 	import { ExclamationTriangle } from '@steeze-ui/heroicons'
 	import { Icon } from '@steeze-ui/svelte-icon'
+	import type { ActionResult } from '@sveltejs/kit'
+	import { applyAction, enhance } from '$app/forms'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
 	import Button from '$components/button/Button.svelte'
-	import { authenticate } from '$lib/auth'
+	import pocketbase from '$lib/backend'
 
 	let accountType = 'consumer'
 	if ($page.url.searchParams.has('type'))
 		accountType = $page.url.searchParams.get('type') ?? 'consumer'
 
+	let hasAgreed = false
 	let error: string | null = null
 	let isWorking: boolean = false
-	const { form, handleSubmit } = createForm({
-		initialValues: {
-			firstName: '',
-			lastName: '',
-			email: '',
-			password: '',
-			type: accountType
-		},
-		onSubmit: async (data) => {
-			isWorking = true
-			try {
-				const { email, password, ...other } = data
-				await authenticate(email, password, true, other)
-			} catch (ignored) {
-				error = 'An error occured while creating your account.'
-			} finally {
-				isWorking = false
-			}
+
+	const onRegister = () => {
+		return async ({ result }: { result: ActionResult }) => {
+			pocketbase.authStore.loadFromCookie(document.cookie)
+			await applyAction(result)
 		}
-	})
+	}
 </script>
 
 <div class="hero">
 	<div class="page w-full min-h-screen flex flex-col items-center justify-center">
-		<form class="mx-auto max-w-md form-root" on:submit|preventDefault={handleSubmit}>
+		<form class="mx-auto max-w-md form-root" use:enhance={onRegister} method="POST">
 			<div class="flex flex-col items-start">
 				<h1 class="text-2xl font-semibold mb-8">Register to Kantina</h1>
 				{#if error}
@@ -54,54 +43,54 @@
 					<input
 						required
 						type="text"
+						name="firstName"
 						id="firstName"
 						class="form-control-input"
 						placeholder="Joachim"
-						aria-required="true"
-						bind:value={$form.firstName} />
+						aria-required="true" />
 				</div>
 				<div class="form-control-group">
 					<label for="lastName" class="form-control-label"> Last Name </label>
 					<input
 						required
 						type="text"
+						name="lastName"
 						id="lastName"
 						class="form-control-input"
 						placeholder="von Ribbentrop"
-						aria-required="true"
-						bind:value={$form.lastName} />
+						aria-required="true" />
 				</div>
 				<div class="form-control-group">
 					<label for="email" class="form-control-label"> Email </label>
 					<input
 						required
 						type="email"
+						name="email"
 						id="email"
 						class="form-control-input"
 						placeholder="name@kantina.com"
-						aria-required="true"
-						bind:value={$form.email} />
+						aria-required="true" />
 				</div>
 				<div class="form-control-group">
 					<label for="password" class="form-control-label"> Password </label>
 					<input
 						required
 						type="password"
+						name="password"
 						id="password"
 						class="form-control-input"
 						placeholder="••••••••••"
-						aria-required="true"
-						bind:value={$form.password} />
+						aria-required="true" />
 				</div>
 				<div class="form-control-group">
 					<label for="type" class="form-control-label">Account Type</label>
 					<select
 						required
+						name="type"
 						id="type"
 						class="form-control-dropdown"
 						aria-required="true"
-						aria-describedby="helper-text-explanation"
-						bind:value={$form.type}>
+						aria-describedby="helper-text-explanation">
 						<option selected>Select one</option>
 						<option value="customer">Customer</option>
 						<option value="merchant">Merchant</option>
@@ -114,7 +103,11 @@
 				</div>
 				<div class="flex items-start mb-6">
 					<div class="flex items-center h-5">
-						<input id="terms" type="checkbox" value="" class="form-control-checkbox" required />
+						<input
+							id="terms"
+							type="checkbox"
+							class="form-control-checkbox"
+							bind:checked={hasAgreed} />
 					</div>
 					<label for="terms" class="ml-2 text-sm font-medium text-gray-800">
 						I agree with the
@@ -123,7 +116,7 @@
 				</div>
 				<div class="w-full flex flex-col items-center justify-between mt-4 mb-2 gap-2 md:flex-row">
 					<div class="flex flex-col gap-4 w-full md:flex-row md:gap-2">
-						<Button type="submit" isLoading={isWorking}>Register</Button>
+						<Button type="submit" isLoading={isWorking} disabled={!hasAgreed}>Register</Button>
 						<button
 							type="button"
 							class="btn-outlined"

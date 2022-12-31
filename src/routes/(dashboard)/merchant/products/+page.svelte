@@ -17,12 +17,13 @@
 	export let data: PageData
 
 	$: {
-		const { items, page, paginated, count, pages } = data
+		const { items, page, paginated, count, pages, store } = data
 		products = items
 		currentPage = page
 		perPage = paginated
 		totalItems = count
 		totalPages = pages
+		userStore = store
 	}
 	let products: Product[] = []
 	let userStore: Store

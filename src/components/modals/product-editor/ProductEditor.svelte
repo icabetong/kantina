@@ -19,10 +19,9 @@
 	let isWorking = false
 	let error: string | null = null
 	let hasRemovedImage: boolean = false
-	const { form, handleSubmit } = createForm<Kantina.ProductForm>({
+	const { form, handleSubmit } = createForm({
 		initialValues: {
-			id: product?.id ?? '',
-			name: product?.name ?? '',
+			name: product?.name,
 			description: product?.description,
 			price: product?.price ?? 0,
 			currentPrice: product?.currentPrice,
@@ -60,9 +59,9 @@
 			try {
 				if (product) {
 					if (hasRemovedImage)
-						await pocketbase.collection('products').update(form.id, { image: null })
+						await pocketbase.collection('products').update(product.id, { image: null })
 
-					await pocketbase.collection('products').update(form.id, formData)
+					await pocketbase.collection('products').update(product.id, formData)
 				} else await pocketbase.collection('products').create(formData)
 				goto($page.url, { replaceState: true, invalidateAll: true })
 				closeModal()

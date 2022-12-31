@@ -70,7 +70,7 @@
 		</div>
 		<div class="flex-auto w-1/2">
 			{#if order.expand?.products}
-				<h6>Products</h6>
+				<h6 class="form-control-label">Products</h6>
 				<ul class="h-full">
 					{#each order.expand.products as products}
 						<li class="text-sm text-gray-600 py-1.5">

@@ -4,7 +4,6 @@
 	import { toast } from '@zerodevx/svelte-toast'
 	import Button from '$components/button/Button.svelte'
 	import ScanQrCode from '$components/modals/scan-qr-code/ScanQRCode.svelte'
-	import pocketbase from '$lib/backend'
 	import { parseFileUrl } from '$lib/files'
 	import { getColor100, getTextColor800 } from '$shared/color'
 	import { getCurrencyFormatter } from '$shared/formatter'

@@ -33,7 +33,8 @@ export const load = (async ({ url }) => {
 			count: result.totalItems,
 			pages: result.totalPages,
 			page: result.page,
-			paginated: result.perPage
+			paginated: result.perPage,
+			store
 		}
 	} catch (e) {
 		if (e instanceof Error) throw error(401, e.message)

@@ -16,15 +16,15 @@
 	export let sort: Kantina.ProductSort
 </script>
 
-<div class="flex-1 overflow-x-auto relative">
+<div class="flex-1 overflow-x-auto relative mb-4 border border-gray-100 rounded-lg">
 	{#if products.length > 0}
 		<table class="w-full text-sm text-left text-gray-500">
-			<thead class="text-xs uppercase bg-gray-100 text-gray-700">
+			<thead class="text-xs uppercase border-b border-gray-100 text-gray-700">
 				<tr>
-					<th scope="col" class="py-3 px-6 rounded-l-lg">
+					<th scope="col" class="py-2 px-4">
 						<span class="sr-only">Image</span>
 					</th>
-					<th scope="col" class="py-3 px-6">
+					<th scope="col" class="py-2 px-4">
 						<button
 							class="flex items-center text-xs uppercase"
 							value="name"
@@ -40,7 +40,7 @@
 							{/if}
 						</button>
 					</th>
-					<th scope="col" class="py-3 px-6">
+					<th scope="col" class="py-2 px-4">
 						<button
 							class="flex items-center text-xs uppercase"
 							value="price"
@@ -56,7 +56,7 @@
 							{/if}
 						</button>
 					</th>
-					<th scope="col" class="py-3 px-6">
+					<th scope="col" class="py-2 px-4">
 						<button
 							class="flex items-center text-xs uppercase"
 							value="quantity"
@@ -73,7 +73,7 @@
 						</button>
 					</th>
 					<th scope="col" class="py-3 px-6"> Status </th>
-					<th scope="col" class="py-3 px-6 rounded-r-lg"> Actions </th>
+					<th scope="col" class="py-3 px-6"> Actions </th>
 				</tr>
 			</thead>
 			<tbody class="divide-y divide-y-gray-100">
@@ -84,6 +84,8 @@
 						<td class="p-2 w-32">
 							{#if product.image}
 								<img src={parseFileUrl('products', product.id, product.image)} alt={product.name} />
+							{:else}
+								<span class="badge-yellow">No Image</span>
 							{/if}
 						</td>
 						<th scope="row" class="py-2 px-6 font-medium text-gray-800 whitespace-nowrap ">
@@ -100,7 +102,7 @@
 								<span>{formatter.format(product.price)}</span>
 							{/if}
 						</td>
-						<td class="py-4 px-6">
+						<td class="py-2 px-4">
 							{#if product.quantity < 1}
 								<span class="badge-red hidden xl:inline-block">Out of Stock!</span>
 								<span class="xl:hidden text-red-500">0</span>
@@ -110,20 +112,22 @@
 								</span>
 							{/if}
 						</td>
-						<td class="py-4 px-4">
+						<td class="py-2 px-4">
 							{#if product.visible}
 								<span class="badge-green">Visible</span>
 							{:else}
 								<span class="badge-yellow">Hidden</span>
 							{/if}
 						</td>
-						<td class="py-4 px-6">
-							<button
-								type="button"
-								class="text-red-500 px-2 py-2 rounded-lg hover:bg-gray-100"
-								on:click|stopPropagation={() => onProductRemove(product)}>
-								<Icon src={Trash} class="w-5 h-5" />
-							</button>
+						<td class="py-2 px-4">
+							<div class="h-full flex items-center justify-center">
+								<button
+									type="button"
+									class="text-red-500 px-2 py-2 rounded-lg hover:bg-gray-100"
+									on:click|stopPropagation={() => onProductRemove(product)}>
+									<Icon src={Trash} class="w-5 h-5" />
+								</button>
+							</div>
 						</td>
 					</tr>
 				{/each}

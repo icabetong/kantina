@@ -5,7 +5,7 @@ import type { PageLoad } from "./$types";
 export const load = (async ({ parent }) => {
   try {
     const data = await parent()
-    const cart: CartItem[] = 'cartItems' in data ? data['cartItems'] as CartItem[] : []
+    const cart: CartItem[] = 'cart' in data ? data['cart'] as CartItem[] : []
 
     const stores: Store[] = []
     for (const item of cart) {

@@ -7,13 +7,13 @@
 	import Footer from '$components/footer/Footer.svelte'
 	import Navigation from '$components/navigation/Navigation.svelte'
 	import ProductCard from '$components/product-card/ProductCard.svelte'
-	import UserStore from '$stores/user'
 	import type { PageData } from './$types'
 
-	let cartSize: number = 0
 	export let data: PageData
-	const user = $UserStore
 	const { products } = data
+
+	let cartSize: number = 0
+	let user = data.user
 
 	$: cartSize = data.cart.length
 
@@ -28,7 +28,7 @@
 	})
 </script>
 
-<header class="z-10"><Navigation cartItems={cartSize} /></header>
+<header class="z-10"><Navigation cartItems={cartSize} {user} /></header>
 <main class="flex-1 bg-white">
 	<div class="text-gray-800 bg-white min-h-screen">
 		<div class="hero border-b">

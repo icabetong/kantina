@@ -3,6 +3,9 @@
 	import { openModal } from 'svelte-modals'
 	import { Banknotes, XMark } from '@steeze-ui/heroicons'
 	import { Icon } from '@steeze-ui/svelte-icon'
+	import { toast } from '@zerodevx/svelte-toast'
+	import { goto } from '$app/navigation'
+	import { page } from '$app/stores'
 	import ConfirmModal from '$components/modals/confirm-modal/ConfirmModal.svelte'
 	import pocketbase from '$lib/backend'
 	import { getCurrencyFormatter, getDateTimeFormatter } from '$shared/formatter'
@@ -32,9 +35,15 @@
 				abandonText: 'Cancel',
 				confirm: async () => {
 					await pocketbase.collection('orders').update(order.id, { status: 'paid' })
+					toast.push('Order marked as Paid')
+
+					goto($page.url, { replaceState: true })
 				}
 			})
-		} catch (ignored) {}
+		} catch (e) {
+			if (e instanceof Error) toast.push(e.message)
+			else toast.push('An Error Occurred')
+		}
 	}
 	const onMarkAsRejected = (event: Event) => {
 		try {
@@ -52,27 +61,33 @@
 				abandonText: 'Cancel',
 				confirm: async () => {
 					await pocketbase.collection('orders').update(order.id, { status: 'rejected' })
+					toast.push('Order marked as Rejected')
+
+					goto($page.url, { replaceState: true })
 				}
 			})
-		} catch (ignored) {}
+		} catch (e) {
+			if (e instanceof Error) toast.push(e.message)
+			else toast.push('An Error Occurred')
+		}
 	}
 </script>
 
-<div class="flex-1 overflow-x-auto relative">
+<div class="flex-1 overflow-x-auto mb-4 relative border border-gray-100 rounded-lg">
 	<table class="w-full text-sm text-left text-gray-500">
-		<thead class="text-xs uppercase bg-gray-100 text-gray-700">
+		<thead class="text-xs uppercase text-gray-700 border-b border-gray-100">
 			<tr>
 				{#if showId}
 					<th scope="col" class="py-3 px-6 rounded-l-lg">
 						<span>Order ID</span>
 					</th>
 				{/if}
-				<th scope="col" class={`py-3 px-6 ${!showId ? 'rounded-l-lg' : ''}`}> Customer </th>
-				<th scope="col" class="py-3 px-6"> Status </th>
-				<th scope="col" class="py-3 px-6 ">Total Payment</th>
-				<th scope="col" class="py-3 px-6"> Created </th>
+				<th scope="col" class="py-3 px-4"> Customer </th>
+				<th scope="col" class="py-3 px-4"> Status </th>
+				<th scope="col" class="py-3 px-4">Total Payment</th>
+				<th scope="col" class="py-3 px-4"> Created </th>
 
-				<th scope="col" class="py-3 px-6 rounded-r-lg">Actions</th>
+				<th scope="col" class="py-3 px-4 rounded-r-lg">Actions</th>
 			</tr>
 		</thead>
 		<tbody class="divide-y divide-y-gray-100">
@@ -81,12 +96,15 @@
 					class="bg-white hover:bg-gray-50 rounded-lg cursor-pointer"
 					on:click={() => onHandleSelect(order)}>
 					{#if showId}
-						<td class="px-6">{order.id}</td>
+						<td class="px-4">{order.id}</td>
 					{/if}
-					<th scope="row" class="py-2 px-6 font-medium text-gray-800 whitespace-nowrap">
+					<th scope="row" class="py-2 px-4 font-medium text-gray-800 whitespace-nowrap">
 						{order.expand && getFullName(order.expand?.customer)}
+						<p class="font-normal text-xs text-gray-500">
+							{order.expand && order.expand.customer.email}
+						</p>
 					</th>
-					<td class="p-6 font-medium">
+					<td class="px-4 py-2 font-medium">
 						{#if order.status === 'complete'}
 							<span class="badge-green capitalize">{order.status}</span>
 						{:else if order.status === 'paid'}
@@ -97,33 +115,33 @@
 							<span class="badge-red capitalize">{order.status}</span>
 						{/if}
 					</td>
-					<td class="p-6">
+					<td class="px-4 py-2">
 						{currencyFormatter.format(order.total)}
 					</td>
-					<td class="p-6">
+					<td class="px-4 py-2">
 						<time datetime={order.created}>
 							{dateFormatter.format(new Date(order.created))}
 						</time>
 					</td>
-					<td class="p-6 flex items-center">
-						{#if order.status === 'pending'}
-							<button
-								type="button"
-								value={index}
-								class="action"
-								on:click|stopPropagation={onMarkAsPaid}>
-								<Icon src={Banknotes} class="w-5 h-5" />
-							</button>
-							<button
-								type="button"
-								value={index}
-								class="action"
-								on:click|stopPropagation={onMarkAsRejected}>
-								<Icon src={XMark} class="w-5 h-5" />
-							</button>
-						{:else}
-							<span>No Actions Available</span>
-						{/if}
+					<td class="px-4 py-2 flex items-center justify-center">
+						<button
+							type="button"
+							value={index}
+							class="action"
+							disabled={order.status !== 'pending'}
+							aria-disabled={order.status === 'pending'}
+							on:click|stopPropagation={onMarkAsPaid}>
+							<Icon src={Banknotes} class="w-5 h-5" />
+						</button>
+						<button
+							type="button"
+							value={index}
+							class="action"
+							disabled={order.status !== 'pending'}
+							aria-disabled={order.status === 'pending'}
+							on:click|stopPropagation={onMarkAsRejected}>
+							<Icon src={XMark} class="w-5 h-5" />
+						</button>
 					</td>
 				</tr>
 			{/each}
@@ -133,6 +151,6 @@
 
 <style lang="postcss">
 	.action {
-		@apply p-2 rounded-lg text-gray-700 flex items-center hover:bg-gray-200;
+		@apply p-2 rounded-lg text-gray-700 flex items-center hover:bg-gray-200 disabled:hover:bg-transparent disabled:text-gray-200;
 	}
 </style>

@@ -3,7 +3,12 @@
 
 // and what to do when importing types
 /// <reference types="@sveltejs/kit"/>
-declare namespace App {}
+declare namespace App {
+	interface Locals {
+		user: User | null
+		pocketbase: import('pocketbase')
+	}
+}
 
 declare namespace Kantina {
 	type Tab = {
@@ -19,17 +24,6 @@ declare namespace Kantina {
 	type ProductSort = {
 		field?: 'name' | 'price' | 'quantity'
 		direction?: 'ascending' | 'descending'
-	}
-	type ProductForm = {
-		id: string
-		name: string
-		description?: string
-		price: number
-		currentPrice?: number
-		quantity: number
-		category: ProductCategory
-		visible: boolean
-		image?: File | string
 	}
 }
 
