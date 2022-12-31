@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -36,7 +36,7 @@ a {
 
 @layer components {
 	.page {
-		@apply max-w-screen-xl mx-auto px-8 md:px-12 py-8 h-full selection:text-orange-50;
+		@apply max-w-screen-xl mx-auto px-8 md:px-12 py-8 h-full text-gray-800;
 	}
 	.nav-icon {
 		@apply h-6 w-6 text-gray-500;
