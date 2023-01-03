@@ -11,7 +11,7 @@
 	export let label: string = ''
 </script>
 
-<div class="flex p-2 rounded hover:bg-gray-100">
+<div class="flex p-2 rounded hover:bg-gray-100" data-testid="switch">
 	<label class="inline-flex relative items-center w-full cursor-pointer">
 		<input type="checkbox" {checked} class="sr-only peer" on:change={onChange} />
 		<div
