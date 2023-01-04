@@ -2,7 +2,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon'
 	import { ChevronDown } from '@steeze-ui/heroicons'
 	import { createPopperActions } from 'svelte-popperjs'
-	import { clickOutside } from '$shared/click-outside'
+	import { clickOutside } from '$shared/directives/click-outside'
 
 	let isOpen = false
 	const [dropdownRef, dropdownContent] = createPopperActions({
