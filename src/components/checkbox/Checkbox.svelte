@@ -11,7 +11,7 @@
 	export let label: string = ''
 </script>
 
-<div class="flex items-center p-2 rounded hover:bg-gray-100">
+<div class="flex items-center p-2 rounded hover:bg-gray-100" data-testid="checkbox">
 	<input
 		{checked}
 		id="checkbox-item-4"
