@@ -17,7 +17,7 @@
 	import { page } from '$app/stores'
 	import pocketbase from '$lib/backend'
 	import { parseFileUrl } from '$lib/files'
-	import { clickOutside } from '$shared/click-outside'
+	import { clickOutside } from '$shared/directives/click-outside'
 	import SearchQueryStore from '$stores/search-query'
 
 	export let user: User | null
