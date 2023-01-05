@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Icon } from '@steeze-ui/svelte-icon'
 	import { ArrowRight } from '@steeze-ui/heroicons'
+	import { Icon } from '@steeze-ui/svelte-icon'
 	import { page } from '$app/stores'
 </script>
 
@@ -10,7 +10,7 @@
 			<img src="/images/product-not-found.svg" alt="not-found-error" class="w-3/4" />
 		</div>
 		<div class="flex-1 flex flex-col justify-start mt-16 md:mt-0 md:justify-center md:items-start">
-			<h1 class="page-header">{$page.error?.message}</h1>
+			<h1 class="page-header mb-2">{$page.error?.message}</h1>
 			<p class="text-gray-500 mb-8">
 				The product you are searching for is not found, maybe it isn't cooked yet?
 			</p>

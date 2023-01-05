@@ -34,7 +34,7 @@ export const load = (async ({ url }) => {
 			paginated: result.perPage
 		}
 	} catch (e) {
-		if (e instanceof Error) throw error( 404, e.message)
+		if (e instanceof Error) throw error(404, e.message)
 
 		throw error(500, 'Internal Server Error')
 	}
