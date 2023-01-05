@@ -1,6 +1,7 @@
 import { error } from '@sveltejs/kit'
 import pocketbase from '$lib/backend'
 import type { PageLoad } from './$types'
+import { ClientResponseError } from 'pocketbase'
 
 export const load = (async ({ params }) => {
 	try {
@@ -21,6 +22,13 @@ export const load = (async ({ params }) => {
 			})
 		}
 	} catch (e) {
-		throw error(404, 'Product not found')
+		if (e instanceof ClientResponseError) {
+			switch (e.status) {
+				case 400: throw error(400, e.data.message)
+				case 404: throw error(404, 'Product not found')
+			}
+		}
+
+		throw error(500, 'Internal Server Error')
 	}
 }) satisfies PageLoad
