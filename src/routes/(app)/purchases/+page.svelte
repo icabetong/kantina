@@ -7,19 +7,18 @@
 	import type { PageData } from './$types'
 
 	export let data: PageData
-	let history: Order[] = []
+	let orders: Order[] = []
 	let currentPage: number
 	let perPage: number
 	let totalItems: number
 	let totalPages: number
 
 	$: {
-		const { items, page, paginated, count, pages } = data
-		history = items
-		currentPage = page
-		perPage = paginated
-		totalItems = count
-		totalPages = pages
+		orders = data.orders
+		currentPage = data.page
+		perPage = data.perPage
+		totalItems = data.count
+		totalPages = data.pages
 	}
 
 	const onSelectOrder = (event: CustomEvent) => {
@@ -50,8 +49,8 @@
 <div class="page min-h-screen">
 	<h1 class="page-header mb-6">Orders and Purchases</h1>
 	<div class="h-full">
-		{#if history.length > 0}
-			<PurchasesGrid orders={history} on:select={onSelectOrder} />
+		{#if orders.length > 0}
+			<PurchasesGrid {orders} on:select={onSelectOrder} />
 			<div class="flex flex-col items-center mt-8">
 				<Pagination
 					{perPage}
