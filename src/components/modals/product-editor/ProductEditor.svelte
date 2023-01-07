@@ -7,7 +7,6 @@
 	import { page } from '$app/stores'
 	import Button from '$components/button/Button.svelte'
 	import Modal from '$components/modals/Modal.svelte'
-	import pocketbase from '$lib/backend'
 	import { parseFileUrl } from '$lib/files'
 	import UserStore from '$stores/user'
 
@@ -59,10 +58,24 @@
 			try {
 				if (product) {
 					if (hasRemovedImage)
-						await pocketbase.collection('products').update(product.id, { image: null })
+						await fetch(`/api/product/${product.id}`, {
+							method: 'PATCH',
+							body: JSON.stringify({ product: { image: null } })
+						})
 
-					await pocketbase.collection('products').update(product.id, formData)
-				} else await pocketbase.collection('products').create(formData)
+					await fetch(`/api/product/${product.id}`, {
+						method: 'PATCH',
+						headers: { 'content-type': 'multipart/form-data' },
+						body: formData
+					})
+				} else {
+					console.log('create')
+					await fetch('/api/product', {
+						method: 'POST',
+						headers: { 'content-type': 'multipart/form-data' },
+						body: formData
+					})
+				}
 				goto($page.url, { replaceState: true, invalidateAll: true })
 				closeModal()
 			} catch (e: any) {

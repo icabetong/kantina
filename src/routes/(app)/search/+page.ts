@@ -1,37 +1,35 @@
 import { error } from '@sveltejs/kit'
-import pocketbase from '$lib/backend'
 import type { PageLoad } from './$types'
-import type { ListResult, RecordQueryParams } from 'pocketbase'
 
-export const load = (async ({ url }) => {
+export const load: PageLoad = async ({ url }) => {
 	try {
-		const searchParams = url.searchParams
-		const searchQuery = searchParams.get('query')
+		const urlParams = url.searchParams
+		const page = parseInt(urlParams.get('page') ?? '1')
+		const limit = parseInt(urlParams.get('limit') ?? '10')
+		const query = urlParams.get('query')
+		const category = urlParams.get('category')
+		const minimum = urlParams.get('minimum')
+		const maximum = urlParams.get('maximum')
 
-		if (!searchQuery) throw error(401, 'Search Query Required')
+		const filter: string[] = []
+		if (query) filter.push(`name ~ "${query}"`)
+		if (category && category !== 'all') filter.push(`category="${category}"`)
+		if (minimum) filter.push(`price >= "${minimum}"`)
+		if (maximum) filter.push(`price <= "${maximum}"`)
 
-		const page = parseInt(searchParams.get('page') ?? '1')
-		const category = searchParams.get('category') ?? 'all'
-		const minPrice = searchParams.get('min')
-		const maxPrice = searchParams.get('max')
+		if (!query) throw error(401, 'Search Query Required')
+		const response = await fetch('/api/product/search', {
+			method: 'POST',
+			body: JSON.stringify({
+				filter,
+				page,
+				limit
+			})
+		})
+		const data = await response.json()
 
-		const queryParams: RecordQueryParams = { expand: 'store', filter: `name ~ "${searchQuery}"` }
-
-		if (category !== 'all') queryParams.filter += `&& category="${category}"`
-		if (minPrice) queryParams.filter += `&& price >= "${minPrice}"`
-		if (maxPrice) queryParams.filter += `&& price <= "${maxPrice}"`
-
-		const result: ListResult<Product> = await pocketbase
-			.collection('products')
-			.getList(page, 10, queryParams)
-		return {
-			items: result.items,
-			count: result.totalItems,
-			pages: result.totalPages,
-			page: result.page,
-			paginated: result.perPage
-		}
+		return data
 	} catch (e) {
 		throw error(500, 'Internal Server Error')
 	}
-}) satisfies PageLoad
+}

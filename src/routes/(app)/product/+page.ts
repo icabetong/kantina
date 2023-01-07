@@ -1,41 +1,31 @@
-import pocketbase from '$lib/backend'
 import { error } from '@sveltejs/kit'
-import type { ListResult, RecordQueryParams } from 'pocketbase'
 import type { PageLoad } from './$types'
 
-export const load = (async ({ url }) => {
+export const load: PageLoad = async ({ url, fetch }) => {
 	try {
-		const searchParams = url.searchParams
-		const page = parseInt(searchParams.get('page') ?? '1')
-		const category = searchParams.get('category') ?? 'all'
-		const minPrice = searchParams.get('min')
-		const maxPrice = searchParams.get('max')
+		const urlParams = url.searchParams
+		const page = parseInt(urlParams.get('page') ?? '1')
+		const limit = parseInt(urlParams.get('limit') ?? '10')
+		const category = urlParams.get('category')
+		const minimum = urlParams.get('minimum')
+		const maximum = urlParams.get('maximum')
 
-		const queryParams: RecordQueryParams = { expand: 'store' }
-		if (category !== 'all') queryParams.filter = `category="${category}"`
-		if (minPrice) {
-			if (queryParams.filter) queryParams.filter += ' && '
-			queryParams.filter += `price >= "${minPrice}"`
-		}
-		if (maxPrice) {
-			if (queryParams.filter) queryParams.filter += ' && '
-			queryParams.filter += `price <= "${maxPrice}"`
-		}
+		const filter: string[] = []
+		if (category && category !== 'all') filter.push(`category="${category}"`)
+		if (minimum) filter.push(`price >= "${minimum}"`)
+		if (maximum) filter.push(`price <= "${maximum}"`)
 
-		const result: ListResult<Product> = await pocketbase
-			.collection('products')
-			.getList(page, 10, queryParams)
+		const response = await fetch('/api/product/search', {
+			method: 'POST',
+			body: JSON.stringify({ page, limit, filter })
+		})
+		const data = await response.json()
 
-		return {
-			items: result.items,
-			count: result.totalItems,
-			pages: result.totalPages,
-			page: result.page,
-			paginated: result.perPage
-		}
+		return data
 	} catch (e) {
+		console.error(e)
 		if (e instanceof Error) throw error(404, e.message)
 
 		throw error(500, 'Internal Server Error')
 	}
-}) satisfies PageLoad
+}

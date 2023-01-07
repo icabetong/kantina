@@ -1,21 +1,26 @@
+import { ClientResponseError } from 'pocketbase'
 import { error } from '@sveltejs/kit'
 import pocketbase from '$lib/backend'
 import type { PageLoad } from './$types'
-import { ClientResponseError } from 'pocketbase'
 
-export const load = (async ({ params }) => {
+export const load: PageLoad = async ({ params, fetch }) => {
 	try {
-		const product = await pocketbase.collection('products').getOne<Product>(params.id, {
-			expand: 'store'
+		let response = await fetch(`/api/product/${params.id}`, {
+			method: 'GET'
 		})
-		const result = await pocketbase.collection('products').getList<Product>(1, 5, {
-			filter: `category="${product.category}" && id != "${params.id}"`,
-			expand: 'store'
+		const { product } = await response.json()
+
+		response = await fetch('/api/product/search', {
+			method: 'POST',
+			body: JSON.stringify({
+				filter: [`category="${product.category}"`, `id != "${params.id}"`]
+			})
 		})
+		const data = await response.json()
 
 		return {
 			product,
-			related: result.items,
+			related: data.products,
 			ratings: await pocketbase.collection('ratings').getFullList<Rating>(undefined, {
 				filter: `product="${params.id}"`,
 				expand: 'user'
@@ -24,11 +29,13 @@ export const load = (async ({ params }) => {
 	} catch (e) {
 		if (e instanceof ClientResponseError) {
 			switch (e.status) {
-				case 400: throw error(400, e.data.message)
-				case 404: throw error(404, 'Product not found')
+				case 400:
+					throw error(400, e.data.message)
+				case 404:
+					throw error(404, 'Product not found')
 			}
 		}
 
 		throw error(500, 'Internal Server Error')
 	}
-}) satisfies PageLoad
+}

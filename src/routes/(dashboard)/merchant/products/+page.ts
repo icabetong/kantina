@@ -1,39 +1,40 @@
 import { error } from '@sveltejs/kit'
 import pocketbase from '$lib/backend'
 import type { PageLoad } from './$types'
-import type { ListResult, RecordListQueryParams } from 'pocketbase'
 
-export const load = (async ({ url }) => {
+export const load = (async ({ url, fetch }) => {
 	try {
 		const userId = pocketbase.authStore.model?.id
-		const query = url.searchParams.get('query')
-		const page: number = parseInt(url.searchParams.get('page') ?? '1')
+
+		const urlParams = url.searchParams
+		const query = urlParams.get('query')
+		const page: number = parseInt(urlParams.get('page') ?? '1')
+		const limit: number = parseInt(urlParams.get('limit') ?? '10')
 
 		if (!userId) throw error(401, 'Authentication Required')
 
 		const store: Store = await pocketbase.collection('stores').getFirstListItem(`owner="${userId}"`)
-		const field = url.searchParams.get('field')
-		const direction = url.searchParams.get('direction')
-		const hide = url.searchParams.get('hide')
+		const field: string = urlParams.get('field') ?? 'name'
+		const direction = urlParams.get('direction')
+		const hide = urlParams.get('hide')
 
-		const params: RecordListQueryParams = { filter: `store = "${store.id}" ` }
-		if (query) params.filter += `&& name ~ "${query}"`
+		const filter: string[] = [`store = "${store.id}"`]
+		if (query) filter.push(`name ~ "${query}"`)
+		if (hide === 'true') filter.push(`visible = ${hide}`)
 
-		if (hide === 'true') params.filter += `&& visible = ${hide}`
-
+		const sort: string[] = []
 		const directionToken = direction === 'descending' ? '-' : '+'
-		if (field) params.sort = `${directionToken}${field}`
+		if (field) sort.push( `${directionToken}${field}`)
 
-		const result: ListResult<Product> = await pocketbase
-			.collection('products')
-			.getList(page, 50, params)
+
+		const response = await fetch('/api/product/search', {
+			method: 'POST',
+			body: JSON.stringify({ page, limit, filter, sort })
+		})
+		const data = await response.json()
 
 		return {
-			items: result.items,
-			count: result.totalItems,
-			pages: result.totalPages,
-			page: result.page,
-			paginated: result.perPage,
+			...data,
 			store
 		}
 	} catch (e) {

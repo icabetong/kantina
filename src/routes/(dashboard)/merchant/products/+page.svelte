@@ -3,6 +3,7 @@
 	import { openModal } from 'svelte-modals'
 	import { MagnifyingGlass, Plus, XMark } from '@steeze-ui/heroicons'
 	import { Icon } from '@steeze-ui/svelte-icon'
+	import { toast } from '@zerodevx/svelte-toast'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
 	import Dropdown from '$components/dropdown/Dropdown.svelte'
@@ -11,22 +12,20 @@
 	import Pagination from '$components/pagination/Pagination.svelte'
 	import ProductTable from '$components/product-table/ProductTable.svelte'
 	import Switch from '$components/switch/Switch.svelte'
-	import pocketbase from '$lib/backend'
 	import type { PageData } from './$types'
 
 	export let data: PageData
 
 	$: {
-		const { items, page, paginated, count, pages, store } = data
-		products = items
-		currentPage = page
-		perPage = paginated
-		totalItems = count
-		totalPages = pages
-		userStore = store
+		products = data.products
+		totalItems = data.count
+		totalPages = data.pages
+		currentPage = data.page
+		perPage = data.paginated
+		store = data.store
 	}
 	let products: Product[] = []
-	let userStore: Store
+	let store: Store
 	let totalItems: number
 	let totalPages: number
 	let currentPage: number
@@ -34,12 +33,12 @@
 	let sort: Kantina.ProductSort = { field: 'name', direction: 'ascending' }
 	let hideItems: boolean = false
 
-	const onTriggerAdd = () => openModal(ProductModal, { store: userStore })
+	const onTriggerAdd = () => openModal(ProductModal, { store: store })
 	const onTriggerEdit = (event: CustomEvent) => {
 		const product = event.detail
 		openModal(ProductModal, {
 			product,
-			store: userStore
+			store: store
 		})
 	}
 	const onTriggerRemove = (event: CustomEvent) => {
@@ -52,10 +51,10 @@
 			abandonText: 'Cancel',
 			confirm: async () => {
 				try {
-					await pocketbase.collection('products').delete(product.id)
+					await fetch(`/api/product/${product.id}`, { method: 'DELETE' })
 					goto($page.url, { replaceState: true, invalidateAll: true })
 				} catch (e) {
-					console.error(e)
+					toast.push('Error removing product')
 				}
 			}
 		})

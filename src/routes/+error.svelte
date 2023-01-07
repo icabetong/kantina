@@ -1,10 +1,13 @@
-<script>
-	import { Icon } from '@steeze-ui/svelte-icon'
+<script lang="ts">
 	import { ArrowRight } from '@steeze-ui/heroicons'
+	import { Icon } from '@steeze-ui/svelte-icon'
 	import { page } from '$app/stores'
-	import Navigation from '$components/navigation/Navigation.svelte'
 	import Footer from '$components/footer/Footer.svelte'
+	import Navigation from '$components/navigation/Navigation.svelte'
+	import type { PageData } from './$types'
 
+	export let data: PageData
+	let user = data.user
 	let src = '/images/generic-error.svg'
 	let title = 'Oh no!'
 	let message = ''
@@ -22,7 +25,7 @@
 </script>
 
 <header>
-	<Navigation />
+	<Navigation {user} />
 </header>
 <div class="page w-full">
 	<div class="flex flex-col md:flex-row py-12 md:py-32">
