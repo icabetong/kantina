@@ -22,15 +22,18 @@
 
 		isWorking = true
 		try {
-			const feedback = {
-				rating,
-				title,
-				description,
-				product: product.id,
-				user: user.id
-			}
-
-			await pocketbase.collection('ratings').create<Rating>(feedback)
+			await fetch('/api/rating', {
+				method: 'POST',
+				body: JSON.stringify({
+					rating: {
+						rating,
+						title,
+						description,
+						product: product.id,
+						user: user.id
+					}
+				})
+			})
 			toast.push('Feedback submitted')
 
 			closeModal()

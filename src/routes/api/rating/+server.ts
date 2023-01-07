@@ -8,11 +8,14 @@ export const GET: RequestHandler = async ({ url }) => {
 		const urlParams = url.searchParams
 		const page = parseInt(urlParams.get('page') ?? '1')
 		const limit = parseInt(urlParams.get('limit') ?? '10')
+		const id = urlParams.get('id')
 
-		const data: ListResult<Product> = await pocketbase.collection('products').getList(page, limit)
+		const data: ListResult<Rating> = await pocketbase
+			.collection('ratings')
+			.getList(page, limit, { filter: `product="${id}"`, expand: 'user' })
 
 		return json({
-			products: data.items,
+			ratings: data.items,
 			count: data.totalItems,
 			pages: data.totalPages,
 			page: data.page,
@@ -28,9 +31,10 @@ export const GET: RequestHandler = async ({ url }) => {
 
 export const POST: RequestHandler = async ({ request }) => {
 	try {
-		const product = await request.formData()
+		const { rating } = await request.json()
 
-		await pocketbase.collection('products').create(product)
+		await pocketbase.collection('ratings').create(rating)
+
 		return json({ status: 200 })
 	} catch (e) {
 		console.error(e)
