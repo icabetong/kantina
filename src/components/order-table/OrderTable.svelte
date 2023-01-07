@@ -34,7 +34,10 @@
 				confirmText: 'Continue',
 				abandonText: 'Cancel',
 				confirm: async () => {
-					await pocketbase.collection('orders').update(order.id, { status: 'paid' })
+					await fetch(`/api/order/${order.id}`, {
+						method: 'PATCH',
+						body: JSON.stringify({ product: { status: 'paid' } })
+					})
 					toast.push('Order marked as Paid')
 
 					goto($page.url, { replaceState: true })
@@ -60,7 +63,10 @@
 				confirmText: 'Continue',
 				abandonText: 'Cancel',
 				confirm: async () => {
-					await pocketbase.collection('orders').update(order.id, { status: 'rejected' })
+					await fetch(`/api/order/${order.id}`, {
+						method: 'PATCH',
+						body: JSON.stringify({ product: { status: 'rejected' } })
+					})
 					toast.push('Order marked as Rejected')
 
 					goto($page.url, { replaceState: true })

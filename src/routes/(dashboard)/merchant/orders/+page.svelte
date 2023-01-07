@@ -18,12 +18,11 @@
 
 	export let data: PageData
 	$: {
-		const { items, page, paginated, count, pages } = data
-		orders = items
-		currentPage = page
-		perPage = paginated
-		totalItems = count
-		totalPages = pages
+		orders = data.orders
+		currentPage = data.page
+		perPage = data.paginated
+		totalItems = data.count
+		totalPages = data.pages
 	}
 	let orders: Order[] = []
 	let totalItems: number
