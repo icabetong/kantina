@@ -63,20 +63,19 @@
 
 			const cartItem = basket.find((i) => i.product === product.id)
 			if (cartItem) {
-				const data = {
-					...cartItem,
-					quantity: cartItem.quantity + quantity
-				}
-
-				await pocketbase.collection('carts').update(cartItem.id, data)
+				await fetch(`/api/cart/${cartItem.id}`, {
+					method: 'PATCH',
+					body: JSON.stringify({
+						item: { ...cartItem, quantity: cartItem.quantity + quantity }
+					})
+				})
 			} else {
-				const cartItem = {
-					user: user?.id,
-					product: product.id,
-					quantity
-				}
-
-				await pocketbase.collection('carts').create(cartItem)
+				await fetch('/api/cart', {
+					method: 'POST',
+					body: JSON.stringify({
+						item: { user: user?.id, product: product.id, quantity }
+					})
+				})
 			}
 
 			toast.push('Product added to cart')
