@@ -3,7 +3,7 @@ import { error } from '@sveltejs/kit'
 import pocketbase from '$lib/backend'
 import type { PageLoad } from './$types'
 
-export const load: PageLoad = async ({ params, fetch }) => {
+export const load: PageLoad = async ({ url, params, fetch }) => {
 	try {
 		let response = await fetch(`/api/product/${params.id}`, {
 			method: 'GET'
@@ -18,13 +18,17 @@ export const load: PageLoad = async ({ params, fetch }) => {
 		})
 		const data = await response.json()
 
+		url.searchParams.append('id', params.id)
+		response = await fetch('/api/rating?' + url.searchParams, {
+			method: 'GET'
+		})
+
+		const { ratings } = await response.json()
+
 		return {
-			product,
 			related: data.products,
-			ratings: await pocketbase.collection('ratings').getFullList<Rating>(undefined, {
-				filter: `product="${params.id}"`,
-				expand: 'user'
-			})
+			product,
+			ratings
 		}
 	} catch (e) {
 		if (e instanceof ClientResponseError) {

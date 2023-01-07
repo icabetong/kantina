@@ -24,10 +24,15 @@
 	const productId = $page.params.id
 	const { product, related } = data
 	const outOfStock = product.quantity < 1
+
+	let ratings: Rating[]
 	let averageRating: number = 0
 
+	$: {
+		ratings = data.ratings
+	}
+
 	let basket: CartItem[] = data.cart
-	let ratings: Rating[] = data.ratings
 
 	let quantity: number = 1
 	const decrement = () => quantity - 1 > 0 && quantity--

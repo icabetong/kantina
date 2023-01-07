@@ -12,7 +12,7 @@ export const GET: RequestHandler = async ({ url }) => {
 
 		const data: ListResult<Rating> = await pocketbase
 			.collection('ratings')
-			.getList(page, limit, { filter: `product="${id}"`, expand: 'user' })
+			.getList(page, limit, { expand: 'user', filter: `product="${id}"` })
 
 		return json({
 			ratings: data.items,

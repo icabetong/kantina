@@ -4,7 +4,6 @@
 	import { Icon } from '@steeze-ui/svelte-icon'
 	import { toast } from '@zerodevx/svelte-toast'
 	import Button from '$components/button/Button.svelte'
-	import pocketbase from '$lib/backend'
 	import UserStore from '$stores/user'
 	import Modal from '../Modal.svelte'
 
