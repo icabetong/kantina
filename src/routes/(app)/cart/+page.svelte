@@ -17,7 +17,9 @@
 		try {
 			const cartItem = event.detail
 
-			await pocketbase.collection('carts').delete(cartItem.id)
+			await fetch(`/api/cart/${cartItem.id}`, {
+				method: 'DELETE'
+			})
 			toast.push('Product removed from cart')
 			goto($page.url, { replaceState: true, invalidateAll: true })
 		} catch (ignored) {}

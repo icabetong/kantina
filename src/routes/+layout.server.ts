@@ -3,7 +3,7 @@ import { authRoutes, privateRoutes } from '$shared/routes'
 import UserStore from '$stores/user'
 import type { LayoutServerLoad } from './$types'
 
-export const load: LayoutServerLoad = async ({ locals, url }) => {
+export const load: LayoutServerLoad = async ({ locals, url, fetch }) => {
 	const pathname = url.pathname
 
 	if (locals.user) {
@@ -15,14 +15,15 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
 		UserStore.set(user)
 
 		try {
-			const basket: CartItem[] = await locals.pocketbase
-				.collection('carts')
-				.getFullList(undefined, {
-					filter: `user="${user.id}"`,
-					expand: 'product'
-				})
+			const response = await fetch('/api/cart', {
+				method: 'GET',
+				headers: {
+					'owner-id': user.id
+				}
+			})
+			const data = await response.json()
 
-			return { user, cart: basket }
+			return { user, cart: data.cart }
 		} catch (e) {
 			if (e instanceof Error) throw error(401, e.message)
 
