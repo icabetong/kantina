@@ -34,12 +34,11 @@
 	let totalPages: number
 
 	$: {
-		const { items, page, paginated, count, pages } = data
-		products = items
-		currentPage = page
-		perPage = paginated
-		totalItems = count
-		totalPages = pages
+		products = data.products
+		totalItems = data.count
+		totalPages = data.pages
+		currentPage = data.page
+		perPage = data.paginated
 	}
 
 	const categories = ['food', 'drink', 'meal', 'other']

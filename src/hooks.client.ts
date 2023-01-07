@@ -8,7 +8,13 @@ pocketbase.authStore.onChange(async () => {
 		UserStore.set(await pocketbase.collection('users').getOne<User>(model.id))
 		document.cookie = pocketbase.authStore.exportToCookie({ httpOnly: false })
 	} else {
-		UserStore.set(null)
 		document.cookie = ''
 	}
 })
+
+const model = pocketbase.authStore?.model
+if (model)
+	pocketbase
+		.collection('users')
+		.getOne<User>(model.id)
+		.then((data) => UserStore.set(data))
