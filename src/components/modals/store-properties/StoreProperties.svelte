@@ -27,7 +27,10 @@
 
 			isWorking = true
 			try {
-				await pocketbase.collection('stores').update(store.id, data)
+				await fetch('/api/stores', {
+					method: 'PATCH',
+					body: JSON.stringify({ store: data })
+				})
 				goto($page.url, { replaceState: true, invalidateAll: true })
 				closeModal()
 			} catch (ignored) {

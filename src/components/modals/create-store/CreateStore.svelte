@@ -30,7 +30,11 @@
 					status: 'operating'
 				}
 
-				await pocketbase.collection('stores').create(store)
+				await fetch('/api/store', {
+					method: 'POST',
+					body: JSON.stringify({ store })
+				})
+
 				await pocketbase.collection('users').update(user.id, { type: 'merchant' })
 				goto($page.url, { replaceState: true, invalidateAll: true })
 				closeModal()

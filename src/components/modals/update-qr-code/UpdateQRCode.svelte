@@ -34,7 +34,11 @@
 		try {
 			const formData = new FormData()
 			formData.append('image', fileInput.files[0])
-			await pocketbase.collection('stores').update(store?.id, formData)
+
+			await fetch(`/api/store/${store?.id}`, {
+				method: 'PATCH',
+				body: formData
+			})
 
 			goto($page.url, { replaceState: true, invalidateAll: true })
 			closeModal()

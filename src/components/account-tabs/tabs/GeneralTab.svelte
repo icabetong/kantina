@@ -51,8 +51,16 @@
 		try {
 			await pocketbase.collection('users').update(user.id, { type: 'customer' })
 
-			const store = await pocketbase.collection('stores').getFirstListItem(`owner="${user.id}"`)
-			await pocketbase.collection('stores').delete(store.id)
+			const response = await fetch('/api/store', {
+				method: 'GET',
+				headers: {
+					'owner-id': user.id
+				}
+			})
+			const { store } = await response.json()
+			await fetch(`/api/store/${store.id}`, {
+				method: 'DELETE'
+			})
 
 			goto($page.url, { invalidateAll: true, replaceState: true })
 		} catch (error: any) {
