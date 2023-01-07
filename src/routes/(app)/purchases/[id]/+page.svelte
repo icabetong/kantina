@@ -5,7 +5,6 @@
 	import type { PageData } from './$types'
 
 	export let data: PageData
-	$: console.log(data)
 	const dateFormatter = getDateTimeFormatter('short', 'short')
 	const currencyFormatter = getCurrencyFormatter()
 	const order = data.order

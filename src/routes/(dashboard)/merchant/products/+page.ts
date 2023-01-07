@@ -2,7 +2,7 @@ import { error } from '@sveltejs/kit'
 import pocketbase from '$lib/backend'
 import type { PageLoad } from './$types'
 
-export const load = (async ({ url, fetch }) => {
+export const load: PageLoad = async ({ url, fetch }) => {
 	try {
 		const userId = pocketbase.authStore.model?.id
 
@@ -24,8 +24,7 @@ export const load = (async ({ url, fetch }) => {
 
 		const sort: string[] = []
 		const directionToken = direction === 'descending' ? '-' : '+'
-		if (field) sort.push( `${directionToken}${field}`)
-
+		if (field) sort.push(`${directionToken}${field}`)
 
 		const response = await fetch('/api/product/search', {
 			method: 'POST',
@@ -42,4 +41,4 @@ export const load = (async ({ url, fetch }) => {
 
 		throw error(500, 'Internal Server Error')
 	}
-}) satisfies PageLoad
+}

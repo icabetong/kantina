@@ -1,4 +1,3 @@
-import type { ListResult, RecordListQueryParams } from 'pocketbase'
 import { error } from '@sveltejs/kit'
 import pocketbase from '$lib/backend'
 import type { PageLoad } from './$types'

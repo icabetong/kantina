@@ -1,6 +1,5 @@
 import { ClientResponseError } from 'pocketbase'
 import { error } from '@sveltejs/kit'
-import pocketbase from '$lib/backend'
 import type { PageLoad } from './$types'
 
 export const load: PageLoad = async ({ url, params, fetch }) => {
