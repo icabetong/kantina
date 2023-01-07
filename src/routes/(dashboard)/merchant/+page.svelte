@@ -33,7 +33,10 @@
 			if (!store?.id) return
 
 			try {
-				await pocketbase.collection('stores').update(store.id, data)
+				await fetch(`/api/store/${store.id}`, {
+					method: 'PATCH',
+					body: JSON.stringify({ store: data })
+				})
 				goto($page.url, { replaceState: true, invalidateAll: true })
 			} catch (ignored) {
 				error = 'An error occured while making changes'
