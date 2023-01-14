@@ -27,11 +27,11 @@
 </script>
 
 <div class="page min-h-screen">
-	<div class="w-full flex items-center justify-between">
-		<h2 class="page-header text-start mb-0">Your Cart</h2>
+	<div class="flex w-full items-center justify-between">
+		<h2 class="page-header mb-0 text-start">Your Cart</h2>
 		{#if cart.length > 0}
-			<a href="/checkout" class="btn-primary shadow inline-flex items-center transition-all">
-				<Icon src={CreditCard} class="w-5 h-5 md:mr-2 -ml-1" />
+			<a href="/checkout" class="btn-primary inline-flex items-center shadow transition-all">
+				<Icon src={CreditCard} class="-ml-1 h-5 w-5 md:mr-2" />
 				<span class="hidden md:inline-block">Proceed to Checkout</span>
 			</a>
 		{/if}

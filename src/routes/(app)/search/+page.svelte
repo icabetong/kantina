@@ -142,11 +142,11 @@
 	}
 </script>
 
-<div class="page w-full min-h-screen">
+<div class="page min-h-screen w-full">
 	<h2 class="page-header">Search Results</h2>
-	<div class="flex w-full h-full gap-8 pb-16">
+	<div class="flex h-full w-full gap-8 pb-16">
 		<div
-			class="flex-auto hidden my-4 rounded-lg bg-gray-100 border border-gray-200 md:block md:w-1/4 xl:w-1/5">
+			class="my-4 hidden flex-auto rounded-lg border border-gray-200 bg-gray-100 md:block md:w-1/4 xl:w-1/5">
 			<div class="p-4">
 				<div class="filter-group">
 					<div class="filter-group-label-container">
@@ -202,11 +202,11 @@
 				</div>
 			</div>
 		</div>
-		<div class="flex-auto w-full py-4 flex flex-col items-center md:w-3/4 xl:w-4/5">
+		<div class="flex w-full flex-auto flex-col items-center py-4 md:w-3/4 xl:w-4/5">
 			{#if products.length > 0}
 				<div class="flex-1 flex-col items-center">
 					<h2 class="mb-4">Showing results for <span class="font-semibold">{query}</span></h2>
-					<div class="mb-6 grid grid-cols-2 md:grid-cols-3 gap-4">
+					<div class="mb-6 grid grid-cols-2 gap-4 md:grid-cols-3">
 						{#each products as product}
 							<ProductCard {product} />
 						{/each}
@@ -237,15 +237,15 @@
 
 <style lang="postcss">
 	.filter-group {
-		@apply w-full mb-3;
+		@apply mb-3 w-full;
 	}
 	.filter-group-label-container {
-		@apply flex items-center justify-between mb-2;
+		@apply mb-2 flex items-center justify-between;
 	}
 	.filter-group-label {
 		@apply font-semibold;
 	}
 	.filter-reset {
-		@apply text-sm text-gray-500 font-normal hover:underline hover:text-orange-500;
+		@apply text-sm font-normal text-gray-500 hover:text-orange-500 hover:underline;
 	}
 </style>

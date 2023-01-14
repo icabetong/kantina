@@ -2,8 +2,8 @@
 	import AccountTabs from '$components/account-tabs/AccountTabs.svelte'
 </script>
 
-<div class="page w-full min-h-screen flex flex-col items-center justify-center">
-	<h2 class="page-header w-full text-start mb-8">Account Settings</h2>
+<div class="page flex min-h-screen w-full flex-col items-center justify-center">
+	<h2 class="page-header mb-8 w-full text-start">Account Settings</h2>
 	<AccountTabs />
 </div>
 

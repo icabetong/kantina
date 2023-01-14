@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Icon } from '@steeze-ui/svelte-icon'
 	import type { IconSource } from '@steeze-ui/heroicons/types'
+	import { Icon } from '@steeze-ui/svelte-icon'
 
 	export let icon: IconSource | string | null = null
 	export let title: string
@@ -8,19 +8,19 @@
 </script>
 
 <div
-	class={`flex flex-col items-center jusitfy-center px-4 max-w-md mx-auto ${
+	class={`jusitfy-center mx-auto flex max-w-md flex-col items-center px-4 ${
 		typeof icon === 'string' ? 'py-24' : 'py-40'
 	}`}>
 	{#if icon}
 		{#if typeof icon === 'string'}
-			<img src={icon} alt="svg" class="h-56 mb-8" />
+			<img src={icon} alt="svg" class="mb-8 h-56" />
 		{:else}
-			<div class="mb-2.5 p-3 bg-gradient-to-br from-orange-500 to-pink-500 text-white rounded-full">
+			<div class="mb-2.5 rounded-full bg-gradient-to-br from-orange-500 to-pink-500 p-3 text-white">
 				<Icon src={icon} class="h-10 w-10" />
 			</div>
 		{/if}
 	{/if}
 
-	<h5 class="text-2xl text-orange-500 font-semibold">{title}</h5>
-	<p class="text-gray-500 text-center">{message}</p>
+	<h5 class="text-2xl font-semibold text-orange-500">{title}</h5>
+	<p class="text-center text-gray-500">{message}</p>
 </div>

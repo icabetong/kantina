@@ -1,6 +1,6 @@
+import path from 'path'
 import adapter from '@sveltejs/adapter-netlify'
 import { vitePreprocess } from '@sveltejs/kit/vite'
-import path from 'path'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {

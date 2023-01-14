@@ -87,32 +87,32 @@
 </script>
 
 <div class="page min-h-screen py-16">
-	<section id="info" class="flex flex-col justify-center items-center gap-8 md:flex-row">
+	<section id="info" class="flex flex-col items-center justify-center gap-8 md:flex-row">
 		<div
-			class="flex-1 w-full h-full flex items-center justify-center border border-gray-100 rounded-lg">
+			class="flex h-full w-full flex-1 items-center justify-center rounded-lg border border-gray-100">
 			{#if product.image}
 				<img
 					src={parseFileUrl('products', product.id, product.image)}
 					alt={product.name}
-					class="object-contain w-80 h-80" />
+					class="h-80 w-80 object-contain" />
 			{:else}
 				<!-- svelte-ignore a11y-img-redundant-alt -->
 				<img src="/images/meal.svg" alt="placeholder image" class="object-contain px-8 py-14" />
 			{/if}
 		</div>
-		<div class="flex-1 w-full">
+		<div class="w-full flex-1">
 			{#if product.expand?.store.name}
-				<span class="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded">
+				<span class="rounded bg-yellow-100 px-2.5 py-0.5 text-xs font-semibold text-yellow-800">
 					{product.expand.store.name}
 				</span>
 			{/if}
-			<h3 class="mt-3 text-3xl text-orange-500 font-bold">{product.name}</h3>
+			<h3 class="mt-3 text-3xl font-bold text-orange-500">{product.name}</h3>
 			<p class="text-sm text-gray-500">Product ID: {productId}</p>
 			{#if ratings.length}
 				<div class="my-2 flex items-center">
-					<Icon src={Star} class="w-5 h-5 text-yellow-400" theme="solid" />
+					<Icon src={Star} class="h-5 w-5 text-yellow-400" theme="solid" />
 					<p class="ml-1.5 text-sm font-bold text-gray-800 ">{averageRating}</p>
-					<span class="w-1 h-1 mx-1.5 bg-gray-500 rounded-full" />
+					<span class="mx-1.5 h-1 w-1 rounded-full bg-gray-500" />
 					<a href="#ratings" class="font-medium text-gray-700 underline hover:no-underline">
 						{ratings.length}
 						{#if ratings.length === 1}
@@ -128,18 +128,18 @@
 			<div class="mt-2 mb-8 text-lg md:text-xl">
 				{#if product.currentPrice}
 					<span class="text-gray-500 line-through">{formatter.format(product.price)}</span>
-					<span class="text-orange-500 font-semibold"
+					<span class="font-semibold text-orange-500"
 						>{formatter.format(product.currentPrice)}</span>
 				{:else}
-					<span class="text-gray-700 font-medium">{formatter.format(product.price)}</span>
+					<span class="font-medium text-gray-700">{formatter.format(product.price)}</span>
 				{/if}
 			</div>
 			{#if product.quantity > 0}
-				<span class="bg-pink-100 text-pink-800 text-xs font-semibold px-2.5 py-0.5 rounded">
+				<span class="rounded bg-pink-100 px-2.5 py-0.5 text-xs font-semibold text-pink-800">
 					{product.quantity} Available
 				</span>
 			{:else}
-				<span class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded">
+				<span class="rounded bg-red-100 px-2.5 py-0.5 text-xs font-semibold text-red-800">
 					Out of Stock
 				</span>
 			{/if}
@@ -156,7 +156,7 @@
 					on:decrement={decrement} />
 			</div>
 			<div
-				class="w-full flex flex-row items-center justify-center mt-4 gap-4 text-lg md:justify-start">
+				class="mt-4 flex w-full flex-row items-center justify-center gap-4 text-lg md:justify-start">
 				<button
 					class="btn-primary flex flex-row items-center py-4"
 					disabled={outOfStock}
@@ -171,9 +171,9 @@
 	{#if ratings.some((r) => r.user !== user?.id) || ratings.length < 1}
 		<section
 			id="feedback"
-			class="mt-16 px-4 py-6 flex flex-col items-center justify-between gap-4 bg-gradient-to-br from-orange-100 to-pink-100 rounded-xl md:flex-row md:gap-0">
+			class="mt-16 flex flex-col items-center justify-between gap-4 rounded-xl bg-gradient-to-br from-orange-100 to-pink-100 px-4 py-6 md:flex-row md:gap-0">
 			<div class="flex-initial md:w-2/3">
-				<h6 class="text-orange-500 font-medium">
+				<h6 class="font-medium text-orange-500">
 					Have an opinion with this product? You can rate it.
 				</h6>
 				<p class="mt-2 text-sm text-orange-400">
@@ -185,17 +185,17 @@
 		</section>
 	{/if}
 	<section id="ratings" class="mt-8">
-		<h5 class="text-orange-500 text-lg font-semibold mb-4">Ratings and Feedback</h5>
+		<h5 class="mb-4 text-lg font-semibold text-orange-500">Ratings and Feedback</h5>
 		{#if ratings.length > 0}
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+			<div class="grid grid-cols-1 gap-2 md:grid-cols-2">
 				{#each ratings as rating}
 					{#if rating.expand?.user && rating.expand?.user.avatar}
-						<div class="border border-gray-200 rounded-lg p-4">
-							<div class="flex items-center mb-4 space-x-4">
+						<div class="rounded-lg border border-gray-200 p-4">
+							<div class="mb-4 flex items-center space-x-4">
 								<img
 									src={parseFileUrl('users', rating.expand.user.id, rating.expand.user.avatar)}
 									alt={`${rating.expand.user.firstName} ${rating.expand.user.lastName}'s avatar'`}
-									class="w-10 h-10 rounded-full" />
+									class="h-10 w-10 rounded-full" />
 								<div class="space-y-1 font-medium">
 									<p>
 										{rating.expand.user.firstName}
@@ -206,11 +206,11 @@
 									</p>
 								</div>
 							</div>
-							<div class="flex items-center mb-1">
+							<div class="mb-1 flex items-center">
 								{#each [1, 2, 3, 4, 5] as star}
 									<Icon
 										src={Star}
-										class={`w-5 h-5 ${star <= rating.rating ? 'text-yellow-400' : 'text-gray-300'}`}
+										class={`h-5 w-5 ${star <= rating.rating ? 'text-yellow-400' : 'text-gray-300'}`}
 										theme="solid" />
 								{/each}
 								<h3 class="ml-2 text-sm font-semibold text-gray-800 ">
@@ -224,9 +224,9 @@
 			</div>
 		{:else}
 			<div
-				class="flex flex-col items-center px-4 py-6 bg-gray-50 border border-gray-100 rounded-lg">
-				<h5 class="text-xl text-orange-500 font-semibold">No Ratings Yet</h5>
-				<p class="max-w-lg text-gray-500 text-center text-sm">
+				class="flex flex-col items-center rounded-lg border border-gray-100 bg-gray-50 px-4 py-6">
+				<h5 class="text-xl font-semibold text-orange-500">No Ratings Yet</h5>
+				<p class="max-w-lg text-center text-sm text-gray-500">
 					There are no submitted feedback to this product. Be the first one to rate.
 				</p>
 			</div>
@@ -234,8 +234,8 @@
 	</section>
 	{#if related.length > 0}
 		<section id="related" class="mt-8">
-			<h5 class="text-orange-500 text-lg font-semibold mb-4">Related Products</h5>
-			<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+			<h5 class="mb-4 text-lg font-semibold text-orange-500">Related Products</h5>
+			<div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 				{#each related as product}
 					<ProductCard {product} />
 				{/each}

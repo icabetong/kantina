@@ -11,14 +11,14 @@
 	export let label: string = ''
 </script>
 
-<div class="flex items-center p-2 rounded hover:bg-gray-100" data-testid="checkbox">
+<div class="flex items-center rounded p-2 hover:bg-gray-100" data-testid="checkbox">
 	<input
 		{checked}
 		id="checkbox-item-4"
 		type="checkbox"
-		class="w-4 h-4 text-orange-600 accent-orange-600 bg-gray-100 rounded border-gray-300 focus:ring-orange-500 focus:ring-2"
+		class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-orange-600 accent-orange-600 focus:ring-2 focus:ring-orange-500"
 		on:change={onChange} />
-	<label for="checkbox-item-4" class="ml-2 w-full text-sm font-medium text-gray-800 rounded">
+	<label for="checkbox-item-4" class="ml-2 w-full rounded text-sm font-medium text-gray-800">
 		{label}
 	</label>
 </div>

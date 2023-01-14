@@ -52,7 +52,7 @@
 <Modal {isOpen} title="Configure QRPh Code" size="sm">
 	<div class="flex flex-col items-center justify-center">
 		{#if avatar && typeof avatar === 'string'}
-			<img src={avatar} alt="avatar" class="h-60 rounded-lg mb-8" />
+			<img src={avatar} alt="avatar" class="mb-8 h-60 rounded-lg" />
 		{/if}
 		<div class="form-control-group ">
 			<label for="qr-code" class="sr-only">Browse Image</label>

@@ -12,7 +12,7 @@
 
 <Modal {isOpen} title="Order Details">
 	<div class="flex justify-center gap-4">
-		<div class="flex-auto w-1/2">
+		<div class="w-1/2 flex-auto">
 			{#if order.expand?.customer}
 				<div class="form-control-group">
 					<label for="customer" class="form-control-label">Customer</label>
@@ -68,17 +68,17 @@
 					aria-readonly="true" />
 			</div>
 		</div>
-		<div class="flex-auto w-1/2">
+		<div class="w-1/2 flex-auto">
 			{#if order.expand?.products}
 				<h6 class="form-control-label">Products</h6>
 				<ul class="h-full">
 					{#each order.expand.products as products}
-						<li class="text-sm text-gray-600 py-1.5">
+						<li class="py-1.5 text-sm text-gray-600">
 							<dl>
 								<dt class="font-semibold text-gray-800">{products.name}</dt>
 								<dd>
 									Quantity:
-									<span class="text-gray-800 font-bold">
+									<span class="font-bold text-gray-800">
 										{order.quantities[products.id]}
 									</span>
 								</dd>

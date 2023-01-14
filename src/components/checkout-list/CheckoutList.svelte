@@ -68,9 +68,9 @@
 
 {#if store && store.image}
 	<div class="flex gap-4">
-		<div class="flex-1 w-3/4">
+		<div class="w-3/4 flex-1">
 			<h6
-				class={`text-sm font-semibold rounded-lg px-4 py-2 mb-2 uppercase ${getColor100(
+				class={`mb-2 rounded-lg px-4 py-2 text-sm font-semibold uppercase ${getColor100(
 					store.color
 				)} ${getTextColor800(store.color)}`}>
 				{store?.name}
@@ -78,7 +78,7 @@
 			<ul class="rounded-lg border border-gray-100 p-2">
 				{#each basket as cartItem}
 					{#if cartItem.expand?.product && cartItem.expand?.product.image}
-						<li class="w-full flex items-center">
+						<li class="flex w-full items-center">
 							<div>
 								<img
 									src={parseFileUrl('products', cartItem.product, cartItem.expand.product.image)}
@@ -86,8 +86,8 @@
 									class="h-24" />
 							</div>
 							<dl class="w-full flex-1 text-sm text-gray-500">
-								<dt class="font-bold text-lg text-gray-800">{cartItem.expand?.product.name}</dt>
-								<dd class="w-full flex items-center gap-2 divide-x divide-x-gray-200">
+								<dt class="text-lg font-bold text-gray-800">{cartItem.expand?.product.name}</dt>
+								<dd class="divide-x-gray-200 flex w-full items-center gap-2 divide-x">
 									<div class="font-light">Qty: {cartItem.quantity}</div>
 									<div class="pl-2 font-medium">
 										{formatter.format(cartItem.expand?.product.price)}
@@ -100,8 +100,8 @@
 			</ul>
 		</div>
 		<div
-			class="w-1/4 flex flex-wrap flex-col p-4 items-center border border-gray-100 rounded-lg relative">
-			<h6 class="font-medium self-start mb-4">Payment Information</h6>
+			class="relative flex w-1/4 flex-col flex-wrap items-center rounded-lg border border-gray-100 p-4">
+			<h6 class="mb-4 self-start font-medium">Payment Information</h6>
 			<dl class="row">
 				<dt class="row-title">Subtotal:</dt>
 				<dd class="row-value">{formatter.format(total)}</dd>
@@ -129,10 +129,10 @@
 
 <style lang="postcss">
 	.row {
-		@apply mt-4 w-full flex items-center justify-between;
+		@apply mt-4 flex w-full items-center justify-between;
 	}
 	.row-title {
-		@apply uppercase text-xs text-gray-500;
+		@apply text-xs uppercase text-gray-500;
 	}
 	.row-value {
 		@apply text-base font-semibold;

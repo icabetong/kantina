@@ -19,7 +19,7 @@
 			<img
 				src={parseFileUrl('stores', store.id, store.image)}
 				alt="qr-code"
-				class="h-60 rounded-lg mb-4" />
+				class="mb-4 h-60 rounded-lg" />
 		{/if}
 		<h5 class="text-gray-500">Scan the QR Code above to pay for your order</h5>
 	</div>

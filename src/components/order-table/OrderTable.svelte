@@ -79,12 +79,12 @@
 	}
 </script>
 
-<div class="flex-1 overflow-x-auto mb-4 relative border border-gray-100 rounded-lg">
-	<table class="w-full text-sm text-left text-gray-500">
-		<thead class="text-xs uppercase text-gray-700 border-b border-gray-100">
+<div class="relative mb-4 flex-1 overflow-x-auto rounded-lg border border-gray-100">
+	<table class="w-full text-left text-sm text-gray-500">
+		<thead class="border-b border-gray-100 text-xs uppercase text-gray-700">
 			<tr>
 				{#if showId}
-					<th scope="col" class="py-3 px-6 rounded-l-lg">
+					<th scope="col" class="rounded-l-lg py-3 px-6">
 						<span>Order ID</span>
 					</th>
 				{/if}
@@ -93,20 +93,20 @@
 				<th scope="col" class="py-3 px-4">Total Payment</th>
 				<th scope="col" class="py-3 px-4"> Created </th>
 
-				<th scope="col" class="py-3 px-4 rounded-r-lg">Actions</th>
+				<th scope="col" class="rounded-r-lg py-3 px-4">Actions</th>
 			</tr>
 		</thead>
-		<tbody class="divide-y divide-y-gray-100">
+		<tbody class="divide-y-gray-100 divide-y">
 			{#each orders as order, index}
 				<tr
-					class="bg-white hover:bg-gray-50 rounded-lg cursor-pointer"
+					class="cursor-pointer rounded-lg bg-white hover:bg-gray-50"
 					on:click={() => onHandleSelect(order)}>
 					{#if showId}
 						<td class="px-4">{order.id}</td>
 					{/if}
-					<th scope="row" class="py-2 px-4 font-medium text-gray-800 whitespace-nowrap">
+					<th scope="row" class="whitespace-nowrap py-2 px-4 font-medium text-gray-800">
 						{order.expand && getFullName(order.expand?.customer)}
-						<p class="font-normal text-xs text-gray-500">
+						<p class="text-xs font-normal text-gray-500">
 							{order.expand && order.expand.customer.email}
 						</p>
 					</th>
@@ -129,7 +129,7 @@
 							{dateFormatter.format(new Date(order.created))}
 						</time>
 					</td>
-					<td class="px-4 py-2 flex items-center justify-center">
+					<td class="flex items-center justify-center px-4 py-2">
 						<button
 							type="button"
 							value={index}
@@ -137,7 +137,7 @@
 							disabled={order.status !== 'pending'}
 							aria-disabled={order.status === 'pending'}
 							on:click|stopPropagation={onMarkAsPaid}>
-							<Icon src={Banknotes} class="w-5 h-5" />
+							<Icon src={Banknotes} class="h-5 w-5" />
 						</button>
 						<button
 							type="button"
@@ -146,7 +146,7 @@
 							disabled={order.status !== 'pending'}
 							aria-disabled={order.status === 'pending'}
 							on:click|stopPropagation={onMarkAsRejected}>
-							<Icon src={XMark} class="w-5 h-5" />
+							<Icon src={XMark} class="h-5 w-5" />
 						</button>
 					</td>
 				</tr>
@@ -157,6 +157,6 @@
 
 <style lang="postcss">
 	.action {
-		@apply p-2 rounded-lg text-gray-700 flex items-center hover:bg-gray-200 disabled:hover:bg-transparent disabled:text-gray-200;
+		@apply flex items-center rounded-lg p-2 text-gray-700 hover:bg-gray-200 disabled:text-gray-200 disabled:hover:bg-transparent;
 	}
 </style>

@@ -110,7 +110,7 @@
 <Modal {isOpen} title="Product Editor" asForm on:submit={handleSubmit}>
 	<div>
 		<div class="flex flex-row items-start gap-4">
-			<div class="flex-initial w-1/2">
+			<div class="w-1/2 flex-initial">
 				<div class="form-control-group">
 					<label for="name" class="form-control-label">Name</label>
 					<input
@@ -163,7 +163,7 @@
 					</div>
 				{/if}
 			</div>
-			<div class="flex-initial w-1/2">
+			<div class="w-1/2 flex-initial">
 				<div class="form-control-group">
 					<label for="quantity" class="form-control-label">Quantity</label>
 					<input
@@ -210,14 +210,14 @@
 					<div class="mt-2">
 						<h6 class="text-sm">Preview</h6>
 						{#if file && typeof file === 'string'}
-							<img src={file} alt="product" class="object-contain h-24" />
+							<img src={file} alt="product" class="h-24 object-contain" />
 						{:else if product && product?.image}
 							<img
 								src={parseFileUrl('products', product.id, product.image, '24x24')}
 								alt={product.name}
 								class="h-24" />
 						{:else}
-							<div class="bg-gray-100 text-gray-500 rounded-lg px-2 py-1 mt-2 text-center">
+							<div class="mt-2 rounded-lg bg-gray-100 px-2 py-1 text-center text-gray-500">
 								No Image Selected
 							</div>
 						{/if}
@@ -227,7 +227,7 @@
 		</div>
 		{#if error}
 			<div class="alert-error">
-				<Icon src={ExclamationTriangle} class="flex-shrink-0 inline w-5 h-5 mr-3" />
+				<Icon src={ExclamationTriangle} class="mr-3 inline h-5 w-5 flex-shrink-0" />
 				<span class="font-medium">{error}</span>
 			</div>
 		{/if}

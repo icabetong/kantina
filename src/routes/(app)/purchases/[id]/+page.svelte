@@ -16,8 +16,8 @@
 <div class="page mb-16">
 	<h1 class="page-header">Order Details</h1>
 	<div class="mt-8 flex flex-col gap-8 md:flex-row-reverse">
-		<div class="mt-4 w-full flex flex-col md:mb-8 md:w-2/5 lg:w-1/4">
-			<div class="flex-1 divide-y divide-y-gray-100">
+		<div class="mt-4 flex w-full flex-col md:mb-8 md:w-2/5 lg:w-1/4">
+			<div class="divide-y-gray-100 flex-1 divide-y">
 				<dl class="row">
 					<dt class="row-title">Order ID:</dt>
 					<dd class="row-value">{id}</dd>
@@ -56,18 +56,18 @@
 				</dl>
 			</div>
 			<div
-				class="mt-4 drop-shadow rounded-lg bg-gradient-to-r from-orange-500 to-pink-500 pt-1 md:mt-0">
-				<dl class="bg-white rounded-md drop-shadow p-6">
-					<dt class="text-gray-500 text-sm">Order Total</dt>
+				class="mt-4 rounded-lg bg-gradient-to-r from-orange-500 to-pink-500 pt-1 drop-shadow md:mt-0">
+				<dl class="rounded-md bg-white p-6 drop-shadow">
+					<dt class="text-sm text-gray-500">Order Total</dt>
 					<dd class="text-2xl font-semibold">{currencyFormatter.format(order.total)}</dd>
 				</dl>
 			</div>
 		</div>
 		<div class="w-full md:w-3/5 lg:w-3/4">
-			<h6 class="py-2 px-4 mb-4 text-sm bg-gray-200 rounded-lg font-semibold">Products Ordered:</h6>
-			<ul class="divide-y border rounded-lg">
+			<h6 class="mb-4 rounded-lg bg-gray-200 py-2 px-4 text-sm font-semibold">Products Ordered:</h6>
+			<ul class="divide-y rounded-lg border">
 				{#each products as product}
-					<li class="px-6 py-2 flex items-center gap-8 text-gray-500">
+					<li class="flex items-center gap-8 px-6 py-2 text-gray-500">
 						<div>
 							{#if product.image}
 								<img
@@ -75,17 +75,17 @@
 									alt={`product image for ${product.name}`}
 									width="144"
 									height="112"
-									class="w-24 h-24 md:w-auto md:h-28 object-cover" />
+									class="h-24 w-24 object-cover md:h-28 md:w-auto" />
 							{:else}
 								<span>No Image</span>
 							{/if}
 						</div>
-						<div class="flex-1 flex flex-col md:flex-row">
+						<div class="flex flex-1 flex-col md:flex-row">
 							<dl class="md:flex-1">
 								<dt class="font-semibold text-gray-700 md:text-lg">{product.name}</dt>
 								<dd class="text-sm md:text-base">Quantity: {order.quantities[product.id]}</dd>
 							</dl>
-							<div class="mt-2 text-gray-700 text-lg font-medium md:mt-0 md:text-xl">
+							<div class="mt-2 text-lg font-medium text-gray-700 md:mt-0 md:text-xl">
 								{currencyFormatter.format(product.price)}
 							</div>
 						</div>
@@ -105,7 +105,7 @@
 		@apply flex items-center justify-between py-2;
 	}
 	.row-title {
-		@apply text-gray-600 uppercase text-sm;
+		@apply text-sm uppercase text-gray-600;
 	}
 	.row-value {
 		@apply font-medium;

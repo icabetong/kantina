@@ -51,7 +51,7 @@
 	<div class="h-full">
 		{#if orders.length > 0}
 			<PurchasesGrid {orders} on:select={onSelectOrder} />
-			<div class="flex flex-col items-center mt-8">
+			<div class="mt-8 flex flex-col items-center">
 				<Pagination
 					{perPage}
 					{totalItems}

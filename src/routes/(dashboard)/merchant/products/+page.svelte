@@ -160,54 +160,54 @@
 	}
 </script>
 
-<div class="max-w-screen-xl p-8 w-full min-h-screen flex flex-col items-center justify-center">
-	<div class="w-full flex items-center justify-between mb-6">
+<div class="flex min-h-screen w-full max-w-screen-xl flex-col items-center justify-center p-8">
+	<div class="mb-6 flex w-full items-center justify-between">
 		<h2 class="page-header text-start">Products</h2>
 		<button
-			class="btn-primary shadow inline-flex items-center transition-all"
+			class="btn-primary inline-flex items-center shadow transition-all"
 			on:click={onTriggerAdd}>
-			<Icon src={Plus} class="w-5 h-5 md:mr-2 -ml-1" />
+			<Icon src={Plus} class="-ml-1 h-5 w-5 md:mr-2" />
 			<span class="hidden md:inline-block">Add Product</span>
 		</button>
 	</div>
-	<div class="w-full flex items-center">
-		<div class="w-1/2 flex-initial flex items-center">
+	<div class="flex w-full items-center">
+		<div class="flex w-1/2 flex-initial items-center">
 			<Dropdown>
 				<Switch checked={hideItems} label="Hide publicly hidden items" on:change={onHide} />
 			</Dropdown>
 		</div>
-		<div class="w-1/2 flex-initial flex items-center justify-end gap-2">
+		<div class="flex w-1/2 flex-initial items-center justify-end gap-2">
 			<form on:submit|preventDefault={handleSubmit} on:reset={onFormReset}>
 				<label for="table-search" class="sr-only">Search</label>
 				<div class="relative w-full md:w-fit">
-					<div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-						<Icon src={MagnifyingGlass} class="w-5 h-5" />
+					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+						<Icon src={MagnifyingGlass} class="h-5 w-5" />
 					</div>
 					<input
 						type="text"
 						id="table-search"
-						class="block p-2.5 pl-10 pr-10 w-full md:w-80 text-sm text-gray-800 bg-white shadow rounded-lg border border-gray-300 ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none transition-all"
+						class="block w-full rounded-lg border border-gray-300 bg-white p-2.5 pl-10 pr-10 text-sm text-gray-800 shadow ring-2 ring-transparent transition-all focus:border-transparent focus:outline-none focus:ring-orange-500 md:w-80"
 						placeholder="Search for items"
 						on:keyup={onSearchQueryChanged}
 						bind:value={$form.query} />
 					{#if $form.query && $form.query.length > 0}
 						<button
 							type="reset"
-							class="absolute inset-y-0 right-0 flex items-center m-2 p-1 rounded-lg hover:bg-gray-100">
-							<Icon src={XMark} class="w-5 h-5" />
+							class="absolute inset-y-0 right-0 m-2 flex items-center rounded-lg p-1 hover:bg-gray-100">
+							<Icon src={XMark} class="h-5 w-5" />
 						</button>
 					{/if}
 				</div>
 				<button
 					type="submit"
-					class="hidden p-2.5 ml-2 text-sm font-medium text-white bg-orange-500 rounded-lg border border-orange-500 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-orange-300">
-					<Icon src={MagnifyingGlass} class="w-5 h-5" />
+					class="ml-2 hidden rounded-lg border border-orange-500 bg-orange-500 p-2.5 text-sm font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-4 focus:ring-orange-300">
+					<Icon src={MagnifyingGlass} class="h-5 w-5" />
 					<span class="sr-only">Search</span>
 				</button>
 			</form>
 		</div>
 	</div>
-	<div class="flex-1 flex flex-col mt-6 w-full">
+	<div class="mt-6 flex w-full flex-1 flex-col">
 		<ProductTable
 			{products}
 			{sort}

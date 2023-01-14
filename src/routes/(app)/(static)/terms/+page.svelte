@@ -271,16 +271,16 @@
 		@apply text-gray-700;
 	}
 	h1 {
-		@apply text-2xl font-bold py-5;
+		@apply py-5 text-2xl font-bold;
 	}
 	h2 {
-		@apply text-xl font-bold py-4;
+		@apply py-4 text-xl font-bold;
 	}
 	h3 {
-		@apply text-lg font-semibold py-3;
+		@apply py-3 text-lg font-semibold;
 	}
 	h4 {
-		@apply font-semibold py-2;
+		@apply py-2 font-semibold;
 	}
 	ul {
 		@apply list-inside list-disc;

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Icon } from '@steeze-ui/svelte-icon'
-	import { Minus, Plus } from '@steeze-ui/heroicons'
 	import { createEventDispatcher } from 'svelte'
+	import { Minus, Plus } from '@steeze-ui/heroicons'
+	import { Icon } from '@steeze-ui/svelte-icon'
 
 	const dispatcher = createEventDispatcher()
 	const increment = () => dispatcher('increment')
@@ -31,7 +31,7 @@
 			{max}
 			{disabled}
 			type="number"
-			class={`bg-gray-50 w-14 border border-gray-300  text-sm rounded-lg ring-2 ring-transparent focus:border-transparent focus:outline-none block px-2.5 py-1 transition-all ${
+			class={`block w-14 rounded-lg border  border-gray-300 bg-gray-50 px-2.5 py-1 text-sm ring-2 ring-transparent transition-all focus:border-transparent focus:outline-none ${
 				error ? 'text-red-500 focus:ring-red-500' : 'text-gray-800 focus:ring-orange-500'
 			}`}
 			aria-disabled={disabled}
@@ -45,6 +45,6 @@
 
 <style lang="postcss">
 	.stepper {
-		@apply inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white rounded-full border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 disabled:text-gray-300 disabled:hover:bg-white;
+		@apply inline-flex items-center rounded-full border border-gray-300 bg-white p-1 text-sm font-medium text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 disabled:text-gray-300 disabled:hover:bg-white;
 	}
 </style>

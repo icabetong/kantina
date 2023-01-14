@@ -1,5 +1,5 @@
-import Button from './Button.svelte'
 import { render, screen } from '@testing-library/svelte'
+import Button from './Button.svelte'
 
 describe('Button Component', () => {
 	it('should render the component', () => {

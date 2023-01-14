@@ -17,50 +17,50 @@
 	<div
 		id="modal"
 		role="dialog"
-		class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center w-full p-6 overflow-x-hidden overflow-y-auto md:inset-0 md:h-full">
+		class="fixed top-0 left-0 right-0 z-50 flex w-full items-center justify-center overflow-y-auto overflow-x-hidden p-6 md:inset-0 md:h-full">
 		<div
 			class={`relative w-full ${
 				size === 'sm' ? 'md:w-1/2' : 'md:w-full'
 			} h-full max-w-2xl md:h-auto`}>
 			{#if asForm}
-				<form on:submit|preventDefault={submit} class="relative bg-white rounded-lg shadow">
-					<div class="flex items-start justify-between px-6 py-5 border-b rounded-t">
+				<form on:submit|preventDefault={submit} class="relative rounded-lg bg-white shadow">
+					<div class="flex items-start justify-between rounded-t border-b px-6 py-5">
 						<h3 class="text-xl font-semibold text-gray-800">{title}</h3>
 						<button
 							type="button"
-							class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-800 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+							class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-800"
 							data-modal-toggle="defaultModal"
 							on:click={closeModal}>
-							<Icon src={XMark} class="w-5 h-5" />
+							<Icon src={XMark} class="h-5 w-5" />
 							<span class="sr-only">Close modal</span>
 						</button>
 					</div>
-					<div class="px-6 py-4 space-y-6">
+					<div class="space-y-6 px-6 py-4">
 						<slot />
 					</div>
 					<div
-						class="flex items-center justify-end px-6 py-4 space-x-2 gap-4 border-t border-gray-200 rounded-b">
+						class="flex items-center justify-end gap-4 space-x-2 rounded-b border-t border-gray-200 px-6 py-4">
 						<slot name="actions" />
 					</div>
 				</form>
 			{:else}
-				<div class="relative bg-white rounded-lg shadow">
-					<div class="flex items-start justify-between px-6 py-5 border-b rounded-t">
+				<div class="relative rounded-lg bg-white shadow">
+					<div class="flex items-start justify-between rounded-t border-b px-6 py-5">
 						<h3 class="text-xl font-semibold text-gray-800">{title}</h3>
 						<button
 							type="button"
-							class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-800 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+							class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-800"
 							data-modal-toggle="defaultModal"
 							on:click={closeModal}>
-							<Icon src={XMark} class="w-5 h-5" />
+							<Icon src={XMark} class="h-5 w-5" />
 							<span class="sr-only">Close modal</span>
 						</button>
 					</div>
-					<div class="p-6 space-y-6">
+					<div class="space-y-6 p-6">
 						<slot />
 					</div>
 					<div
-						class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b">
+						class="flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-6">
 						<slot name="actions" />
 					</div>
 				</div>

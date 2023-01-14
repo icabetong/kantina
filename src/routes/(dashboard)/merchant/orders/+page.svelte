@@ -94,12 +94,12 @@
 	}
 </script>
 
-<div class="max-w-screen-xl p-8 w-full min-h-screen flex flex-col items-center justify-center">
-	<h2 class="page-header self-start mb-6">Orders</h2>
-	<div class="w-full flex items-center">
+<div class="flex min-h-screen w-full max-w-screen-xl flex-col items-center justify-center p-8">
+	<h2 class="page-header mb-6 self-start">Orders</h2>
+	<div class="flex w-full items-center">
 		<Dropdown>
 			<Switch checked={hideIdColumn} label="Hide ID column" on:change={onHide} />
-			<ul class="pt-2 border-t border-gray-200">
+			<ul class="border-t border-gray-200 pt-2">
 				<li>
 					<Checkbox
 						checked={!hidden.includes('rejected')}
@@ -127,7 +127,7 @@
 			</ul>
 		</Dropdown>
 	</div>
-	<div class="flex-1 flex flex-col mt-6 w-full">
+	<div class="mt-6 flex w-full flex-1 flex-col">
 		<OrderTable {orders} showId={!hideIdColumn} on:select={onOrderSelect} />
 		{#if orders.length > 0}
 			<Pagination

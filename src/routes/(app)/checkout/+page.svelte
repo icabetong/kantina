@@ -17,7 +17,7 @@
 
 <div class="page min-h-screen">
 	<h1 class="page-header">Checkout</h1>
-	<div class="h-full mt-8">
+	<div class="mt-8 h-full">
 		{#each [...grouped] as [key, value]}
 			<CheckoutList store={stores.find((store) => store.id === key) ?? null} basket={value} />
 		{/each}

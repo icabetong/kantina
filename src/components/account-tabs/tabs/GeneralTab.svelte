@@ -77,17 +77,17 @@
 <h3 class="text-lg font-semibold">Profile Information</h3>
 <section id="account-info">
 	<form class="flex flex-col items-center" on:submit|preventDefault={handleSubmit}>
-		<div class="w-full flex items-center gap-8">
+		<div class="flex w-full items-center gap-8">
 			<div>
 				<button type="button" on:click={onTriggerAvatarChange}>
 					{#if user && user?.avatar}
 						<img
 							src={parseFileUrl('users', user.id, user.avatar)}
 							alt="avatar"
-							class="w-36 h-36 rounded-full" />
+							class="h-36 w-36 rounded-full" />
 					{:else}
-						<div class="bg-gradient-to-br from-orange-500 to-pink-500 rounded-full w-fit p-6">
-							<Icon src={User} class="w-24 h-24 rounded-full text-white" />
+						<div class="w-fit rounded-full bg-gradient-to-br from-orange-500 to-pink-500 p-6">
+							<Icon src={User} class="h-24 w-24 rounded-full text-white" />
 						</div>
 					{/if}
 				</button>
@@ -111,8 +111,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="w-full flex flex-col md:flex-row items-start gap-8">
-			<div class="flex-1 w-full">
+		<div class="flex w-full flex-col items-start gap-8 md:flex-row">
+			<div class="w-full flex-1">
 				<div class="form-control-group">
 					<label for="username" class="form-control-label">Username</label>
 					<input
@@ -122,7 +122,7 @@
 						bind:value={$form['username']} />
 				</div>
 			</div>
-			<div class="flex-1 w-full">
+			<div class="w-full flex-1">
 				<div class="form-control-group">
 					<label for="email" class="form-control-label">Email</label>
 					<input
@@ -135,21 +135,21 @@
 				</div>
 			</div>
 		</div>
-		<div class="w-full mt-2 flex justify-end">
+		<div class="mt-2 flex w-full justify-end">
 			<Button type="submit" isLoading={isWorking}>Save</Button>
 		</div>
 	</form>
 </section>
 {#if user?.type === 'customer'}
 	<section id="upgrade-to-merchant" class="my-12 w-full md:max-w-screen-sm">
-		<h3 class="font-semibold text-lg">Upgrade to Merchant Account</h3>
-		<p class="mt-1 mb-4 text-gray-500 text-md">
+		<h3 class="text-lg font-semibold">Upgrade to Merchant Account</h3>
+		<p class="text-md mt-1 mb-4 text-gray-500">
 			Upgrading to Merchant account enables selling to Kantina. However you need to be a valid stall
 			owner or vendor to continue. Contact the administration for further details.
 		</p>
 		{#if changeError}
 			<div class="alert-error">
-				<Icon src={ExclamationTriangle} class="flex-shrink-0 inline w-5 h-5 mr-3" />
+				<Icon src={ExclamationTriangle} class="mr-3 inline h-5 w-5 flex-shrink-0" />
 				<span class="sr-only">Error</span>
 				<div>
 					<span class="font-medium">{changeError}</span>
@@ -160,14 +160,14 @@
 	</section>
 {:else}
 	<section id="downgrade-to-customer" class="my-12 w-full md:max-w-screen-sm">
-		<h3 class="font-semibold text-lg">Downgrade to Customer Account</h3>
-		<p class="mt-1 mb-4 text-gray-500 text-md">
+		<h3 class="text-lg font-semibold">Downgrade to Customer Account</h3>
+		<p class="text-md mt-1 mb-4 text-gray-500">
 			Downgrading to Customer account disables selling to Kantina. This will also delete your store
 			and products in the database.
 		</p>
 		{#if changeError}
 			<div class="alert-error">
-				<Icon src={ExclamationTriangle} class="flex-shrink-0 inline w-5 h-5 mr-3" />
+				<Icon src={ExclamationTriangle} class="mr-3 inline h-5 w-5 flex-shrink-0" />
 				<span class="sr-only">Error</span>
 				<div>
 					<span class="font-medium">{changeError}</span>

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import pocketbase from '$lib/backend'
 	import { createForm } from 'svelte-forms-lib'
+	import pocketbase from '$lib/backend'
 
 	const { form, handleSubmit, handleChange } = createForm({
 		initialValues: {
@@ -13,10 +13,10 @@
 </script>
 
 <section id="update-password" class="w-full md:max-w-screen-sm">
-	<form class="flex-1 w-full flex flex-col" on:submit|preventDefault={handleSubmit}>
+	<form class="flex w-full flex-1 flex-col" on:submit|preventDefault={handleSubmit}>
 		<div class="flex flex-col items-start">
 			<h3 class="text-lg font-semibold">Update or Reset Password</h3>
-			<p class="text-gray-500 mb-4">
+			<p class="mb-4 text-gray-500">
 				If your password has been compromised, you can update your password by sending the
 				change/link to your email.
 			</p>

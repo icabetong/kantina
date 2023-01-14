@@ -81,20 +81,20 @@
 	}
 </script>
 
-<nav class="bg-white border-gray-200 shadow">
+<nav class="border-gray-200 bg-white shadow">
 	<div
 		use:searchRef
-		class="flex flex-wrap items-center justify-between mx-auto max-w-screen-xl px-4 py-4 md:px-12">
+		class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4 py-4 md:px-12">
 		<a
 			href="/"
-			class="flex items-center text-transparent bg-gradient-to-r bg-clip-text from-orange-500 to-pink-500">
+			class="flex items-center bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
 			<img
 				src="/images/icon.png"
-				class="h-6 mr-3 sm:h-9"
+				class="mr-3 h-6 sm:h-9"
 				height="36"
 				width="36"
 				alt="Flowbite Logo" />
-			<span class="self-center text-2xl font-semibold whitespace-nowrap"> Kantina </span>
+			<span class="self-center whitespace-nowrap text-2xl font-semibold"> Kantina </span>
 		</a>
 		{#if $page.url.pathname !== '/'}
 			<div class="flex md:order-1 md:w-96">
@@ -102,7 +102,7 @@
 					<form on:submit|preventDefault={handleSubmit}>
 						<button
 							type="submit"
-							class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+							class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 							<span class="sr-only">Search icon</span>
 							<Icon src={MagnifyingGlass} class="h-5 w-5 text-gray-500" />
 						</button>
@@ -110,7 +110,7 @@
 							required
 							type="text"
 							id="search-navbar"
-							class="block w-full p-2 pl-10 text-sm text-gray-800 border border-gray-200 rounded-lg bg-gray-50 ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none transition-all"
+							class="block w-full rounded-lg border border-gray-200 bg-gray-50 p-2 pl-10 text-sm text-gray-800 ring-2 ring-transparent transition-all focus:border-transparent focus:outline-none focus:ring-orange-500"
 							placeholder={currentQuery ?? 'Search for products...'}
 							aria-required="true"
 							bind:value={$form.searchQuery} />
@@ -123,7 +123,7 @@
 				<button
 					data-collapse-toggle="navbar-search"
 					type="button"
-					class="flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+					class="flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 sm:hidden"
 					on:click={() => (searchOpened = !searchOpened)}>
 					<Icon src={MagnifyingGlass} class="h-5 w-5 text-gray-500" />
 					<span class="sr-only">Search</span>
@@ -132,11 +132,11 @@
 			{#if user}
 				<a
 					href="/cart"
-					class="relative inline-flex items-center p-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+					class="relative inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
 					<Icon src={ShoppingCart} class="h-5 w-5 text-gray-500" />
 					{#if cartItems > 0}
 						<div
-							class="inline-flex absolute -top-2 -right-2 justify-center items-center w-6 h-6 text-xs font-bold text-white bg-red-500 rounded-full border-2 border-white">
+							class="absolute -top-2 -right-2 inline-flex h-6 w-6 items-center justify-center rounded-full border-2 border-white bg-red-500 text-xs font-bold text-white">
 							{cartItems}
 						</div>
 					{/if}
@@ -154,11 +154,11 @@
 						<img
 							src={parseFileUrl('users', user.id, user.avatar)}
 							alt="avatar"
-							class="h-10 w-10 rounded-full focus-ring-4 focus:ring-gray-300" />
+							class="focus-ring-4 h-10 w-10 rounded-full focus:ring-gray-300" />
 					{:else}
 						<div
-							class="p-2 bg-gradient-to-br rounded-full from-orange-500 to-pink-500 text-white focus:ring-4 focus:ring-orange-300">
-							<Icon src={User} class=" text-sm h-5 w-5" />
+							class="rounded-full bg-gradient-to-br from-orange-500 to-pink-500 p-2 text-white focus:ring-4 focus:ring-orange-300">
+							<Icon src={User} class=" h-5 w-5 text-sm" />
 						</div>
 					{/if}
 				</button>
@@ -174,13 +174,13 @@
 			use:clickOutside
 			use:dropdownContent={extraOptions}
 			on:clickOutside={() => (dropdownOpened = !dropdownOpened)}
-			class="z-50 text-base list-none bg-white rounded shadow-lg border border-gray-200 divide-y divide-gray-100"
+			class="z-50 list-none divide-y divide-gray-100 rounded border border-gray-200 bg-white text-base shadow-lg"
 			id="user-dropdown">
 			<div class="px-4 py-3">
 				<span class="block text-sm text-gray-800">{`${user?.firstName} ${user?.lastName}`}</span>
-				<span class="block text-sm font-medium text-gray-500 truncate "> {user?.email} </span>
+				<span class="block truncate text-sm font-medium text-gray-500 "> {user?.email} </span>
 			</div>
-			<ul class="flex flex-col mt-0 pb-2 text-sm">
+			<ul class="mt-0 flex flex-col pb-2 text-sm">
 				{#if user?.type === 'merchant'}
 					<li class="nav-dropdown-item">
 						<button
@@ -229,20 +229,20 @@
 			<form on:submit|preventDefault={handleSubmit}>
 				<label
 					for="default-search"
-					class="mb-2 text-sm font-medium text-gray-800 sr-only dark:text-white">Search</label>
+					class="sr-only mb-2 text-sm font-medium text-gray-800 dark:text-white">Search</label>
 				<div class="relative">
-					<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none" />
+					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3" />
 					<input
 						required
 						type="search"
 						id="searchQuery"
-						class="block w-full p-4 text-sm text-gray-800 outline outline-gray-300 rounded-lg bg-gray-100 focus:ring-orange-500 focus:outline-2 focus:outline-orange-500"
+						class="block w-full rounded-lg bg-gray-100 p-4 text-sm text-gray-800 outline outline-gray-300 focus:outline-2 focus:outline-orange-500 focus:ring-orange-500"
 						placeholder="Search for food, drinks, menus or stalls..."
 						aria-required="true"
 						bind:value={$form.searchQuery} />
 					<button
 						type="submit"
-						class="text-white absolute right-2.5 bottom-2.5 bg-gradient-to-br to-pink-500 from-orange-400 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-3 py-2">
+						class="absolute right-2.5 bottom-2.5 rounded-lg bg-gradient-to-br from-orange-400 to-pink-500 px-3 py-2 text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-orange-300">
 						<Icon src={MagnifyingGlass} class="h-5 w-5 text-white" />
 						<span class="sr-only">Search</span></button>
 				</div>

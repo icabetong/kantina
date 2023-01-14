@@ -36,7 +36,7 @@ a {
 
 @layer components {
 	.page {
-		@apply max-w-screen-xl mx-auto px-8 md:px-12 py-8 h-full text-gray-800;
+		@apply mx-auto h-full max-w-screen-xl px-8 py-8 text-gray-800 md:px-12;
 	}
 	.nav-icon {
 		@apply h-6 w-6 text-gray-500;
@@ -45,88 +45,88 @@ a {
 		@apply flex flex-row items-start px-4 py-2 text-gray-700 hover:bg-gray-100;
 	}
 	.nav-dropdown-button {
-		@apply w-full text-start flex items-center;
+		@apply flex w-full items-center text-start;
 	}
 	.nav-dropdown-icon {
-		@apply w-5 h-5 mr-3;
+		@apply mr-3 h-5 w-5;
 	}
 	.page-header {
-		@apply text-3xl font-extrabold tracking-tight leading-none text-gray-800;
+		@apply text-3xl font-extrabold leading-none tracking-tight text-gray-800;
 	}
 	.form-root {
-		@apply bg-white px-6 py-8 drop-shadow rounded w-full sm:w-2/3 lg:w-1/2 md:py-10 md:px-8;
+		@apply w-full rounded bg-white px-6 py-8 drop-shadow sm:w-2/3 md:py-10 md:px-8 lg:w-1/2;
 	}
 	.form-control-group {
-		@apply w-full mb-3;
+		@apply mb-3 w-full;
 	}
 	.form-control-label {
-		@apply block mb-2 text-sm font-medium text-gray-800 aria-disabled:text-gray-400;
+		@apply mb-2 block text-sm font-medium text-gray-800 aria-disabled:text-gray-400;
 	}
 	.form-control-input {
-		@apply bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none block w-full p-2.5 disabled:bg-gray-100 disabled:text-gray-500 transition-all;
+		@apply block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-800 ring-2 ring-transparent transition-all focus:border-transparent focus:outline-none focus:ring-orange-500 disabled:bg-gray-100 disabled:text-gray-500;
 	}
 	.form-control-input-dense {
-		@apply bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg ring-2 ring-transparent focus:ring-orange-500 focus:border-transparent focus:outline-none block w-full p-2 disabled:bg-gray-100 disabled:text-gray-500 transition-all;
+		@apply block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800 ring-2 ring-transparent transition-all focus:border-transparent focus:outline-none focus:ring-orange-500 disabled:bg-gray-100 disabled:text-gray-500;
 	}
 	.form-control-info {
 		@apply mt-2 text-sm text-gray-500;
 	}
 	.form-control-checkbox {
-		@apply w-4 h-4 text-white accent-orange-600 bg-gray-100 rounded border-gray-300;
+		@apply h-4 w-4 rounded border-gray-300 bg-gray-100 text-white accent-orange-600;
 	}
 	.form-control-checkbox-label {
 		@apply ml-2 text-sm font-medium;
 	}
 	.form-control {
-		@apply flex items-center mb-1;
+		@apply mb-1 flex items-center;
 	}
 	.form-control-radio {
-		@apply w-4 h-4 accent-orange-600 text-orange-600 bg-gray-100 border-gray-300 focus:ring-orange-500;
+		@apply h-4 w-4 border-gray-300 bg-gray-100 text-orange-600 accent-orange-600 focus:ring-orange-500;
 	}
 	.form-control-radio-label {
-		@apply ml-2 text-sm font-normal text-gray-800 capitalize;
+		@apply ml-2 text-sm font-normal capitalize text-gray-800;
 	}
 	.form-control-dropdown {
-		@apply bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 focus:outline-orange-500 block w-full p-2.5;
+		@apply block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-800 focus:border-orange-500 focus:outline-orange-500 focus:ring-orange-500;
 	}
 	.form-control-dropdown-dense {
-		@apply bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 focus:outline-orange-500 block w-full p-2;
+		@apply block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800 focus:border-orange-500 focus:outline-orange-500 focus:ring-orange-500;
 	}
 	.form-control-file {
-		@apply text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:text-sm file:font-semibold file:border-none file:bg-orange-50 file:text-orange-500 hover:file:bg-orange-100 cursor-default;
+		@apply cursor-default text-sm file:mr-4 file:rounded-full file:border-none file:bg-orange-50 file:py-2 file:px-4 file:text-sm file:font-semibold file:text-orange-500 hover:file:bg-orange-100;
 	}
 	.btn-primary {
-		@apply px-5 py-2 text-white bg-gradient-to-br to-pink-500 from-orange-500 transition-all drop-shadow hover:drop-shadow-xl hover:from-pink-500 hover:to-orange-500 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm focus:outline-none disabled:from-orange-300 disabled:to-pink-300 disabled:cursor-not-allowed;
+		@apply rounded-lg bg-gradient-to-br from-orange-500 to-pink-500 px-5 py-2 text-sm font-medium text-white drop-shadow transition-all hover:from-pink-500 hover:to-orange-500 hover:drop-shadow-xl focus:outline-none focus:ring-4 focus:ring-orange-300 disabled:cursor-not-allowed disabled:from-orange-300 disabled:to-pink-300;
 	}
 	.btn-outlined {
-		@apply py-2 px-5 text-sm font-medium text-gray-800 focus:outline-none bg-white rounded-lg border border-gray-200 transition-all hover:text-orange-700 hover:border-orange-500 focus:z-10 focus:ring-4 focus:ring-gray-200 disabled:text-gray-200 disabled:hover:bg-white disabled:cursor-not-allowed disabled:hover:text-gray-200 disabled:hover:border-gray-200;
+		@apply rounded-lg border border-gray-200 bg-white py-2 px-5 text-sm font-medium text-gray-800 transition-all hover:border-orange-500 hover:text-orange-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 disabled:cursor-not-allowed disabled:text-gray-200 disabled:hover:border-gray-200 disabled:hover:bg-white disabled:hover:text-gray-200;
 	}
 	.link {
-		@apply px-3 py-2 font-medium text-orange-700 hover:underline disabled:hover:no-underline disabled:text-orange-200;
+		@apply px-3 py-2 font-medium text-orange-700 hover:underline disabled:text-orange-200 disabled:hover:no-underline;
 	}
 	.alert-error {
-		@apply w-full flex p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg;
+		@apply mb-4 flex w-full rounded-lg bg-red-100 p-4 text-sm text-red-700;
 	}
 	.badge-red {
-		@apply bg-red-100 text-red-800 text-sm font-medium px-2.5 py-0.5 rounded;
+		@apply rounded bg-red-100 px-2.5 py-0.5 text-sm font-medium text-red-800;
 	}
 	.badge-blue {
-		@apply bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded;
+		@apply rounded bg-blue-100 px-2.5 py-0.5 text-sm font-medium text-blue-800;
 	}
 	.badge-green {
-		@apply bg-green-100 text-green-800 text-sm font-medium px-2.5 py-0.5 rounded;
+		@apply rounded bg-green-100 px-2.5 py-0.5 text-sm font-medium text-green-800;
 	}
 	.badge-yellow {
-		@apply bg-yellow-100 text-yellow-800 text-sm font-medium px-2.5 py-0.5 rounded;
+		@apply rounded bg-yellow-100 px-2.5 py-0.5 text-sm font-medium text-yellow-800;
 	}
 	.badge-gray {
-		@apply bg-gray-100 text-gray-700 text-sm font-medium p-2.5 py-0.5 rounded;
+		@apply rounded bg-gray-100 p-2.5 py-0.5 text-sm font-medium text-gray-700;
 	}
 	.pagination-page-action {
-		@apply inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 disabled:text-gray-300 disabled:hover:bg-white disabled:hover:text-gray-300 disabled:hover:cursor-not-allowed;
+		@apply inline-flex items-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 disabled:text-gray-300 disabled:hover:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-300;
 	}
 	.pagination-page-number {
-		@apply px-3 py-1 border border-transparent rounded-lg hover:bg-gray-100 hover:text-gray-800 hover:border-gray-300 disabled:hover:bg-white disabled:text-gray-200 disabled:hover:border-transparent;
+		@apply rounded-lg border border-transparent px-3 py-1 hover:border-gray-300 hover:bg-gray-100 hover:text-gray-800 disabled:text-gray-200 disabled:hover:border-transparent disabled:hover:bg-white;
 	}
 }
 

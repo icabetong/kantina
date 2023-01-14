@@ -45,7 +45,7 @@
 <Modal {isOpen} title="Update Avatar" size="sm">
 	<div class="flex flex-col items-center justify-center">
 		{#if avatar && typeof avatar === 'string'}
-			<img src={avatar} alt="avatar" class="w-36 h-36 rounded-full mb-8" />
+			<img src={avatar} alt="avatar" class="mb-8 h-36 w-36 rounded-full" />
 		{/if}
 		<div class="form-control-group ">
 			<label for="avatar" class="sr-only">Browse Image</label>

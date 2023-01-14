@@ -49,7 +49,7 @@
 
 <Modal {isOpen} title="Create New Store" size="sm" asForm on:submit={handleSubmit}>
 	<div>
-		<p class="text-gray-500 text-sm mb-4">
+		<p class="mb-4 text-sm text-gray-500">
 			To Upgrade to a Merchant Account, you will need to create a Store. Type in the name you want
 			and click "Create".
 		</p>
@@ -67,7 +67,7 @@
 		</div>
 		{#if error}
 			<div class="alert-error">
-				<Icon src={ExclamationTriangle} class="flex-shrink-0 inline w-5 h-5 mr-3" />
+				<Icon src={ExclamationTriangle} class="mr-3 inline h-5 w-5 flex-shrink-0" />
 				<span class="font-medium">{error}</span>
 			</div>
 		{/if}

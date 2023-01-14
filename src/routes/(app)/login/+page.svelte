@@ -19,13 +19,13 @@
 </script>
 
 <div class="hero">
-	<div class="page w-full min-h-screen flex flex-col items-center justify-center">
-		<form class="mx-auto max-w-md form-root" method="POST" use:enhance={onAuthenticate}>
+	<div class="page flex min-h-screen w-full flex-col items-center justify-center">
+		<form class="form-root mx-auto max-w-md" method="POST" use:enhance={onAuthenticate}>
 			<div class="flex flex-col items-start">
-				<h1 class="text-2xl font-semibold mb-8">Login to your Kantina Account</h1>
+				<h1 class="mb-8 text-2xl font-semibold">Login to your Kantina Account</h1>
 				{#if error}
 					<div class="alert-error">
-						<Icon src={ExclamationTriangle} class="flex-shrink-0 inline w-5 h-5 mr-3" />
+						<Icon src={ExclamationTriangle} class="mr-3 inline h-5 w-5 flex-shrink-0" />
 						<span class="sr-only">Info</span>
 						<div>
 							<span class="font-medium">{error}</span>
@@ -54,8 +54,8 @@
 						placeholder="••••••••••"
 						aria-required="true" />
 				</div>
-				<div class="w-full flex flex-col items-center justify-between mt-4 mb-2 gap-2 md:flex-row">
-					<div class="flex flex-col gap-4 w-full md:flex-row md:gap-2">
+				<div class="mt-4 mb-2 flex w-full flex-col items-center justify-between gap-2 md:flex-row">
+					<div class="flex w-full flex-col gap-4 md:flex-row md:gap-2">
 						<Button type="submit" isLoading={isWorking}>Login</Button>
 						<button
 							type="button"
@@ -67,7 +67,7 @@
 					</div>
 					<button
 						type="button"
-						class="link text-sm min-w-fit"
+						class="link min-w-fit text-sm"
 						disabled={isWorking}
 						on:click={() => goto('/forgot-password')}>
 						Forgot Password?

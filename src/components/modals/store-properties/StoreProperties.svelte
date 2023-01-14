@@ -58,15 +58,15 @@
 			<h6 class="form-control-label">Color</h6>
 			<div class="flex items-start gap-2">
 				{#each colors as color}
-					<label class={`inline-flex items-center rounded-lg w-8 h-8 ${getColor500(color)}`}>
+					<label class={`inline-flex h-8 w-8 items-center rounded-lg ${getColor500(color)}`}>
 						<input
 							type="radio"
 							id={color}
 							value={color}
-							class="sr-only peer"
+							class="peer sr-only"
 							bind:group={$form.color} />
-						<span class="cursor-pointer hidden peer-checked:inline-block peer-checked:p-1.5">
-							<Icon src={Check} class="w-full h-full text-white" />
+						<span class="hidden cursor-pointer peer-checked:inline-block peer-checked:p-1.5">
+							<Icon src={Check} class="h-full w-full text-white" />
 						</span>
 					</label>
 				{/each}
@@ -74,7 +74,7 @@
 		</div>
 		{#if error}
 			<div class="alert-error">
-				<Icon src={ExclamationTriangle} class="flex-shrink-0 inline w-5 h-5 mr-3" />
+				<Icon src={ExclamationTriangle} class="mr-3 inline h-5 w-5 flex-shrink-0" />
 				<span class="font-medium">{error}</span>
 			</div>
 		{/if}

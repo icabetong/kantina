@@ -16,10 +16,10 @@
 
 <div class="page min-h-screen">
 	<h1 class="page-header">Contact Us</h1>
-	<div class="my-8 flex flex-col items-center md:flex-row md:items-start gap-12">
-		<div class="w-1/3 p-4 border h-full rounded-lg">
-			<h2 class="font-bold text-lg">Get in touch</h2>
-			<p class="text-gray-500 text-sm">
+	<div class="my-8 flex flex-col items-center gap-12 md:flex-row md:items-start">
+		<div class="h-full w-1/3 rounded-lg border p-4">
+			<h2 class="text-lg font-bold">Get in touch</h2>
+			<p class="text-sm text-gray-500">
 				We love to hear from you. Our friendly team is always here to chat.
 			</p>
 			<ul class="mt-4">
@@ -50,17 +50,17 @@
 			</ul>
 		</div>
 		<div class="w-2/3">
-			<h1 class="font-bold text-xl">Send us an inquiry</h1>
-			<p class="text-gray-500 text-sm">
+			<h1 class="text-xl font-bold">Send us an inquiry</h1>
+			<p class="text-sm text-gray-500">
 				You can reach us anytime at
 				<a href="mailto:support@kantina.com" class="text-orange-600"> support@kantina.com </a>
 			</p>
 			<form method="POST" class="mt-8 w-2/3" use:enhance={onSubmit}>
 				{#if form?.success}
 					<div
-						class="flex items-center p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg"
+						class="mb-4 flex items-center rounded-lg bg-blue-100 p-4 text-sm text-blue-700"
 						role="alert">
-						<Icon src={InformationCircle} class="w-5 h-5 mr-3" />
+						<Icon src={InformationCircle} class="mr-3 h-5 w-5" />
 						Feedback Submitted
 					</div>
 				{/if}
@@ -135,7 +135,7 @@
 
 <style lang="postcss">
 	.row {
-		@apply my-8 flex gap-3 items-start;
+		@apply my-8 flex items-start gap-3;
 	}
 	.row-title {
 		@apply font-semibold;
@@ -144,6 +144,6 @@
 		@apply text-sm text-gray-500;
 	}
 	.row-info {
-		@apply mt-2 font-medium text-sm;
+		@apply mt-2 text-sm font-medium;
 	}
 </style>

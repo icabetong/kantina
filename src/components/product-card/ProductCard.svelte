@@ -9,20 +9,20 @@
 
 <a
 	href={`/product/${product.id}`}
-	class="rounded-lg flex flex-col flex-wrap items-start p-3 bg-white border border-gray-100 transitions-all hover:border-orange-500 hover:shadow-md">
+	class="transitions-all flex flex-col flex-wrap items-start rounded-lg border border-gray-100 bg-white p-3 hover:border-orange-500 hover:shadow-md">
 	{#if product.image}
-		<div class="bg-gradient-to-br from-orange-500 to-pink-500 py-4 rounded-lg">
+		<div class="rounded-lg bg-gradient-to-br from-orange-500 to-pink-500 py-4">
 			<img src={parseFileUrl('products', product.id, product.image)} alt={product.name} />
 		</div>
 	{/if}
 	<h5
-		class="flex-1 mt-4 text-md text-center font-semibold tracking-tight line-clamp-2 leading-tight">
+		class="text-md mt-4 flex-1 text-center font-semibold leading-tight tracking-tight line-clamp-2">
 		{product.name}
 	</h5>
-	<div class="w-full flex flex-col-reverse items-center md:flex-row md:items-end justify-between">
-		<div class="flex-1 mt-2 font-bold text-lg tracking-tighter">
+	<div class="flex w-full flex-col-reverse items-center justify-between md:flex-row md:items-end">
+		<div class="mt-2 flex-1 text-lg font-bold tracking-tighter">
 			{#if product.currentPrice}
-				<span class="line-through text-md mr-1 font-medium text-gray-300">
+				<span class="text-md mr-1 font-medium text-gray-300 line-through">
 					{formatter.format(product.price)}
 				</span>
 				<span>{formatter.format(product.currentPrice)}</span>
@@ -31,12 +31,12 @@
 			{/if}
 		</div>
 		<div
-			class="w-full justify-center inline-flex mt-2 px-2 truncate md:w-32 md:mt-0 md:px-0 md:justify-end">
+			class="mt-2 inline-flex w-full justify-center truncate px-2 md:mt-0 md:w-32 md:justify-end md:px-0">
 			{#if product.expand?.store.name}
 				<div
 					class={`${getColor100(product.expand?.store.color)} ${getTextColor800(
 						product.expand?.store.color
-					)} text-xs font-semibold px-2.5 py-0.5 rounded truncate max-w-full`}>
+					)} max-w-full truncate rounded px-2.5 py-0.5 text-xs font-semibold`}>
 					{product.expand?.store.name}
 				</div>
 			{/if}

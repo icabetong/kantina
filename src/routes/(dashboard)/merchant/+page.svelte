@@ -47,14 +47,14 @@
 	const onTriggerQRCode = () => openModal(SetQrCode, { store })
 </script>
 
-<div class="max-w-screen-xl p-8 w-full min-h-screen flex flex-col items-center justify-center">
+<div class="flex min-h-screen w-full max-w-screen-xl flex-col items-center justify-center p-8">
 	<h2 class="page-header self-start">Dashboard</h2>
-	<div class="w-full flex items-center" />
-	<div class="flex-1 gap-4 mt-6 w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+	<div class="flex w-full items-center" />
+	<div class="mt-6 grid w-full flex-1 grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
 		<form
-			class="h-fit border border-gray-200 rounded-lg p-4"
+			class="h-fit rounded-lg border border-gray-200 p-4"
 			on:submit|preventDefault={handleSubmit}>
-			<h6 class="font-semibold text-lg mb-6">Store Properties</h6>
+			<h6 class="mb-6 text-lg font-semibold">Store Properties</h6>
 
 			<div class="form-control-group ">
 				<label for="name" class="form-control-label">Store Name</label>
@@ -70,15 +70,15 @@
 				<h6 class="form-control-label">Color</h6>
 				<div class="flex flex-wrap items-start gap-2">
 					{#each colors as color}
-						<label class={`inline-flex items-center rounded-lg w-8 h-8 ${getColor500(color)}`}>
+						<label class={`inline-flex h-8 w-8 items-center rounded-lg ${getColor500(color)}`}>
 							<input
 								type="radio"
 								id={color}
 								value={color}
-								class="sr-only peer"
+								class="peer sr-only"
 								bind:group={$form.color} />
-							<span class="cursor-pointer hidden peer-checked:inline-block peer-checked:p-1.5">
-								<Icon src={Check} class="w-full h-full text-white" />
+							<span class="hidden cursor-pointer peer-checked:inline-block peer-checked:p-1.5">
+								<Icon src={Check} class="h-full w-full text-white" />
 							</span>
 						</label>
 					{/each}
@@ -86,7 +86,7 @@
 			</div>
 			{#if error}
 				<div class="alert-error">
-					<Icon src={ExclamationTriangle} class="flex-shrink-0 inline w-5 h-5 mr-3" />
+					<Icon src={ExclamationTriangle} class="mr-3 inline h-5 w-5 flex-shrink-0" />
 					<span class="font-medium">{error}</span>
 				</div>
 			{/if}
@@ -96,8 +96,8 @@
 				</div>
 			{/if}
 		</form>
-		<div class="h-fit border border-gray-200 rounded-lg p-4">
-			<h6 class="font-semibold text-lg mb-4">Payment Method</h6>
+		<div class="h-fit rounded-lg border border-gray-200 p-4">
+			<h6 class="mb-4 text-lg font-semibold">Payment Method</h6>
 			{#if store && store.image}
 				<div class="flex flex-col items-center justify-center">
 					<img src={parseFileUrl('stores', store.id, store.image)} alt="qr-code" class="h-60" />
@@ -106,12 +106,12 @@
 			{:else}
 				<div
 					id="no-qr"
-					class="p-4 mb-4 border border-yellow-300 rounded-lg bg-yellow-50"
+					class="mb-4 rounded-lg border border-yellow-300 bg-yellow-50 p-4"
 					role="alert">
 					<div class="flex items-center">
 						<Icon
 							src={ExclamationTriangle}
-							class="flex-shrink-0 inline w-5 h-5 mr-2 text-yellow-700" />
+							class="mr-2 inline h-5 w-5 flex-shrink-0 text-yellow-700" />
 						<span class="sr-only">Info</span>
 						<h3 class="text-lg font-medium text-yellow-700">Undefined payment method</h3>
 					</div>
@@ -122,7 +122,7 @@
 					<div class="flex">
 						<button
 							type="button"
-							class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-xs px-3 py-1.5 mr-2 text-center inline-flex items-center"
+							class="mr-2 inline-flex items-center rounded-lg bg-yellow-700 px-3 py-1.5 text-center text-xs font-medium text-white hover:bg-yellow-800 focus:outline-none focus:ring-4 focus:ring-yellow-300"
 							on:click={onTriggerQRCode}>
 							Upload
 						</button>

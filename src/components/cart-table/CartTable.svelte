@@ -15,9 +15,9 @@
 	export let cartItems: CartItem[]
 </script>
 
-<div class="overflow-x-auto relative rounded-lg border-gray-100 border">
-	<table class="w-full text-sm text-left text-gray-500">
-		<thead class="text-xs text-gray-700 uppercase bg-gray-50">
+<div class="relative overflow-x-auto rounded-lg border border-gray-100">
+	<table class="w-full text-left text-sm text-gray-500">
+		<thead class="bg-gray-50 text-xs uppercase text-gray-700">
 			<tr>
 				<th scope="col" class="py-3 px-6">
 					<span class="sr-only">Image</span>
@@ -28,10 +28,10 @@
 				<th scope="col" class="py-3 px-6"> Action </th>
 			</tr>
 		</thead>
-		<tbody class="divide-y divide-y-gray-100">
+		<tbody class="divide-y-gray-100 divide-y">
 			{#each cartItems as cartItem, index}
 				<tr class="bg-white">
-					<td class="p-2 w-32">
+					<td class="w-32 p-2">
 						{#if cartItem.expand?.product && cartItem.expand?.product.image}
 							<img
 								src={parseFileUrl('products', cartItem.product, cartItem.expand?.product.image)}
@@ -47,7 +47,7 @@
 					<td class="py-3 px-6 font-semibold text-gray-800">
 						P {cartItem.expand?.product.price}
 					</td>
-					<td class="py-3 px-6 w-28">
+					<td class="w-28 py-3 px-6">
 						<button
 							type="button"
 							value={index}

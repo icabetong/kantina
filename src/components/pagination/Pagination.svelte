@@ -41,7 +41,7 @@
 			disabled={disablePrevious}
 			aria-disabled={disablePrevious}
 			on:click={previous}>
-			<Icon src={ArrowLeft} class="h-3 w-3 mr-2" />
+			<Icon src={ArrowLeft} class="mr-2 h-3 w-3" />
 			Previous
 		</button>
 		<button
@@ -51,12 +51,12 @@
 			aria-disabled={disableNext}
 			on:click={next}>
 			Next
-			<Icon src={ArrowRight} class="h-3 w-3 ml-2" />
+			<Icon src={ArrowRight} class="ml-2 h-3 w-3" />
 		</button>
 	</div>
 {:else}
-	<div class="flex flex-row items-center w-full">
-		<div class="flex-1 text-gray-500 text-md">
+	<div class="flex w-full flex-row items-center">
+		<div class="text-md flex-1 text-gray-500">
 			Showing
 			<span class="font-bold text-gray-800">
 				{#if start === end}
@@ -69,7 +69,7 @@
 			<span class="font-bold text-gray-800">{totalItems}</span> total
 		</div>
 		{#if totalPages >= currentPage}
-			<div class="flex-1 flex justify-end">
+			<div class="flex flex-1 justify-end">
 				<ul class="flex items-center gap-2">
 					<li>
 						<button
@@ -88,7 +88,7 @@
 								value={index + 1}
 								class={`pagination-page-number ${
 									currentPage === index + 1 &&
-									'bg-orange-50 border-orange-300 text-orange-500 hover:text-orange-500 hover:border-orange-500 hover:bg-orange-100 z-10'
+									'z-10 border-orange-300 bg-orange-50 text-orange-500 hover:border-orange-500 hover:bg-orange-100 hover:text-orange-500'
 								}`}
 								on:click={onPageChange}>
 								{index + 1}

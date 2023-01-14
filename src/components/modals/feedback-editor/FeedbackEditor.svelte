@@ -53,13 +53,13 @@
 			How satisfied are you with the product, and how likely are you gonna recommend these to your
 			friends and peers?
 		</p>
-		<div class="flex items-center justify-center gap-4 mb-4 text-sm text-gray-400">
+		<div class="mb-4 flex items-center justify-center gap-4 text-sm text-gray-400">
 			<div>Not Satisfied</div>
 			{#each Array(5) as _, index}
 				<button type="button" id={`${index}`} on:click={() => changeRating(index + 1)}>
 					<Icon
 						src={Star}
-						class="w-8 h-8 text-yellow-400"
+						class="h-8 w-8 text-yellow-400"
 						theme={index + 1 <= rating ? 'solid' : 'outline'} />
 				</button>
 			{/each}
@@ -88,7 +88,7 @@
 		</div>
 		{#if error}
 			<div class="alert-error">
-				<Icon src={ExclamationTriangle} class="flex-shrink-0 inline w-5 h-5 mr-3" />
+				<Icon src={ExclamationTriangle} class="mr-3 inline h-5 w-5 flex-shrink-0" />
 				<span class="font-medium">{error}</span>
 			</div>
 		{/if}
