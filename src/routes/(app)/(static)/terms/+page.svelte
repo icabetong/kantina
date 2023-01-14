@@ -1,4 +1,4 @@
-<div class="page min-h-screen marker:text-orange-500">
+<div class="page min-h-screen marker:text-red-600">
 	<h1 class="page-header">Terms and Conditions</h1>
 	<div class="space-y-2">
 		<p>Welcome to Kantina!</p>

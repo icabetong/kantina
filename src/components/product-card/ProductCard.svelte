@@ -9,9 +9,9 @@
 
 <a
 	href={`/product/${product.id}`}
-	class="transitions-all flex flex-col flex-wrap items-start rounded-lg border border-gray-100 bg-white p-3 hover:border-orange-500 hover:shadow-md">
+	class="transitions-all flex flex-col flex-wrap items-start rounded-lg border border-gray-100 bg-white p-3 hover:border-red-500 hover:shadow-md">
 	{#if product.image}
-		<div class="rounded-lg bg-gradient-to-br from-orange-500 to-pink-500 py-4">
+		<div class="rounded-lg bg-gradient-to-br from-red-600 to-orange-500 py-4">
 			<img src={parseFileUrl('products', product.id, product.image)} alt={product.name} />
 		</div>
 	{/if}

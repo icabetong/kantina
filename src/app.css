@@ -28,7 +28,7 @@ a {
 	--toastBoxShadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 	--toastBorder: 1px solid #e5e7eb;
 	--toastBorderRadius: 0.5rem;
-	--toastBarBackground: #f97316;
+	--toastBarBackground: #dc2626;
 	--toastBarWidth: 50%;
 	--toastPadding: 0.5rem;
 	--toastBarHeight: 2px;
@@ -63,16 +63,16 @@ a {
 		@apply mb-2 block text-sm font-medium text-gray-800 aria-disabled:text-gray-400;
 	}
 	.form-control-input {
-		@apply block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-800 ring-2 ring-transparent transition-all focus:border-transparent focus:outline-none focus:ring-orange-500 disabled:bg-gray-100 disabled:text-gray-500;
+		@apply block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-800 ring-2 ring-transparent transition-all focus:border-transparent focus:outline-none focus:ring-red-600 disabled:bg-gray-100 disabled:text-gray-500;
 	}
 	.form-control-input-dense {
-		@apply block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800 ring-2 ring-transparent transition-all focus:border-transparent focus:outline-none focus:ring-orange-500 disabled:bg-gray-100 disabled:text-gray-500;
+		@apply block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800 ring-2 ring-transparent transition-all focus:border-transparent focus:outline-none focus:ring-red-600 disabled:bg-gray-100 disabled:text-gray-500;
 	}
 	.form-control-info {
 		@apply mt-2 text-sm text-gray-500;
 	}
 	.form-control-checkbox {
-		@apply h-4 w-4 rounded border-gray-300 bg-gray-100 text-white accent-orange-600;
+		@apply h-4 w-4 rounded border-gray-300 bg-gray-100 text-white accent-red-600;
 	}
 	.form-control-checkbox-label {
 		@apply ml-2 text-sm font-medium;
@@ -81,28 +81,28 @@ a {
 		@apply mb-1 flex items-center;
 	}
 	.form-control-radio {
-		@apply h-4 w-4 border-gray-300 bg-gray-100 text-orange-600 accent-orange-600 focus:ring-orange-500;
+		@apply h-4 w-4 border-gray-300 bg-gray-100 text-red-600 accent-red-600 focus:ring-red-500;
 	}
 	.form-control-radio-label {
 		@apply ml-2 text-sm font-normal capitalize text-gray-800;
 	}
 	.form-control-dropdown {
-		@apply block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-800 focus:border-orange-500 focus:outline-orange-500 focus:ring-orange-500;
+		@apply block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-800 focus:border-red-600 focus:outline-red-600 focus:ring-red-600;
 	}
 	.form-control-dropdown-dense {
-		@apply block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800 focus:border-orange-500 focus:outline-orange-500 focus:ring-orange-500;
+		@apply block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-800 focus:border-red-600 focus:outline-red-600 focus:ring-red-600;
 	}
 	.form-control-file {
-		@apply cursor-default text-sm file:mr-4 file:rounded-full file:border-none file:bg-orange-50 file:py-2 file:px-4 file:text-sm file:font-semibold file:text-orange-500 hover:file:bg-orange-100;
+		@apply cursor-default text-sm file:mr-4 file:rounded-full file:border-none file:bg-red-50 file:py-2 file:px-4 file:text-sm file:font-semibold file:text-red-600 hover:file:bg-red-100;
 	}
 	.btn-primary {
-		@apply rounded-lg bg-gradient-to-br from-orange-500 to-pink-500 px-5 py-2 text-sm font-medium text-white drop-shadow transition-all hover:from-pink-500 hover:to-orange-500 hover:drop-shadow-xl focus:outline-none focus:ring-4 focus:ring-orange-300 disabled:cursor-not-allowed disabled:from-orange-300 disabled:to-pink-300;
+		@apply rounded-lg bg-red-500 px-5 py-2 text-sm font-medium text-white transition-all hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 disabled:cursor-not-allowed disabled:bg-red-400;
 	}
 	.btn-outlined {
-		@apply rounded-lg border border-gray-200 bg-white py-2 px-5 text-sm font-medium text-gray-800 transition-all hover:border-orange-500 hover:text-orange-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 disabled:cursor-not-allowed disabled:text-gray-200 disabled:hover:border-gray-200 disabled:hover:bg-white disabled:hover:text-gray-200;
+		@apply rounded-lg border border-gray-200 bg-white py-2 px-5 text-sm font-medium text-gray-800 transition-all hover:border-red-600 hover:text-red-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-200 disabled:cursor-not-allowed disabled:text-gray-200 disabled:hover:border-gray-200 disabled:hover:bg-white disabled:hover:text-gray-200;
 	}
 	.link {
-		@apply px-3 py-2 font-medium text-orange-700 hover:underline disabled:text-orange-200 disabled:hover:no-underline;
+		@apply px-3 py-2 font-medium text-red-700 hover:underline disabled:text-orange-200 disabled:hover:no-underline;
 	}
 	.alert-error {
 		@apply mb-4 flex w-full rounded-lg bg-red-100 p-4 text-sm text-red-700;

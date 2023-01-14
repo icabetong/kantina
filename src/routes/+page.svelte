@@ -35,7 +35,7 @@
 			<div class="page flex flex-col items-start justify-start py-12 md:items-center md:py-56">
 				<h1 class="mb-4 text-4xl font-extrabold md:text-5xl lg:text-6xl">
 					Discover new stalls and{' '}
-					<span class="bg-gradient-to-br from-orange-500 to-pink-500 bg-clip-text text-transparent">
+					<span class="bg-gradient-to-br from-red-600 to-orange-400 bg-clip-text text-transparent">
 						food
 					</span>
 				</h1>
@@ -53,20 +53,20 @@
 						<input
 							type="search"
 							id="searchQuery"
-							class="block w-full rounded-lg bg-gray-50 p-4 pl-10 text-sm text-gray-800 outline outline-gray-300 transition-all focus:outline-2 focus:outline-orange-500 focus:ring-orange-500"
+							class="block w-full rounded-lg bg-gray-50 p-4 pl-10 text-sm text-gray-800 outline outline-gray-300 transition-all focus:outline-2 focus:outline-red-600 focus:ring-red-600"
 							placeholder="Search for food, drinks, menus or stalls..."
 							required
 							on:change={handleChange}
 							bind:value={$form.searchQuery} />
 						<button
 							type="submit"
-							class="absolute right-2.5 bottom-2.5 hidden rounded-lg bg-gradient-to-br from-orange-400 to-pink-500 px-4 py-1.5 text-sm font-medium text-white shadow transition-all hover:shadow-md focus:outline-none focus:ring-4 focus:ring-orange-300 md:block">
+							class="absolute right-2.5 bottom-2.5 hidden rounded-lg bg-gradient-to-br from-red-600 to-orange-500 px-4 py-1.5 text-sm font-medium text-white shadow transition-all hover:shadow-md focus:outline-none focus:ring-4 focus:ring-orange-300 md:block">
 							Search
 						</button>
 					</div>
 					<button
 						type="submit"
-						class="bottom-2.5 mt-4 w-full rounded-lg bg-gradient-to-br from-orange-400 to-pink-500 px-4 py-3.5 text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-orange-300 md:hidden md:py-2">
+						class="bottom-2.5 mt-4 w-full rounded-lg bg-gradient-to-br from-red-600 to-orange-500 px-4 py-3.5 text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-red-500 md:hidden md:py-2">
 						Search
 					</button>
 				</form>
@@ -98,21 +98,21 @@
 				<p class="mt-1 mb-4 text-gray-600 ">
 					Grow your business with ease using
 					<span
-						class="bg-gradient-to-br from-orange-500 to-pink-500 bg-clip-text font-medium text-transparent">
+						class="bg-gradient-to-br from-red-600 to-orange-500 bg-clip-text font-medium text-transparent">
 						Kantina.
 					</span>
 				</p>
 				{#if user === null}
 					<a
 						href="/register?type=merchant"
-						class="inline-flex max-w-md items-center justify-center rounded-lg bg-gray-100 p-5 text-base font-medium text-gray-500 transition-all hover:bg-gradient-to-br hover:from-orange-500 hover:to-pink-500 hover:text-white hover:shadow-lg">
+						class="inline-flex max-w-md items-center justify-center rounded-lg bg-gray-100 p-5 text-base font-medium text-gray-500 transition-all hover:bg-gradient-to-br hover:from-red-600 hover:to-orange-500 hover:text-white hover:shadow-lg">
 						<span class="w-full">Register for a Merchant Account</span>
 						<Icon src={ArrowRight} class="ml-3 h-6 w-6" />
 					</a>
 				{:else}
 					<a
 						href="/account#upgrade-to-merchant"
-						class="inline-flex max-w-md items-center justify-center rounded-lg bg-gray-100 p-5 text-base font-medium text-gray-500 transition-all hover:bg-gradient-to-br hover:from-orange-500 hover:to-pink-500 hover:text-white hover:shadow-lg">
+						class="inline-flex max-w-md items-center justify-center rounded-lg bg-gray-100 p-5 text-base font-medium text-gray-500 transition-all hover:bg-gradient-to-br hover:from-red-600 hover:to-orange-500 hover:text-white hover:shadow-lg">
 						<span class="w-full">Upgrade Your Account</span>
 						<Icon src={ArrowRight} class="ml-3 h-6 w-6" />
 					</a>

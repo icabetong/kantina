@@ -106,7 +106,7 @@
 					{product.expand.store.name}
 				</span>
 			{/if}
-			<h3 class="mt-3 text-3xl font-bold text-orange-500">{product.name}</h3>
+			<h3 class="mt-3 text-3xl font-bold text-red-600">{product.name}</h3>
 			<p class="text-sm text-gray-500">Product ID: {productId}</p>
 			{#if ratings.length}
 				<div class="my-2 flex items-center">
@@ -128,8 +128,7 @@
 			<div class="mt-2 mb-8 text-lg md:text-xl">
 				{#if product.currentPrice}
 					<span class="text-gray-500 line-through">{formatter.format(product.price)}</span>
-					<span class="font-semibold text-orange-500"
-						>{formatter.format(product.currentPrice)}</span>
+					<span class="font-semibold text-red-600">{formatter.format(product.currentPrice)}</span>
 				{:else}
 					<span class="font-medium text-gray-700">{formatter.format(product.price)}</span>
 				{/if}
@@ -171,12 +170,12 @@
 	{#if ratings.some((r) => r.user !== user?.id) || ratings.length < 1}
 		<section
 			id="feedback"
-			class="mt-16 flex flex-col items-center justify-between gap-4 rounded-xl bg-gradient-to-br from-orange-100 to-pink-100 px-4 py-6 md:flex-row md:gap-0">
+			class="mt-16 flex flex-col items-center justify-between gap-4 rounded-xl bg-gradient-to-br from-red-100 to-orange-100 px-4 py-6 md:flex-row md:gap-0">
 			<div class="flex-initial md:w-2/3">
-				<h6 class="font-medium text-orange-500">
+				<h6 class="font-medium text-red-600">
 					Have an opinion with this product? You can rate it.
 				</h6>
-				<p class="mt-2 text-sm text-orange-400">
+				<p class="mt-2 text-sm text-red-400">
 					Rating and feedback help other users determine the quality of the product, it helps us
 					curate suggested products too.
 				</p>
@@ -185,7 +184,7 @@
 		</section>
 	{/if}
 	<section id="ratings" class="mt-8">
-		<h5 class="mb-4 text-lg font-semibold text-orange-500">Ratings and Feedback</h5>
+		<h5 class="mb-4 text-lg font-semibold text-red-600">Ratings and Feedback</h5>
 		{#if ratings.length > 0}
 			<div class="grid grid-cols-1 gap-2 md:grid-cols-2">
 				{#each ratings as rating}
@@ -225,7 +224,7 @@
 		{:else}
 			<div
 				class="flex flex-col items-center rounded-lg border border-gray-100 bg-gray-50 px-4 py-6">
-				<h5 class="text-xl font-semibold text-orange-500">No Ratings Yet</h5>
+				<h5 class="text-xl font-semibold text-red-600">No Ratings Yet</h5>
 				<p class="max-w-lg text-center text-sm text-gray-500">
 					There are no submitted feedback to this product. Be the first one to rate.
 				</p>
@@ -234,7 +233,7 @@
 	</section>
 	{#if related.length > 0}
 		<section id="related" class="mt-8">
-			<h5 class="mb-4 text-lg font-semibold text-orange-500">Related Products</h5>
+			<h5 class="mb-4 text-lg font-semibold text-red-600">Related Products</h5>
 			<div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 				{#each related as product}
 					<ProductCard {product} />
