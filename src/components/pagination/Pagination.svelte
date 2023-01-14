@@ -88,7 +88,7 @@
 								value={index + 1}
 								class={`pagination-page-number ${
 									currentPage === index + 1 &&
-									'z-10 border-orange-300 bg-orange-50 text-orange-500 hover:border-orange-500 hover:bg-orange-100 hover:text-orange-500'
+									'z-10 border-red-300 bg-orange-50 text-red-600 hover:border-red-600 hover:bg-red-100 hover:text-red-500'
 								}`}
 								on:click={onPageChange}>
 								{index + 1}

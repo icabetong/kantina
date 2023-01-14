@@ -53,7 +53,7 @@
 			<h1 class="text-xl font-bold">Send us an inquiry</h1>
 			<p class="text-sm text-gray-500">
 				You can reach us anytime at
-				<a href="mailto:support@kantina.com" class="text-orange-600"> support@kantina.com </a>
+				<a href="mailto:support@kantina.com" class="text-red-600"> support@kantina.com </a>
 			</p>
 			<form method="POST" class="mt-8 w-2/3" use:enhance={onSubmit}>
 				{#if form?.success}

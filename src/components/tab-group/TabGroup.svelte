@@ -25,7 +25,7 @@
 							role="tab"
 							id={tab.id}
 							value={tab.id}
-							class="inline-flex items-center rounded-t-lg border-b-2 border-transparent px-4 py-2.5 text-sm font-medium transition-all hover:border-gray-300 hover:bg-gray-50 hover:text-gray-600 aria-selected:border-orange-500 aria-selected:text-orange-500"
+							class="inline-flex items-center rounded-t-lg border-b-2 border-transparent px-4 py-2.5 text-sm font-medium transition-all hover:border-gray-300 hover:bg-gray-50 hover:text-gray-600 aria-selected:border-red-600 aria-selected:text-red-500"
 							aria-selected={tab.id === currentTab}
 							data-tabs-target={tab.id}
 							on:click={onTabSelected}>

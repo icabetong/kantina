@@ -15,12 +15,12 @@
 		{#if typeof icon === 'string'}
 			<img src={icon} alt="svg" class="mb-8 h-56" />
 		{:else}
-			<div class="mb-2.5 rounded-full bg-gradient-to-br from-orange-500 to-pink-500 p-3 text-white">
+			<div class="mb-2.5 rounded-full bg-gradient-to-br from-red-600 to-orange-500 p-3 text-white">
 				<Icon src={icon} class="h-10 w-10" />
 			</div>
 		{/if}
 	{/if}
 
-	<h5 class="text-2xl font-semibold text-orange-500">{title}</h5>
+	<h5 class="text-2xl font-semibold text-red-600">{title}</h5>
 	<p class="text-center text-gray-500">{message}</p>
 </div>

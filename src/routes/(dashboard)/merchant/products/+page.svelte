@@ -186,7 +186,7 @@
 					<input
 						type="text"
 						id="table-search"
-						class="block w-full rounded-lg border border-gray-300 bg-white p-2.5 pl-10 pr-10 text-sm text-gray-800 shadow ring-2 ring-transparent transition-all focus:border-transparent focus:outline-none focus:ring-orange-500 md:w-80"
+						class="block w-full rounded-lg border border-gray-300 bg-white p-2.5 pl-10 pr-10 text-sm text-gray-800 shadow ring-2 ring-transparent transition-all focus:border-transparent focus:outline-none focus:ring-red-500 md:w-80"
 						placeholder="Search for items"
 						on:keyup={onSearchQueryChanged}
 						bind:value={$form.query} />
@@ -200,7 +200,7 @@
 				</div>
 				<button
 					type="submit"
-					class="ml-2 hidden rounded-lg border border-orange-500 bg-orange-500 p-2.5 text-sm font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-4 focus:ring-orange-300">
+					class="ml-2 hidden rounded-lg border border-red-500 bg-red-500 p-2.5 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300">
 					<Icon src={MagnifyingGlass} class="h-5 w-5" />
 					<span class="sr-only">Search</span>
 				</button>

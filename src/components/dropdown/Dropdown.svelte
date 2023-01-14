@@ -18,7 +18,7 @@
 	type="button"
 	id="dropdownToggleButton"
 	data-dropdown-toggle="dropdownToggle"
-	class="hover:bg-orang-700 inline-flex items-center rounded-lg bg-orange-500 px-4 py-2.5 text-center text-sm font-medium text-white transition-all hover:drop-shadow-md focus:outline-none focus:ring-4 focus:ring-orange-300"
+	class="hover:bg-orang-700 inline-flex items-center rounded-lg bg-red-600 px-4 py-2.5 text-center text-sm font-medium text-white transition-all hover:drop-shadow-md focus:outline-none focus:ring-4 focus:ring-red-300"
 	on:click={() => (isOpen = !isOpen)}>
 	Options
 	<Icon src={ChevronDown} class="ml-2 h-4 w-4" theme="mini" />

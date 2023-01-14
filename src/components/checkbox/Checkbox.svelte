@@ -16,7 +16,7 @@
 		{checked}
 		id="checkbox-item-4"
 		type="checkbox"
-		class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-orange-600 accent-orange-600 focus:ring-2 focus:ring-orange-500"
+		class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-red-600 accent-red-600 focus:ring-2 focus:ring-red-500"
 		on:change={onChange} />
 	<label for="checkbox-item-4" class="ml-2 w-full rounded text-sm font-medium text-gray-800">
 		{label}

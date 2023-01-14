@@ -85,16 +85,16 @@
 	<div
 		use:searchRef
 		class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4 py-4 md:px-12">
-		<a
-			href="/"
-			class="flex items-center bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
+		<a href="/" class="flex items-center">
 			<img
 				src="/images/icon.png"
 				class="mr-3 h-6 sm:h-9"
 				height="36"
 				width="36"
 				alt="Flowbite Logo" />
-			<span class="self-center whitespace-nowrap text-2xl font-semibold"> Kantina </span>
+			<span class="self-center whitespace-nowrap text-2xl font-semibold text-red-600">
+				Kantina
+			</span>
 		</a>
 		{#if $page.url.pathname !== '/'}
 			<div class="flex md:order-1 md:w-96">
@@ -110,7 +110,7 @@
 							required
 							type="text"
 							id="search-navbar"
-							class="block w-full rounded-lg border border-gray-200 bg-gray-50 p-2 pl-10 text-sm text-gray-800 ring-2 ring-transparent transition-all focus:border-transparent focus:outline-none focus:ring-orange-500"
+							class="block w-full rounded-lg border border-gray-200 bg-gray-50 p-2 pl-10 text-sm text-gray-800 ring-2 ring-transparent transition-all focus:border-transparent focus:outline-none focus:ring-red-600"
 							placeholder={currentQuery ?? 'Search for products...'}
 							aria-required="true"
 							bind:value={$form.searchQuery} />

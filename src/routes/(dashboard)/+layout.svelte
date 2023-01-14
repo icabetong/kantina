@@ -21,7 +21,7 @@
 			<div class="flex items-center">
 				<img src="/images/icon.png" alt="kantina logo" class="mr-2 h-8 w-8" />
 				<h1
-					class="bg-gradient-to-br from-orange-500 to-pink-500 bg-clip-text text-2xl font-bold text-transparent">
+					class="bg-gradient-to-br from-red-600 to-orange-500 bg-clip-text text-2xl font-bold text-transparent">
 					<span class="hidden md:inline-block">Kantina</span>
 				</h1>
 			</div>
@@ -31,24 +31,24 @@
 			<li aria-checked={path === '/merchant'} class="tab group">
 				<a
 					href="/merchant"
-					class="tab-link group-aria-checked:bg-gradient-to-br group-aria-checked:from-orange-500 group-aria-checked:to-pink-500 group-aria-checked:bg-clip-text group-aria-checked:text-transparent">
-					<Icon src={RectangleGroup} class="h-5 w-5 group-aria-checked:text-orange-500" />
+					class="tab-link group-aria-checked:bg-gradient-to-br group-aria-checked:from-red-600 group-aria-checked:to-orange-500 group-aria-checked:bg-clip-text group-aria-checked:text-transparent">
+					<Icon src={RectangleGroup} class="h-5 w-5 group-aria-checked:text-red-500" />
 					<span class="hidden md:inline-block">Dashboard</span>
 				</a>
 			</li>
 			<li aria-checked={path === '/merchant/products'} class="tab group">
 				<a
 					href="/merchant/products"
-					class="tab-link group-aria-checked:bg-gradient-to-br group-aria-checked:from-orange-500 group-aria-checked:to-pink-500 group-aria-checked:bg-clip-text group-aria-checked:text-transparent">
-					<Icon src={Cake} class="h-5 w-5 group-aria-checked:text-orange-500" />
+					class="tab-link group-aria-checked:bg-gradient-to-br group-aria-checked:from-red-600 group-aria-checked:to-orange-500 group-aria-checked:bg-clip-text group-aria-checked:text-transparent">
+					<Icon src={Cake} class="h-5 w-5 group-aria-checked:text-red-500" />
 					<span class="hidden md:inline-block">Products</span>
 				</a>
 			</li>
 			<li aria-checked={path === '/merchant/orders'} class="tab group">
 				<a
 					href="/merchant/orders"
-					class="tab-link  group-aria-checked:bg-gradient-to-br group-aria-checked:from-orange-500 group-aria-checked:to-pink-500 group-aria-checked:bg-clip-text group-aria-checked:text-transparent">
-					<Icon src={ShoppingBag} class="h-5 w-5 group-aria-checked:text-orange-500" />
+					class="tab-link  group-aria-checked:bg-gradient-to-br group-aria-checked:from-red-600 group-aria-checked:to-orange-500 group-aria-checked:bg-clip-text group-aria-checked:text-transparent">
+					<Icon src={ShoppingBag} class="h-5 w-5 group-aria-checked:text-red-500" />
 					<span class="hidden md:inline-block">Orders</span>
 				</a>
 			</li>
@@ -61,7 +61,7 @@
 
 <style lang="postcss">
 	.tab {
-		@apply m-2 rounded-lg hover:bg-orange-50 hover:text-orange-400 aria-checked:bg-gradient-to-br aria-checked:from-orange-100 aria-checked:to-pink-100 aria-checked:text-orange-500;
+		@apply m-2 rounded-lg hover:bg-red-50 hover:text-red-400 aria-checked:bg-gradient-to-br aria-checked:from-red-100 aria-checked:to-orange-100 aria-checked:text-red-500;
 	}
 	.tab-link {
 		@apply flex items-center gap-3 px-4 py-2.5;
