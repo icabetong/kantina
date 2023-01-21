@@ -82,25 +82,6 @@
 						placeholder="••••••••••"
 						aria-required="true" />
 				</div>
-				<div class="form-control-group">
-					<label for="type" class="form-control-label">Account Type</label>
-					<select
-						required
-						name="type"
-						id="type"
-						class="form-control-dropdown"
-						aria-required="true"
-						aria-describedby="helper-text-explanation">
-						<option selected>Select one</option>
-						<option value="customer">Customer</option>
-						<option value="merchant">Merchant</option>
-					</select>
-					<p id="helper-text-explanation" class="form-control-info">
-						A <span class="font-semibold">merchant</span> account has the ability to sell goods, if
-						you are a student or faculty member, select
-						<span class="font-semibold">Customer</span>
-					</p>
-				</div>
 				<div class="mb-6 flex items-start">
 					<div class="flex h-5 items-center">
 						<input

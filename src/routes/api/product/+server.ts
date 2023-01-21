@@ -28,10 +28,10 @@ export const GET: RequestHandler = async ({ url }) => {
 
 export const POST: RequestHandler = async ({ request }) => {
 	try {
-		const product = await request.formData()
+    const product = await request.json()
 
-		await pocketbase.collection('products').create(product)
-		return json({ status: 200 })
+		const record = await pocketbase.collection('products').create(product)
+		return json({ record })
 	} catch (e) {
 		console.error(e)
 		if (e instanceof ClientResponseError) return json({ error: e })

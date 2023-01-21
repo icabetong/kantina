@@ -8,11 +8,10 @@ export const actions: Actions = {
 			lastName: string
 			email: string
 			password: string
-			type: string
 		}
 
 		try {
-			await locals.pocketbase.collection('users').create(data)
+			await locals.pocketbase.collection('users').create({...data, type: 'customer', passwordConfirm: data.password})
 			await locals.pocketbase.collection('users').authWithPassword(data.email, data.password)
 		} catch (e) {
 			console.error(e)

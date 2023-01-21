@@ -9,6 +9,7 @@
 	import Modal from '$components/modals/Modal.svelte'
 	import { parseFileUrl } from '$lib/files'
 	import UserStore from '$stores/user'
+	import type { Record } from 'pocketbase'
 
 	const user = $UserStore
 	export let isOpen: boolean
@@ -45,36 +46,44 @@
 			}
 
 			isWorking = true
-			const formData = new FormData()
-			Object.keys(form).forEach((key) => {
-				// @ts-ignore
-				formData.set(key, form[key])
-			})
-
-			formData.append('store', store.id)
-
-			if (fileInput.files && fileInput.files?.item(0)) formData.append('image', fileInput.files[0])
-
 			try {
 				if (product) {
-					if (hasRemovedImage)
-						await fetch(`/api/product/${product.id}`, {
-							method: 'PATCH',
-							body: JSON.stringify({ product: { image: null } })
-						})
-
 					await fetch(`/api/product/${product.id}`, {
 						method: 'PATCH',
-						headers: { 'content-type': 'multipart/form-data' },
-						body: formData
+						body: JSON.stringify({ ...form, store: store.id })
 					})
+
+          if (!product.image) {
+            await fetch(`/api/product/${product.id}`, {
+							method: 'PATCH',
+							body: JSON.stringify({ image: null })
+						})
+          } else {
+            const formData = new FormData()
+
+            if (fileInput.files && fileInput.files?.item(0)) 
+            formData.append('image', fileInput.files[0])
+
+						await fetch(`/api/product/${product.id}/image`, {
+              method: 'POST',
+              body: formData
+            })
+          }
 				} else {
-					console.log('create')
-					await fetch('/api/product', {
+					const response = await fetch('/api/product', {
 						method: 'POST',
-						headers: { 'content-type': 'multipart/form-data' },
-						body: formData
+						body: JSON.stringify({ ...form, store: store.id })
 					})
+          const { record } = await response.json()
+
+          if (record.id && fileInput.files && fileInput.files?.item(0)) {
+            const formData = new FormData()
+            formData.append('image', fileInput.files[0])
+            await fetch(`/api/product/${record.id}/image`, {
+              method: 'POST',
+              body: formData
+            })
+          }
 				}
 				goto($page.url, { replaceState: true, invalidateAll: true })
 				closeModal()
@@ -105,6 +114,11 @@
 			}
 		}
 	}
+
+  const onRemoveImage = () => {
+    hasRemovedImage = true
+    if (product) product!.image = null
+  }
 </script>
 
 <Modal {isOpen} title="Product Editor" asForm on:submit={handleSubmit}>
@@ -212,10 +226,15 @@
 						{#if file && typeof file === 'string'}
 							<img src={file} alt="product" class="h-24 object-contain" />
 						{:else if product && product?.image}
-							<img
-								src={parseFileUrl('products', product.id, product.image, '24x24')}
-								alt={product.name}
-								class="h-24" />
+							<div class="flex items-center gap-2">
+               <div>
+                  <img
+                  src={parseFileUrl('products', product.id, product.image, '24x24')}
+                  alt={product.name}
+                  class="h-24" />
+                </div>
+                <button type="button" class="btn-outlined" on:click={onRemoveImage}>Remove</button>
+              </div>
 						{:else}
 							<div class="mt-2 rounded-lg bg-gray-100 px-2 py-1 text-center text-gray-500">
 								No Image Selected
