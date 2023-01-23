@@ -1,4 +1,5 @@
 import type { Handle } from '@sveltejs/kit'
+import clone from 'just-clone'
 import pocketbase from '$lib/backend'
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -19,7 +20,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 
 	event.locals.pocketbase = pocketbase
-	event.locals.user = structuredClone(user)
+	event.locals.user = user ? clone<User>(user) : null
 
 	const response = await resolve(event)
 
