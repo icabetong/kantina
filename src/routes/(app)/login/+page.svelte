@@ -6,7 +6,9 @@
 	import { goto } from '$app/navigation'
 	import Button from '$components/button/Button.svelte'
 	import pocketbase from '$lib/backend'
+	import type { ActionData } from './$types'
 
+  export let form: ActionData
 	let error: string | null = null
 	let isWorking = false
 
@@ -23,6 +25,15 @@
 		<form class="form-root mx-auto max-w-md" method="POST" use:enhance={onAuthenticate}>
 			<div class="flex flex-col items-start">
 				<h1 class="mb-8 text-2xl font-semibold">Login to your Kantina Account</h1>
+        {#if form?.incorrect}
+					<div class="alert-error">
+						<Icon src={ExclamationTriangle} class="mr-3 inline h-5 w-5 flex-shrink-0" />
+						<span class="sr-only">Info</span>
+						<div>
+							<span class="font-medium">The username or password is incorrect</span>
+						</div>
+					</div>
+				{/if}
 				{#if error}
 					<div class="alert-error">
 						<Icon src={ExclamationTriangle} class="mr-3 inline h-5 w-5 flex-shrink-0" />
@@ -41,7 +52,7 @@
 						id="email"
 						class="form-control-input"
 						placeholder="name@kantina.com"
-						aria-required="true" />
+						aria-required="true"/>
 				</div>
 				<div class="form-control-group">
 					<label for="password" class="form-control-label"> Password </label>
