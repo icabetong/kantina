@@ -11,7 +11,6 @@
 	import FeedbackEditor from '$components/modals/feedback-editor/FeedbackEditor.svelte'
 	import NumberStepper from '$components/number-stepper/NumberStepper.svelte'
 	import ProductCard from '$components/product-card/ProductCard.svelte'
-	import pocketbase from '$lib/backend'
 	import { parseFileUrl } from '$lib/files'
 	import { getCurrencyFormatter } from '$shared/formatter'
 	import UserStore from '$stores/user'
@@ -22,14 +21,18 @@
 	const formatter = getCurrencyFormatter()
 	const user = $UserStore
 	const productId = $page.params.id
-	const { product, related } = data
-	const outOfStock = product.quantity < 1
 
+  let product: Product
+  let related: Product[]
 	let ratings: Rating[]
 	let averageRating: number = 0
+  let outOfStock: boolean
 
 	$: {
+    product = data.product
+    related = data.related
 		ratings = data.ratings
+    outOfStock = product.quantity < 1
 	}
 
 	let basket: CartItem[] = data.cart
