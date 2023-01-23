@@ -7,7 +7,9 @@
 	import { page } from '$app/stores'
 	import Button from '$components/button/Button.svelte'
 	import pocketbase from '$lib/backend'
+	import type { ActionData } from './$types'
 
+  export let form: ActionData
 	let accountType = 'consumer'
 	if ($page.url.searchParams.has('type'))
 		accountType = $page.url.searchParams.get('type') ?? 'consumer'
@@ -29,6 +31,15 @@
 		<form class="form-root mx-auto max-w-md" use:enhance={onRegister} method="POST">
 			<div class="flex flex-col items-start">
 				<h1 class="mb-8 text-2xl font-semibold">Register to Kantina</h1>
+        {#if form?.invalid}
+					<div class="alert-error">
+						<Icon src={ExclamationTriangle} class="mr-3 inline h-5 w-5 flex-shrink-0" />
+						<span class="sr-only">Info</span>
+						<div>
+							<span class="font-medium">{form?.invalid}</span>
+						</div>
+					</div>
+				{/if}
 				{#if error}
 					<div class="alert-error">
 						<Icon src={ExclamationTriangle} class="mr-3 inline h-5 w-5 flex-shrink-0" />

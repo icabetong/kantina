@@ -1,4 +1,5 @@
-import { redirect } from '@sveltejs/kit'
+import { fail, redirect } from '@sveltejs/kit'
+import { ClientResponseError } from 'pocketbase'
 import type { Actions } from './$types'
 
 export const actions: Actions = {
@@ -10,11 +11,19 @@ export const actions: Actions = {
 			password: string
 		}
 
+    const { email, password } = data
+
+    if (!password || password.length < 8) return fail(400, { invalid: 'Password should have minimum length of 8' })
+    
 		try {
 			await locals.pocketbase.collection('users').create({...data, type: 'customer', passwordConfirm: data.password})
-			await locals.pocketbase.collection('users').authWithPassword(data.email, data.password)
+			await locals.pocketbase.collection('users').authWithPassword(email, password)
 		} catch (e) {
 			console.error(e)
+      if (e instanceof ClientResponseError) {
+        return fail(400, { invalid: e.message })
+      }
+
 			throw e
 		}
 
