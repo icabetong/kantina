@@ -42,6 +42,8 @@ interface User extends Credentials {
 	avatar?: string
 	type: 'merchant' | 'customer'
 	username: string
+	idNumber: string
+	role: string
 }
 interface Store extends Record {
 	id: string

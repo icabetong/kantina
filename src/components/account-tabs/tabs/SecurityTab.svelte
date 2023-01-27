@@ -2,7 +2,7 @@
 	import { createForm } from 'svelte-forms-lib'
 	import pocketbase from '$lib/backend'
 
-	const { form, handleSubmit, handleChange } = createForm({
+	const { form, handleSubmit, handleChange, isModified } = createForm({
 		initialValues: {
 			email: ''
 		},
@@ -32,7 +32,9 @@
 					on:change={handleChange}
 					bind:value={$form.email} />
 			</div>
-			<button type="submit" class="btn-primary">Continue</button>
+			{#if $isModified}
+				<button type="submit" class="btn-primary">Continue</button>
+			{/if}
 		</div>
 	</form>
 </section>

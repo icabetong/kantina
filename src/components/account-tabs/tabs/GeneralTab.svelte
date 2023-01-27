@@ -15,8 +15,9 @@
 
 	let user = $UserStore
 	let isWorking: boolean = false
-	const { form, handleSubmit } = createForm({
+	const { form, handleSubmit, isModified } = createForm({
 		initialValues: {
+			idNumber: user?.idNumber,
 			firstName: user?.firstName,
 			lastName: user?.lastName,
 			email: user?.email,
@@ -74,6 +75,13 @@
 	const onTriggerAvatarChange = () => openModal(UpdateAvatar, { userId: user?.id ?? null })
 </script>
 
+<div class="mb-4 rounded bg-red-50 p-4 text-red-800">
+	<h1 class="font-medium">School ID Number Required</h1>
+	<p class="text-sm">
+		You need to enter your school's ID number whether for student or faculty members to effectively
+		use the service.
+	</p>
+</div>
 <h3 class="text-lg font-semibold">Profile Information</h3>
 <section id="account-info">
 	<form class="flex flex-col items-center" on:submit|preventDefault={handleSubmit}>
@@ -93,6 +101,14 @@
 				</button>
 			</div>
 			<div class="flex-1">
+				<div class="form-control-group">
+					<label for="idNumber" class="form-control-label">ID Number:</label>
+					<input
+						type="text"
+						id="idNumber"
+						class="form-control-input"
+						bind:value={$form['idNumber']} />
+				</div>
 				<div class="form-control-group">
 					<label for="firstName" class="form-control-label">First Name</label>
 					<input
@@ -136,7 +152,9 @@
 			</div>
 		</div>
 		<div class="mt-2 flex w-full justify-end">
-			<Button type="submit" isLoading={isWorking}>Save</Button>
+			{#if $isModified}
+				<Button type="submit" isLoading={isWorking}>Save</Button>
+			{/if}
 		</div>
 	</form>
 </section>
