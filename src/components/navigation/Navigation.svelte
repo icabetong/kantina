@@ -91,7 +91,7 @@
 				class="mr-3 h-6 sm:h-9"
 				height="36"
 				width="36"
-				alt="Flowbite Logo" />
+				alt="kantina logo" />
 			<span class="self-center whitespace-nowrap text-2xl font-semibold text-red-600">
 				Kantina
 			</span>

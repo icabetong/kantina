@@ -1,5 +1,5 @@
-import type { Handle } from '@sveltejs/kit'
 import clone from 'just-clone'
+import type { Handle } from '@sveltejs/kit'
 import pocketbase from '$lib/backend'
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -11,7 +11,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 			await pocketbase.collection('users').authRefresh()
 
 			const id = pocketbase.authStore.model?.id
-			if (!id) throw Error('What')
+			if (!id) throw Error('User ID is required')
 
 			user = await pocketbase.collection('users').getOne<User>(id)
 		} catch (_) {

@@ -44,6 +44,7 @@ interface User extends Credentials {
 	username: string
 	idNumber: string
 	role: string
+	status?: 'banned' | 'suspended' | 'deactivated'
 }
 interface Store extends Record {
 	id: string
