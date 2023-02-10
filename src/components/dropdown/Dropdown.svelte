@@ -1,7 +1,7 @@
-<script>
-	import { Icon } from '@steeze-ui/svelte-icon'
-	import { ChevronDown } from '@steeze-ui/heroicons'
+<script lang="ts">
 	import { createPopperActions } from 'svelte-popperjs'
+	import { ChevronDown } from '@steeze-ui/heroicons'
+	import { Icon } from '@steeze-ui/svelte-icon'
 	import { clickOutside } from '$shared/directives/click-outside'
 
 	let isOpen = false
