@@ -7,7 +7,6 @@
 	import { page } from '$app/stores'
 	import Button from '$components/button/Button.svelte'
 	import SetQrCode from '$components/modals/update-qr-code/UpdateQRCode.svelte'
-	import pocketbase from '$lib/backend'
 	import { parseFileUrl } from '$lib/files'
 	import { colors, getColor500 } from '$shared/color'
 	import UserStore from '$stores/user'
