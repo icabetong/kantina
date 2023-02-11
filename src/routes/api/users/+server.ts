@@ -15,7 +15,6 @@ export const POST: RequestHandler = async ({ request }) => {
 			.collection('users')
 			.getList(page, limit, queryParams)
 
-		console.log(result.items)
 		return json({
 			users: result.items,
 			count: result.totalItems,
