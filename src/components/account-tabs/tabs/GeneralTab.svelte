@@ -75,13 +75,15 @@
 	const onTriggerAvatarChange = () => openModal(UpdateAvatar, { userId: user?.id ?? null })
 </script>
 
-<div class="mb-4 rounded bg-red-50 p-4 text-red-800">
-	<h1 class="font-medium">School ID Number Required</h1>
-	<p class="text-sm">
-		You need to enter your school's ID number whether for student or faculty members to effectively
-		use the service.
-	</p>
-</div>
+{#if !user?.idNumber}
+	<div class="mb-4 rounded bg-red-50 p-4 text-red-800">
+		<h1 class="font-medium">School ID Number Required</h1>
+		<p class="text-sm">
+			You need to enter your school's ID number whether for student or faculty members to
+			effectively use the service.
+		</p>
+	</div>
+{/if}
 <h3 class="text-lg font-semibold">Profile Information</h3>
 <section id="account-info">
 	<form class="flex flex-col items-center" on:submit|preventDefault={handleSubmit}>
