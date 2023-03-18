@@ -38,6 +38,10 @@
 		const checked = event.detail && 'checked' in event.detail ? event.detail.checked : null
 		onChangeVisibility('rejected', !checked)
 	}
+	const onHideStarted = (event: CustomEvent) => {
+		const checked = event.detail && 'checked' in event.detail ? event.detail.checked : null
+		onChangeVisibility('started', !checked)
+	}
 	const onHidePending = (event: CustomEvent) => {
 		const checked = event.detail && 'checked' in event.detail ? event.detail.checked : null
 		onChangeVisibility('pending', !checked)
@@ -105,6 +109,12 @@
 						checked={!hidden.includes('rejected')}
 						label="Show Rejected Orders"
 						on:change={onHideRejected} />
+				</li>
+				<li>
+					<Checkbox
+						checked={!hidden.includes('started')}
+						label="Show Started Orders"
+						on:change={onHideStarted} />
 				</li>
 				<li>
 					<Checkbox

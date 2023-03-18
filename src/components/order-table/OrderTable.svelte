@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte'
 	import { openModal } from 'svelte-modals'
-	import { Banknotes, XMark } from '@steeze-ui/heroicons'
+	import { Banknotes, Cake, XMark } from '@steeze-ui/heroicons'
 	import { Icon } from '@steeze-ui/svelte-icon'
 	import { toast } from '@zerodevx/svelte-toast'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
 	import ConfirmModal from '$components/modals/confirm-modal/ConfirmModal.svelte'
-	import pocketbase from '$lib/backend'
 	import { getCurrencyFormatter, getDateTimeFormatter } from '$shared/formatter'
 	import { getFullName } from '$shared/user'
 
@@ -19,6 +18,36 @@
 	export let showId: boolean = false
 
 	const onHandleSelect = (order: Order) => dispatch('select', order)
+
+	const onMarkAsStarted = (event: Event) => {
+		try {
+			const target = event.target as HTMLButtonElement
+			const index: number = target.value ? parseInt(target.value) : -1
+
+			if (index < 0) return
+			const order = orders[index]
+
+			openModal(ConfirmModal, {
+				title: 'Mark As Started',
+				message:
+					"Do you want to mark this order as paid? For everyone's security, this action cannot be undone.",
+				confirmText: 'Continue',
+				abandonText: 'Cancel',
+				confirm: async () => {
+					await fetch(`/api/order/${order.id}`, {
+						method: 'PATCH',
+						body: JSON.stringify({ product: { status: 'started' } })
+					})
+					toast.push('Order marked as Started')
+
+					goto($page.url, { replaceState: true })
+				}
+			})
+		} catch (e) {
+			if (e instanceof Error) toast.push(e.message)
+			else toast.push('An Error Occurred')
+		}
+	}
 	const onMarkAsPaid = (event: Event) => {
 		try {
 			const target = event.target as HTMLButtonElement
@@ -115,7 +144,7 @@
 							<span class="badge-green capitalize">{order.status}</span>
 						{:else if order.status === 'paid'}
 							<span class="badge-blue capitalize">{order.status}</span>
-						{:else if order.status === 'pending'}
+						{:else if order.status === 'pending' || order.status === 'started'}
 							<span class="badge-yellow capitalize">{order.status}</span>
 						{:else}
 							<span class="badge-red capitalize">{order.status}</span>
@@ -130,6 +159,14 @@
 						</time>
 					</td>
 					<td class="flex items-center justify-center px-4 py-2">
+						<button
+							type="button"
+							value={index}
+							class="action"
+							disabled={order.status === 'pending'}
+							on:click|stopPropagation={onMarkAsStarted}>
+							<Icon src={Cake} class="h-5 w-5" />
+						</button>
 						<button
 							type="button"
 							value={index}
